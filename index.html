@@ -1,139 +1,106 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 
 <head>
     <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
     <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@200;300;400;600;700;900&display=swap"
         rel="stylesheet">
-    <link rel="stylesheet" type="text/css" href="assets/css/style.css" /> <!-- Google tag (gtag.js) -->
-    <script async src="https://www.googletagmanager.com/gtag/js?id=G-DPH2YST3Z6"></script>
-    <script> window.dataLayer = window.dataLayer || []; function gtag() { dataLayer.push(arguments); } gtag('js', new Date()); gtag('config', 'G-DPH2YST3Z6'); </script>
-    <title> Yuanhong Zeng </title> 
+    <link rel="stylesheet" type="text/css" href="assets/css/style.css" />
+    <title>Debajyoti Chakrabarti</title>
     <link rel="icon" type="image/x-icon" href="assets/images/ucla.ico">
 </head>
 
 <body>
-    <div style="width:1000px;margin: 0px auto;">
-        <header id="header" width="400px" style="display:flex;justify-content: space-around;"> <a
-                href="#profile-intro">Home</a> <a href="#research">Research</a> <a href="#projects">Projects</a> <a
-                href="#service">Service</a> </header>
-        <div id="profile">
-            <div id="profile-pic"> <img src="figs/headshot_mid.jpg" /> </div>
-            <div id="profile-intro">
-                <div id="profile-name">Yuanhong Zeng 曾元鸿</div>
-                <div id="profile-email">yuanhongzeng at ucla dot edu</div>
-                <p> I'm a second-year M.S. ECE student at UCLA. I am fortunate to work with Prof. <a
-                        href="https://www.anushridixit.com">Anushri Dixit</a> on quadruped locomotion and
-                    with Prof. <a href="https://yuchencui.cc">Yuchen Cui</a> on interactive robot learning. I earned my
-                    B.S. in Computer Engineering at UCLA, with minors in Mathematics and Bioinformatics, where I worked
-                    with Dr. <a href="https://yizhouzhao.github.io">Yizhou Zhao</a> and Prof. <a
-                        href="http://www.stat.ucla.edu/~ywu/me.html">Ying Nian Wu</a>. For my senior capstone, I built a
-                    pick-and-place robot with Prof. <a
-                        href="https://uclalemur.com/people/ankur-mehta">Ankur Mehta</a>. <br> <br> My goal is to build
-                    safe and adaptive robots that learns from interactiving with human and the environment. I'm particularly interested in safe and model based reinforcement learning, online learning, and uncertainty quantification.</p>
-                <div> <a href="cv/cv_zyh.pdf"> CV </a> / <a href="https://github.com/Danny-zyh"> Github </a> / <a
-                        href="https://www.linkedin.com/in/yuanhong-zeng/"> LinkedIn </a> </div>
+    <header id="header">
+        <nav class="container nav">
+            <a href="#about">About</a>
+            <a href="#research">Research</a>
+            <a href="#projects">Projects</a>
+            <a href="#isro">ISRO</a>
+            <a href="#publications">Publications</a>
+            <span class="nav-disabled" title="Add assets/pdf/Debajyoti_Chakrabarti_CV.pdf to enable">CV</span>
+        </nav>
+    </header>
+
+    <main class="container">
+        <section id="about" class="hero">
+            <div class="avatar-placeholder" aria-hidden="true">DC</div>
+            <div class="hero-content">
+                <h1>Debajyoti Chakrabarti</h1>
+                <p class="role">PhD Student in Aerospace Engineering, UCLA</p>
+                <p class="sub-role">Robotics and Control &middot; PRACTICE Lab &middot; Advised by Prof. <a
+                        href="https://www.anushridixit.com">Anushri Dixit</a></p>
+                <p class="tagline">Safe autonomy from spacecraft to learning-enabled robots.</p>
+
+                <p>I am a PhD student in Aerospace Engineering at UCLA, advised by Prof. Anushri Dixit in the
+                    PRACTICE Lab. My research focuses on safe and reliable autonomous systems at the intersection
+                    of reinforcement learning, motion planning, optimal control, and multi-agent decision making.</p>
+
+                <p>Before UCLA, I worked as a Guidance, Navigation, and Control scientist at the Indian Space
+                    Research Organisation (ISRO), where I contributed to spacecraft missions including
+                    Chandrayaan-3 and Gaganyaan.</p>
+
+                <div class="contact-row">
+                    <a class="pill" href="mailto:debjyoti@ucla.edu">Email</a>
+                    <span class="pill nav-disabled" title="Add assets/pdf/Debajyoti_Chakrabarti_CV.pdf to enable">CV</span>
+                    <a class="pill" href="https://scholar.google.com/citations?user=LdqQbbIAAAAJ&hl=en">Google
+                        Scholar</a>
+                    <a class="pill" href="https://github.com/debajyotichakrabarti">GitHub</a>
+                    <a class="pill" href="https://linkedin.com/in/debajyoti-chakrabarti">LinkedIn</a>
+                </div>
             </div>
-            <div style="clear: both;"></div>
-        </div>
+        </section>
+
         <div class="divider"></div>
-        <div style="display:flex;flex-direction: column;" id="research">
-            <h1>Research</h1>
-            <div> <a style="height: 12em;" class="research-thumb"> <img src="figs/risk_aware_rl.png" alt="risk aware RL"
-                        style="width: 100%; height: auto;"> </a>
-                <!-- <a href="https://compliant-residual-dagger.github.io/" class="research-proj-title"> --> <a
-                    class="research-proj-title"> Risk-Aware Reinforcement Learning with Bandit-Based Adaptation for
-                    Quadrupedal Locomotion </a>
-                <p> <b>Yuanhong Zeng</b>, <a style="color:#000;" href="https://www.anushridixit.com">Anushri Dixit</a>
-                    <br>In Submission <br>
-                        <a>Website</a>&nbsp;&nbsp;&bull;&nbsp;&nbsp; <a
-                        href="http://arxiv.org/abs/2510.14338">Paper</a>&nbsp;&nbsp;&bull;&nbsp;&nbsp; <a
-                        href="https://github.com/practice-lab-ucla/safe_locomotion">Code</a>
-                </p> <br>
-                <p> <b>TL;DR</b>: Build CVaR-constrained PPO for risk aware RL and use a bandit to adapt the risk level
-                    α online from onboard feedback.
-            </div>
-            <div> <a style="height: 12em;" class="research-thumb"> <video id="teaser" autoplay muted loop width="100%">
-                        <source src="figs/sketch2patch.mp4" type="video/mp4">
-                    </video> </a> <a class="research-proj-title"> Sketch2Patch: Online Policy Correction via Sketch and
-                    Guided Diffusion </a>
-                <p> <b>Yuanhong Zeng*</b>, <a style="color:#000;"
-                        href="https://www.linkedin.com/in/metinalpdogan/">Metin Alp Dogan*</a>, <a style="color:#000;"
-                        href="https://yuchencui.cc">Yuchen Cui</a>, <br>In preparation <br> </p> <br>
-                <p> <b>TL;DR</b>: When the policy pauses and asks for help when uncertain. Human user draws a trajectory
-                    sketch on a tablet, and we guided-diffusion to turn sketch into corrective actions in real time.
-                </p>
-            </div>
-            <div> <a style="height: 12em;" class="research-thumb"> <img src="figs/triple_regression.png"
-                        alt="Triple Regression" style="width: 100%; height: auto;"> </a> <a class="research-proj-title">
-                    Triple Regression for Sim2Real Adaptation in Human-Centered Robot Grasping and Manipulation </a>
-                <p> <b>Yuanhong Zeng</b>, <a style="color:#000;"
-                        href="https://scholar.google.com/citations?user=l1h5kY8AAAAJ&hl=en">Yizhou Zhao</a>, <a
-                        style="color:#000;" href="http://www.stat.ucla.edu/~ywu/me.html">Ying Nian Wu</a>,
-                    <br>Conference on Robot Learning (CoRL 2024) CoRoboLearn Workshop <br>
-                    <a>Website</a>&nbsp;&nbsp;&bull;&nbsp;&nbsp; <a
-                        href="https://openreview.net/pdf?id=XTIWhKApWe">Paper</a>&nbsp;&nbsp;&bull;&nbsp;&nbsp; <a
-                        href="https://github.com/haoyu-x/vision-in-action">Code</a>
-                </p> <br>
-                <p> <b>TL;DR</b>: Build “digital twins” online and adapt across three spaces—perception, dynamics, and
-                    control—to close the sim-to-real gap. This lets us verify plans against real-world observations and
-                    correct them before execution. </p>
-            </div>
-            <p> * equal contribution. </p>
-            <div class="divider"></div>
-            <div class="section" id="projects">
-                <h1>Projects</h1>
-                <div> <a class="research-thumb"> <img src="figs/depth.png" alt="Blog thumbnail"
-                            style="width: 100%; height: auto;"> </a> <a class="research-proj-title"> Can Visuomotor
-                        Policy Benefit from 3D? </a>
-                    <p> We study whether accessible 3D cues—monocular depth (DepthAnything) and a wrist-mounted camera
-                        view—improve visuomotor manipulation policies beyond RGB.
-                        <br><br> <a
-                            href="https://drive.google.com/file/d/1aPfWN1hAkAF9d0rbj91JqnPlTSF6-STV/view?usp=sharing"
-                            style="display:inline-block; margin-top: 8px; padding: 6px 12px; background-color: #AFDDFF; color: white; text-decoration: none; border-radius: 4px; font-size: 1em;">
-                            <b>Continue reading →</b> </a>
-                    </p>
-                </div>
-                <br>
-                <div> <a class="research-thumb"> <img src="figs/pickybot.png" alt="Blog thumbnail"
-                            style="width: 100%; height: auto;"> </a> <a class="research-proj-title"> PickyBot - Mobile
-                        Manipulation for Warehouse Pick-and-Place Tasks </a>
-                    <p> Senior capstone project integrating SLAM navigation, object segmentation, grasp-pose generation,
-                        and
-                        motion planning, plus a dual-mode gripper (suction + pinch). We evaluated the pipeline in Isaac
-                        Sim and a physical prototype.
-                        <br><br> <a
-                            href="https://www.notion.so/zengyh/Final-Design-Review-cef34f1eb3b641aca89b608eee15008f?source=copy_link"
-                            style="display:inline-block; margin-top: 8px; padding: 6px 12px; background-color: #AFDDFF; color: white; text-decoration: none; border-radius: 4px; font-size: 1em;">
-                            <b>Continue reading →</b> </a>
-                    </p>
-                </div>
-                <br>
-                <div> <a class="research-thumb"> <img src="figs/nmf.png" alt="Blog thumbnail"
-                            style="width: 100%; height: auto;"> </a> <a class="research-proj-title"> Nonnegative Matrix Factorization </a>
-                    <p> ECE 133B final project surveying algorithms for nonnegative matrix factorization (NMF), a
-                        dimensionality-reduction method that discovers part-based representations.
-                        <br><br> <a
-                            href="https://drive.google.com/file/d/11xjKNbr2-WuevPPbD5jypbR_TGF4y2BN/view?usp=sharing"
-                            style="display:inline-block; margin-top: 8px; padding: 6px 12px; background-color: #AFDDFF; color: white; text-decoration: none; border-radius: 4px; font-size: 1em;">
-                            <b>Continue reading →</b> </a>
-                    </p>
-                </div>
-                <div style="clear: both;"></div>
-            </div>
-            <div class="divider"></div>
-            <div class="section" id="service">
-                <h1>Service</h1>
-                <ul>
-                    <li> Reader of <a href="https://catalog.registrar.ucla.edu/course/2023/ecengrc247?siteYear=2023">ECE
-                            C247: Deep Learning and Neural Networks</a> and <a
-                            href="https://www.seas.ucla.edu/~vandenbe/ee133a.html">ECE 133A: Applied Numerical
-                            Computing</a></li>
-                    <li> Reviewer of ICRA 2026, RSS OOD Workshop 2025, CoRL CoRoboLearn Workshop 2024
-                </ul><br>
-                <div style="clear: both;"></div>
-            </div>
-        </div>
+
+        <section id="research" class="section">
+            <h2>Current Research</h2>
+            <p class="placeholder-note">Content coming soon.</p>
+        </section>
+
+        <section id="earlier-research" class="section">
+            <h2>Earlier Research</h2>
+            <p class="placeholder-note">Content coming soon.</p>
+        </section>
+
+        <div class="divider"></div>
+
+        <section id="projects" class="section">
+            <h2>Selected Robotics &amp; AI Projects</h2>
+            <p class="placeholder-note">Content coming soon.</p>
+        </section>
+
+        <div class="divider"></div>
+
+        <section id="isro" class="section">
+            <h2>Spacecraft Autonomy &amp; GNC at ISRO</h2>
+            <p class="placeholder-note">Content coming soon.</p>
+        </section>
+
+        <div class="divider"></div>
+
+        <section id="publications" class="section">
+            <h2>Selected Publications</h2>
+            <p class="placeholder-note">Content coming soon.</p>
+        </section>
+
+        <div class="divider"></div>
+
+        <section id="service" class="section">
+            <h2>Professional Service</h2>
+            <p class="placeholder-note">Content coming soon.</p>
+        </section>
+
+        <section id="honors" class="section">
+            <h2>Selected Honors</h2>
+            <p class="placeholder-note">Content coming soon.</p>
+        </section>
+    </main>
+
+    <footer class="container footer">
+        <p>&copy; 2026 Debajyoti Chakrabarti</p>
+    </footer>
 </body>
 
 </html>

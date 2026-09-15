@@ -1,169 +1,253 @@
 :root {
-	--grey: rgb(90, 90, 90);
-	/* Columbia Blues: https://visualidentity.columbia.edu/content/colors-1 */
-	--blue1: rgb(2,33,105);
-	--blue2: rgb(0,51,160);
-	--blue3: rgb(0,114,206);
-	--blue4: rgb(108,172,228);
-	--pink1: #F9564F;
- }
+    --grey: #444;
+    --grey-light: #6b7280;
+    --border: #e2e5ea;
+    --surface: #f7f8fa;
+    --navy-dark: #0d2438;
+    --navy: #1d4e6e;
+    --accent: #2774ae; /* UCLA blue */
+    --max-width: 1120px;
+}
 
-html, p{
+* {
+    box-sizing: border-box;
+}
+
+html, body {
     margin: 0;
     padding: 0;
-    border: 0;
-    font-size: 100%;
-    font: inherit;
-    vertical-align: baseline;
+}
+
+body {
     font-family: 'Source Sans Pro', sans-serif;
     font-weight: 300;
-    letter-spacing: 0.5px;
+    letter-spacing: 0.2px;
     color: var(--grey);
-}
-p{
-    margin: 0.2em;
-}
-
-ol, ul {
-    list-style: none;
+    line-height: 1.65;
+    background: #fff;
 }
 
-ul {
-    list-style-position: inside;
-    list-style-type: none;
+p {
+    margin: 0 0 1em 0;
 }
 
 a {
     text-decoration: none;
-    color:  var(--blue3);
+    color: var(--accent);
 }
 
-i {
-    font-style: italic;
+a:hover {
+    text-decoration: underline;
 }
 
-h1 {
-    font-weight: 500;
-    color: var(--blue1);
+h1, h2 {
+    font-weight: 600;
+    color: var(--navy-dark);
+    letter-spacing: 0.2px;
 }
 
-b {
-    font-weight: 500;
+b, strong {
+    font-weight: 600;
 }
 
-strong {
-    color: #fdc450;
-    font-weight: 700;
+.container {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: 0 24px;
 }
 
 /**************************************************/
 
 #header {
-    height: 2em;
-    line-height: 2em;
-    padding-top: 10px;
-    padding-bottom: 10px;
-    border-bottom: 1px solid #ddd;
-    position: fixed;
+    position: sticky;
     top: 0;
-    left: 50% - 500px;
-    z-index: 9999;
-    width: 1000px;
-    background-color: rgba(255, 255, 255, 0.7);
+    z-index: 999;
+    background: rgba(255, 255, 255, 0.85);
     backdrop-filter: blur(8px);
+    border-bottom: 1px solid var(--border);
 }
 
-#header a {
-    text-decoration: none;
+.nav {
+    display: flex;
+    align-items: center;
+    gap: 28px;
+    height: 60px;
+    flex-wrap: wrap;
+}
+
+.nav a, .nav .nav-disabled {
+    font-size: 0.9em;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
     color: var(--grey);
-    transition: color 0.3s ease;
+    transition: color 0.2s ease;
 }
 
-#header a:hover {
-    color: var(--blue3);
+.nav a:hover {
+    color: var(--accent);
+    text-decoration: none;
+}
+
+.nav-disabled {
+    color: #b7bcc4;
+    cursor: default;
 }
 
 /**************************************************/
 
-#profile {
-    padding: 90px 30px 10px 30px;
-    border-bottom: 1px solid #ddd;
+.hero {
+    display: flex;
+    align-items: flex-start;
+    gap: 48px;
+    padding: 72px 0 48px 0;
 }
 
-#profile-pic {
-    width: 280px;
-    float: left;
-    margin-right: 40px;
-    text-align: center;
+.avatar-placeholder {
+    flex: 0 0 auto;
+    width: 160px;
+    height: 160px;
+    border-radius: 50%;
+    background: var(--navy);
+    color: #fff;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2.4em;
+    font-weight: 600;
+    letter-spacing: 0.05em;
 }
 
-#profile img {
-    width: 100%;
-    object-fit: cover; /* Ensures the image covers the area properly */
+.hero-content {
+    flex: 1 1 auto;
+    min-width: 0;
 }
 
-#profile-name {
-    font-size: 2.5em;
-    line-height: 1em;
+.hero h1 {
+    font-size: 2.4em;
+    margin: 0 0 8px 0;
+    line-height: 1.15;
+}
+
+.role {
+    font-size: 1.1em;
+    color: var(--navy);
     font-weight: 400;
-    margin-bottom: 10px;
-    color: var(--blue1);
-    text-align: center;
+    margin: 0 0 4px 0;
 }
 
-
-#profile-email {
-    margin-bottom: 20px;
-    color: var(--blue1);
-    text-align: center;
+.sub-role {
+    font-size: 0.95em;
+    color: var(--grey-light);
+    margin: 0 0 20px 0;
 }
 
-#profile p {
-    margin-bottom: 20px;
+.tagline {
+    font-size: 1.2em;
+    font-style: italic;
+    color: var(--navy-dark);
+    border-left: 3px solid var(--accent);
+    padding-left: 14px;
+    margin: 0 0 28px 0;
 }
 
+.contact-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 12px;
+    margin-top: 20px;
+}
+
+.pill {
+    display: inline-block;
+    padding: 6px 16px;
+    border: 1px solid var(--border);
+    border-radius: 999px;
+    font-size: 0.9em;
+    color: var(--navy);
+}
+
+.pill:hover {
+    border-color: var(--accent);
+    text-decoration: none;
+    background: var(--surface);
+}
+
+.pill.nav-disabled {
+    color: #b7bcc4;
+    border-color: var(--border);
+}
+
+.pill.nav-disabled:hover {
+    background: none;
+    border-color: var(--border);
+}
+
+/**************************************************/
 
 .divider {
-    width: 100%;
-    border-bottom: 1px solid #ddd;
+    max-width: var(--max-width);
+    margin: 0 auto;
+    border-bottom: 1px solid var(--border);
 }
 
-.research-thumb {
-    width: 20em;
-    height: 20em;
-    float: left;
-    margin-top: 7px;
-    padding-right: 30px;
-    margin-bottom: 20px;
+.section {
+    max-width: var(--max-width);
+    margin: 0 auto;
+    padding: 56px 24px;
 }
 
-.research-thumb img {
-    width: 100%;
+.section h2 {
+    font-size: 1.15em;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    margin: 0 0 24px 0;
+    padding-bottom: 12px;
+    border-bottom: 2px solid var(--accent);
+    display: inline-block;
 }
 
-.research-proj-title {
-    color: var(--blue1);
-    font-weight: 400;
+.placeholder-note {
+    color: var(--grey-light);
+    font-style: italic;
 }
 
-/* ---- Fix Projects alignment ---- */
-#projects > div {
-  display: flow-root;         /* contain the floated thumb; clears it */
-  margin-bottom: 24px;
+/**************************************************/
+
+.footer {
+    padding: 32px 24px 48px 24px;
+    color: var(--grey-light);
+    font-size: 0.85em;
 }
 
-#projects .research-thumb {
-  width: 260px;
-  height: auto !important;    /* override inline height=12em */
-  aspect-ratio: 16 / 9;       /* consistent shape */
-  margin: 7px 16px 16px 0;
-  padding-right: 0;           /* avoid extra gap */
-  float: left;                /* keep your float layout */
+.footer p {
+    margin: 0;
 }
 
-#projects .research-thumb img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
+/**************************************************/
+
+@media (max-width: 700px) {
+    .hero {
+        flex-direction: column;
+        align-items: center;
+        text-align: center;
+        padding: 48px 0 32px 0;
+    }
+
+    .contact-row {
+        justify-content: center;
+    }
+
+    .tagline {
+        text-align: left;
+    }
+
+    .nav {
+        gap: 16px;
+        height: auto;
+        padding: 12px 0;
+    }
+
+    .section {
+        padding: 40px 24px;
+    }
 }
