@@ -240,10 +240,6 @@ b, strong {
 }
 
 .edu-institution a {
-    color: inherit;
-}
-
-.edu-institution a:hover {
     color: var(--accent);
 }
 
