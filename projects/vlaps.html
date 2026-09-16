@@ -36,11 +36,10 @@
                 <span class="tag">Autonomous Driving</span>
             </div>
             <div class="btn-row" style="margin-top: 20px;">
-                <a href="#" class="btn-link disabled" title="Add assets/docs/projects/vlaps/report.pdf to enable"
-                    onclick="alert('Coming soon'); return false;">Report</a>
-                <a href="#" class="btn-link disabled"
-                    title="Add assets/docs/projects/vlaps/presentation.pptx to enable"
-                    onclick="alert('Coming soon'); return false;">Presentation</a>
+                <a class="btn-link" href="../assets/docs/projects/vlaps/report.pdf" target="_blank"
+                    rel="noopener">Report</a>
+                <a class="btn-link" href="../assets/docs/projects/vlaps/presentation.pptx" target="_blank"
+                    rel="noopener">Presentation</a>
                 <a class="btn-link" href="../index.html#projects">&larr; Back to Home</a>
             </div>
         </section>
@@ -72,7 +71,42 @@
         <section id="expert" class="section research-section">
             <h2>RRT* + PD Expert</h2>
             <p>The expert policy builds a LiDAR-derived ego-centric occupancy grid, plans a local collision-free
-                path using RRT*, and tracks a lookahead waypoint using PD steering and speed control.</p>
+                path using RRT*, and tracks a lookahead waypoint using PD steering and speed control. RRT* + PD
+                was used to replace the human action of the original human-in-the-loop framework, so that the
+                whole system could run autonomously:</p>
+            <div class="results-table-wrap">
+                <table class="results-table">
+                    <thead>
+                        <tr>
+                            <th></th>
+                            <th>RRT* + PD as expert</th>
+                            <th>Human action as expert</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Observation</td>
+                            <td>LiDAR obstacles, left/right distance to road edge</td>
+                            <td>Human eye analyzes the image</td>
+                        </tr>
+                        <tr>
+                            <td>Goal</td>
+                            <td>Simulator global goal; RRT* local (intermediate) goal</td>
+                            <td>Human determines where to navigate</td>
+                        </tr>
+                        <tr>
+                            <td>Control action</td>
+                            <td>PD controller tracking the local goal</td>
+                            <td>Human uses keyboard to steer vehicle</td>
+                        </tr>
+                        <tr>
+                            <td>Dynamic model</td>
+                            <td>State information is required</td>
+                            <td>Not needed</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
             <figure class="research-figure figure-medium">
                 <img src="../assets/images/projects/vlaps/rrt_star_expert.png" class="card-image"
                     alt="RRT* planning in an ego-centric occupancy grid. The planner searches the drivable region and returns a collision-free local path." />
@@ -91,9 +125,10 @@
                 them based on safety and progress toward the goal.</p>
             <figure class="research-figure">
                 <img src="../assets/images/projects/vlaps/policy_visualization.png" class="card-image"
-                    alt="Short-horizon learner and expert trajectories overlaid in the ego-view before being evaluated by the VLM." />
-                <figcaption class="figure-caption">Short-horizon learner and expert trajectories are overlaid in
-                    the ego-view before being evaluated by the VLM.</figcaption>
+                    alt="Current observation transformed into the modified observation fed to the VLM, with the red expert trajectory and blue learner trajectory overlaid." />
+                <figcaption class="figure-caption">The current ego-view observation is annotated with predicted
+                    red (expert) and blue (learner) trajectories to form the modified observation fed to the
+                    VLM.</figcaption>
             </figure>
         </section>
 
@@ -143,6 +178,12 @@
                     </tbody>
                 </table>
             </div>
+            <figure class="research-figure figure-medium">
+                <img src="../assets/images/projects/vlaps/vlaps_finalcar.gif" class="card-image"
+                    alt="Animated rollout of the trained VLAPS policy driving in MetaDrive, with predicted trajectory overlays visible in the HUD." />
+                <figcaption class="figure-caption">Representative rollout of the trained policy in MetaDrive.
+                </figcaption>
+            </figure>
             <figure class="research-figure">
                 <img src="../assets/images/projects/vlaps/learning_curves.png" class="card-image"
                     alt="VLAPS training and evaluation trends in MetaDrive: success increases over training while crash rate decreases." />
@@ -189,11 +230,10 @@
 
         <section class="section research-section" style="padding-top: 32px;">
             <div class="btn-row">
-                <a href="#" class="btn-link disabled" title="Add assets/docs/projects/vlaps/report.pdf to enable"
-                    onclick="alert('Coming soon'); return false;">Report</a>
-                <a href="#" class="btn-link disabled"
-                    title="Add assets/docs/projects/vlaps/presentation.pptx to enable"
-                    onclick="alert('Coming soon'); return false;">Presentation</a>
+                <a class="btn-link" href="../assets/docs/projects/vlaps/report.pdf" target="_blank"
+                    rel="noopener">Report</a>
+                <a class="btn-link" href="../assets/docs/projects/vlaps/presentation.pptx" target="_blank"
+                    rel="noopener">Presentation</a>
                 <a class="btn-link" href="../index.html#projects">&larr; Back to Home</a>
             </div>
         </section>
