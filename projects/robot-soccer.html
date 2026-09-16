@@ -33,7 +33,6 @@
                 <span class="tag">World Models</span>
                 <span class="tag">Model-Based RL</span>
                 <span class="tag">Hierarchical RL</span>
-                <span class="tag">Self-Play</span>
                 <span class="tag">Quadruped Robotics</span>
                 <span class="tag">Risk-Sensitive Learning</span>
             </div>
@@ -54,11 +53,13 @@
 
         <section class="section research-section">
             <h2>Training in Simulation</h2>
-            <div class="soccer-video-placeholder" role="img"
-                aria-label="Placeholder for a future quadruped soccer training video from Isaac Sim">
-                <span>Isaac Sim training video coming soon</span>
-            </div>
-            <p class="figure-caption">Quadruped soccer training in Isaac Sim.</p>
+            <p>The policies are trained and evaluated in Isaac Sim before transfer to the physical quadruped. The
+                training traces below show success-rate behavior across the evaluated policy runs.</p>
+            <figure class="research-figure soccer-training-plot">
+                <img src="../assets/images/projects/robot_soccer/training_success_rate.png" class="card-image"
+                    alt="Success-rate traces across ten policy-training runs" />
+                <figcaption class="figure-caption">Success-rate traces during policy training.</figcaption>
+            </figure>
         </section>
 
         <div class="divider"></div>
@@ -91,33 +92,78 @@
         <div class="divider"></div>
 
         <section class="section research-section">
-            <h2>Iterative Self-Play</h2>
-            <p>One research direction uses iterative self-play to improve competitive high-level decision making. The
-                Dreamer policy learns against evolving opponents while the underlying locomotion skills remain fixed.</p>
-            <p>The goal is to learn increasingly capable strategic behavior without repeatedly retraining the
-                low-level motor policies.</p>
-            <div class="self-play-flow" role="img"
-                aria-label="Conceptual self-play update from the current policy through training against evolving opponents to an improved policy">
-                <div class="soccer-diagram-node">Policy <i>k</i></div>
-                <div class="soccer-diagram-arrow horizontal" aria-hidden="true">&rarr;</div>
-                <div class="soccer-diagram-node soccer-diagram-primary">Train against evolving opponents</div>
-                <div class="soccer-diagram-arrow horizontal" aria-hidden="true">&rarr;</div>
-                <div class="soccer-diagram-node">Policy <i>k</i> + 1</div>
-            </div>
-        </section>
-
-        <div class="divider"></div>
-
-        <section class="section research-section">
             <div class="feature-heading">
                 <h2>Risk-Sensitive World-Model Learning</h2>
-                <span class="badge badge-ongoing">Separate Experiment</span>
+                <span class="badge badge-ongoing">Performance Study</span>
             </div>
-            <p>A separate research direction studies risk-sensitive decision making with a Conditional Value-at-Risk
-                (CVaR)-constrained extension of R2-Dreamer. Instead of optimizing only expected return, the additional
-                objective emphasizes lower-tail imagined outcomes corresponding to rare but costly failures.</p>
+            <p>This study compares the risk-neutral policy with a Conditional Value-at-Risk (CVaR)-constrained
+                extension of R2-Dreamer. Instead of optimizing only expected return, the additional objective
+                emphasizes lower-tail imagined outcomes corresponding to rare but costly failures.</p>
             <p>A central question is whether risk estimates obtained from imagined world-model trajectories are
                 reliable predictors of real closed-loop tail behavior.</p>
+
+            <div class="soccer-performance-grid">
+                <figure class="research-figure soccer-video-figure">
+                    <div class="soccer-video-label">Risk-neutral policy</div>
+                    <video class="soccer-training-video" autoplay muted loop playsinline preload="metadata"
+                        aria-label="Representative risk-neutral policy episode ending in a fall">
+                        <source src="../assets/videos/projects/robot_soccer/RN_fall_001_episode_000000.mp4"
+                            type="video/mp4" />
+                    </video>
+                    <figcaption class="figure-caption">Representative failure episode.</figcaption>
+                </figure>
+                <figure class="research-figure soccer-video-figure">
+                    <div class="soccer-video-label">CVaR policy</div>
+                    <video class="soccer-training-video" autoplay muted loop playsinline preload="metadata"
+                        aria-label="Representative CVaR policy episode ending in success">
+                        <source src="../assets/videos/projects/robot_soccer/Cvar_success_004_episode_000004.mp4"
+                            type="video/mp4" />
+                    </video>
+                    <figcaption class="figure-caption">Representative successful episode.</figcaption>
+                </figure>
+            </div>
+
+            <p class="soccer-evaluation-note">Aggregate evaluation at 200k training steps, averaged across three
+                seeds (<i>N</i> = 1,000 episodes):</p>
+            <p class="table-scroll-hint">Swipe horizontally to view all metrics.</p>
+            <div class="results-table-wrap soccer-results-wrap">
+                <table class="results-table soccer-results-table">
+                    <thead>
+                        <tr>
+                            <th>Policy</th>
+                            <th>Mean return</th>
+                            <th>Goal rate</th>
+                            <th>q10</th>
+                            <th>Real CVaR<sub>0.25</sub></th>
+                            <th>Fall rate</th>
+                            <th>Timeout rate</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Risk-neutral</td>
+                            <td>229.6</td>
+                            <td>82.4%</td>
+                            <td>73.4</td>
+                            <td>46.8</td>
+                            <td class="highlight">4.8%</td>
+                            <td>12.1%</td>
+                        </tr>
+                        <tr>
+                            <td class="highlight">CVaR</td>
+                            <td class="highlight">251.3</td>
+                            <td class="highlight">92.4%</td>
+                            <td class="highlight">146.2</td>
+                            <td class="highlight">92.0</td>
+                            <td>5.4%</td>
+                            <td class="highlight">1.7%</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <p>The CVaR policy improves mean return, goal rate, and both lower-tail metrics while reducing timeouts by
+                roughly sevenfold. The fall rates remain similar across the two policies.</p>
+
             <div class="world-model-pipeline" role="img"
                 aria-label="Generic Dreamer pipeline from real interaction through replay, world-model learning, imagination, and actor-critic updates">
                 <div class="soccer-diagram-node">Real interaction</div>
@@ -138,7 +184,6 @@
             <h2>Current Research Questions</h2>
             <ul class="simple-list soccer-question-list">
                 <li>How should a high-level world-model policy coordinate specialized locomotion skills?</li>
-                <li>How does iterative self-play affect strategic behavior and skill selection?</li>
                 <li>When are imagined tail-risk estimates predictive of real closed-loop risk?</li>
                 <li>How does world-model error on rare failure dynamics affect risk-sensitive policy learning?</li>
                 <li>How can these policies transfer reliably from simulation to a physical quadruped?</li>
@@ -148,8 +193,8 @@
         <section class="section section-compact">
             <div class="callout soccer-ongoing-callout">
                 <h3>Ongoing Research</h3>
-                <p>Results and evaluation protocols are still evolving. Detailed algorithmic and quantitative results
-                    will be released with future publications.</p>
+                <p>Training and evaluation are ongoing. The comparison above is a current aggregate performance
+                    snapshot; additional checkpoints and physical-robot transfer studies are in progress.</p>
             </div>
             <div class="btn-row soccer-back-row">
                 <a class="btn-link" href="../index.html#research">&larr; Back to Home</a>
