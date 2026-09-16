@@ -236,20 +236,21 @@
         <section class="section research-section">
             <h2>Current Research Questions</h2>
             <ol class="simple-list soccer-question-list">
-                <li><strong>Risk-aware imagination:</strong> When do lower-tail outcomes predicted by a learned world
-                    model correspond to real closed-loop failures?</li>
-                <li><strong>Competitive adaptation:</strong> How does iterative self-play influence strategy and skill
-                    selection?</li>
-                <li><strong>Sim-to-real transfer:</strong> How reliably can the hierarchical policy transfer from
-                    Isaac Sim to the physical Unitree Go2?</li>
+                <li><strong>Tail-risk fidelity:</strong> When do low-return trajectories predicted in world-model
+                    imagination correspond to poor real closed-loop outcomes such as falls, collisions, or timeouts?</li>
+                <li><strong>Failure-aware world models:</strong> Can targeted training on rare failure regions improve
+                    the accuracy of imagined tail outcomes used for risk-sensitive policy learning?</li>
+                <li><strong>Risk-sensitive policy learning:</strong> Does improving world-model fidelity in failure
+                    regions translate into more robust real policy behavior under CVaR-based objectives?</li>
             </ol>
         </section>
 
         <section class="section section-compact">
             <div class="callout soccer-ongoing-callout">
                 <h3>Ongoing Work</h3>
-                <p>Simulation experiments are ongoing. Hardware evaluation on the Unitree Go2 is planned. Detailed
-                    algorithmic and implementation information is withheld while the work is in progress.</p>
+                <p>Current experiments focus on improving world-model accuracy in rare failure regimes and evaluating
+                    whether these gains translate into more reliable CVaR-based policy learning. Iterative self-play
+                    and sim-to-real transfer remain active parts of the broader quadruped soccer project.</p>
             </div>
             <div class="btn-row soccer-back-row">
                 <a class="btn-link" href="../index.html#research">&larr; Back to Home</a>
