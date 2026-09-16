@@ -119,47 +119,22 @@
 
         <section id="gnc" class="section research-section">
             <h2>From Powered-Descent GNC to Real-Time Retargeting</h2>
-            <p>During fine braking, robustness is built in three layers: <strong>G1</strong> uses analytical base
-                guidance to turn navigation estimates into safe thrust commands; <strong>G2</strong> adds a
-                state-dependent time-to-go for fuel-efficient convergence under dispersion; and <strong>G3</strong>
-                adds a feasibility check and retargeting when the nominal landing site is no longer reachable.</p>
+            <p>A safe, soft landing must survive navigation error, thrust dispersion, and uncertainty in the lander
+                state. The guidance design therefore grows in three layers: <strong>G1</strong> provides the nominal
+                descent, <strong>G2</strong> increases its robustness by adapting the remaining flight time, and
+                <strong>G3</strong> adds retargeting when the original site cannot be reached safely.</p>
 
-            <div class="isro-content-grid">
-                <div class="isro-slide-copy">
-                    <ul class="isro-technical-list">
-                        <li>An analytical policy guides the nominal descent.</li>
-                        <li>A state-dependent time-to-go improves fuel use and robustness.</li>
-                        <li>A learned feasibility boundary enables real-time retargeting.</li>
-                    </ul>
+            <figure class="research-figure isro-component-figure isro-robustness-figure">
+                <img src="../assets/images/isro/retargeting_components/guidance_robustness_layers.png"
+                    class="card-image" alt="Nested guidance capabilities showing increasing robustness from base guidance through time-to-go adaptation and retargeting" />
+                <div class="isro-guidance-key">
+                    <span><strong>G1</strong> Nominal analytical guidance</span>
+                    <span><strong>G2</strong> G1 + state-dependent time-to-go</span>
+                    <span><strong>G3</strong> G2 + landing-site retargeting</span>
                 </div>
-                <figure class="research-figure isro-component-figure figure-narrow">
-                    <img src="../assets/images/isro/retargeting_components/guidance_robustness_layers.png"
-                        class="card-image" alt="Nested guidance capabilities showing increasing robustness from base guidance through time-to-go adaptation and retargeting" />
-                    <div class="isro-guidance-key">
-                        <span><strong>G1</strong> Base guidance</span>
-                        <span><strong>G2</strong> G1 + adaptive time-to-go</span>
-                        <span><strong>G3</strong> G2 + retargeting</span>
-                    </div>
-                </figure>
-            </div>
-            <figure class="research-figure isro-flow-figure isro-development-flow">
-                <img src="../assets/images/isro/retargeting_components/guidance_development_flow.png"
-                    class="card-image" alt="Flow from offline trajectory rollouts to time-to-go and controllability-boundary learning, followed by onboard computation and retargeting" />
-                <figcaption class="figure-caption caption-nowrap">Offline rollouts produce compact models for
-                    onboard time-to-go and retargeting.</figcaption>
             </figure>
 
-            <h3>Why retarget?</h3>
-            <p>A late navigation update or propulsion error can make the nominated site infeasible. Instead of solving
-                a large trajectory-optimization problem onboard, the lander performs a quick feasibility check.</p>
-            <figure class="research-figure isro-flow-figure figure-medium">
-                <img src="../assets/images/isro/retargeting_components/feasibility_decision_flow.png"
-                    class="card-image" alt="Decision flow that retains the nominal landing site when guidance is feasible and switches to an alternate site otherwise" />
-                <figcaption class="figure-caption">The onboard decision: continue to the nominal site when feasible;
-                    otherwise switch to an alternate site.</figcaption>
-            </figure>
-
-            <h3>1. Guide the nominal descent</h3>
+            <h3>G1 &middot; Nominal powered-descent guidance</h3>
             <p>The base policy models the lander&rsquo;s motion and seeks a fuel-efficient path while respecting thrust,
                 attitude, mass, and touchdown constraints.</p>
             <div class="figure-pair isro-component-pair">
@@ -177,8 +152,11 @@
                 </figure>
             </div>
 
-            <p>A cubic acceleration command satisfies the boundary conditions. Offline simulations then learn a
-                robust time-to-go from altitude, downrange, and velocity; onboard evaluation remains lightweight.</p>
+            <h3>G2 &middot; Increase robustness with time-to-go</h3>
+            <p>A fixed descent time can lose efficiency or convergence after dispersion. Offline simulations try
+                candidate time-to-go values for many fine-braking states, retain the feasible trajectories, and select
+                the value with the highest terminal mass. A compact state-dependent policy then supplies that value
+                onboard.</p>
             <div class="figure-pair isro-equation-pair isro-base-equations">
                 <figure class="research-figure equation-figure">
                     <img src="../assets/images/isro/polynomial_guidance_law.png" class="card-image"
@@ -192,19 +170,29 @@
                 </figure>
             </div>
 
-            <h3>2. Learn the feasible region offline</h3>
-            <p>High-fidelity rollouts label which starting states can still reach the target. A compact reduced state
-                and quadratic boundary summarize that large simulation database for onboard use.</p>
+            <h3>Why is retargeting still needed?</h3>
+            <p>Time-to-go adaptation makes nominal guidance more robust, but a sufficiently large navigation update or
+                propulsion error can still make the nominated site unreachable. The lander must then recognize the
+                loss of feasibility and select a nearby safe target.</p>
+            <figure class="research-figure isro-flow-figure figure-medium">
+                <img src="../assets/images/isro/retargeting_components/feasibility_decision_flow.png"
+                    class="card-image" alt="Decision flow that retains the nominal landing site when guidance is feasible and switches to an alternate site otherwise" />
+                <figcaption class="figure-caption">Continue to the nominal site when feasible; otherwise select an
+                    alternate landing site.</figcaption>
+            </figure>
+
+            <h3>G3 &middot; Check feasibility and retarget</h3>
+            <p>Offline rollouts learn a conservative boundary between states that can and cannot reach the target. A
+                compact reduced state makes the onboard test inexpensive.</p>
             <figure class="research-figure isro-equation-wide isro-reduced-state-figure equation-figure">
                 <img src="../assets/images/isro/boundary_feature_map.png" class="card-image"
                     alt="Reduced descent state, quadratic feature vector, and controllability classifier" />
                 <figcaption class="figure-caption caption-nowrap">Compact state and boundary function.</figcaption>
             </figure>
 
-            <h3>3. Retarget onboard</h3>
-            <p>If the current state falls outside the feasible region, the target is shifted to the nearest point on
-                the conservative boundary. The lander keeps the same base guidance law and avoids heavy online
-                optimization.</p>
+            <p>If the current state is outside the feasible region, the landing target is shifted to the nearest point
+                on the boundary. The lander then reuses the same analytical guidance law, avoiding heavy online
+                trajectory optimization.</p>
             <figure class="research-figure isro-flow-figure isro-projection-figure">
                 <img src="../assets/images/isro/retargeting_components/retargeting_condition_diagram.png"
                     class="card-image" alt="Reduced-space diagram showing an infeasible current state projected to the controllability boundary and a shifted target" />

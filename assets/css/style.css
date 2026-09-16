@@ -882,16 +882,6 @@ a.btn-link:hover {
     max-width: 820px;
 }
 
-.research-main.compact-sections .research-section > .research-figure.isro-development-flow {
-    max-width: 720px;
-    margin-top: 14px;
-    margin-bottom: 8px;
-}
-
-.isro-development-flow + h3 {
-    margin-top: 4px;
-}
-
 .isro-component-pair.figure-pair .research-figure.isro-dynamics-figure {
     flex: 0 1 440px;
     max-width: 440px;
@@ -945,6 +935,12 @@ a.btn-link:hover {
 
 .research-figure.isro-projection-figure {
     max-width: 760px;
+}
+
+.research-figure.isro-robustness-figure {
+    max-width: 520px;
+    margin-top: 20px;
+    margin-bottom: 26px;
 }
 
 .isro-guidance-key {
