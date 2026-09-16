@@ -119,9 +119,10 @@
 
         <section id="gnc" class="section research-section">
             <h2>From Powered-Descent GNC to Real-Time Retargeting</h2>
-            <p>During fine braking, the guidance system turns navigation estimates into safe thrust commands. The
-                core idea was to keep this guidance law simple, then add just enough onboard intelligence to detect
-                when the nominal landing site was no longer reachable and select a nearby alternative.</p>
+            <p>During fine braking, robustness is built in three layers: <strong>G1</strong> uses analytical base
+                guidance to turn navigation estimates into safe thrust commands; <strong>G2</strong> adds a
+                state-dependent time-to-go for fuel-efficient convergence under dispersion; and <strong>G3</strong>
+                adds a feasibility check and retargeting when the nominal landing site is no longer reachable.</p>
 
             <div class="isro-content-grid">
                 <div class="isro-slide-copy">
