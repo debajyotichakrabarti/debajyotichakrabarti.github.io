@@ -902,3 +902,18 @@ a.btn-link:hover {
     font-weight: 600;
     color: var(--navy);
 }
+
+/* Keep project-page figures and text within the viewport on phones. */
+@media (max-width: 800px) {
+    .research-main .twocol-grid,
+    .research-main .figure-pair {
+        flex-direction: column;
+    }
+
+    .research-main .twocol-text,
+    .research-main .twocol-figure,
+    .research-main .figure-pair .research-figure {
+        flex: none;
+        width: 100%;
+    }
+}

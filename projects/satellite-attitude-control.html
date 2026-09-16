@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@200;300;400;600;700;900&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="../assets/css/style.css" />
+    <title>Satellite Attitude Control — Debajyoti Chakrabarti</title>
+    <link rel="icon" type="image/x-icon" href="../assets/images/ucla.ico">
+</head>
+
+<body>
+    <header id="header">
+        <nav class="container nav">
+            <a href="../index.html#earlier-research">&larr; Back to Home</a>
+        </nav>
+    </header>
+
+    <main class="container research-main">
+        <section class="section" style="padding-top: 48px; padding-bottom: 24px;">
+            <h1 style="font-size: 1.7em; margin: 0 0 10px 0; line-height: 1.3;">Advanced Control Algorithms for
+                Satellite Attitude Maneuver</h1>
+            <p class="sub-role" style="margin-bottom: 8px;"><a href="../index.html#about">Debajyoti
+                    Chakrabarti</a></p>
+            <p class="sub-role" style="margin-bottom: 8px;">B.Tech Final-Year Thesis &middot; Indian Institute of
+                Space Science and Technology (IIST) &middot; 2019</p>
+            <p class="sub-role" style="margin-bottom: 14px;">Supervisor: Dr. N. Selvaganesan</p>
+            <div class="tag-row" style="margin-top: 12px;">
+                <span class="tag">Spacecraft GNC</span>
+                <span class="tag">Satellite Attitude Control</span>
+                <span class="tag">Sliding Mode Control</span>
+                <span class="tag">Fractional-Order Control</span>
+                <span class="tag">Nonlinear Control</span>
+            </div>
+            <div class="btn-row" style="margin-top: 20px;">
+                <a class="btn-link" href="../assets/docs/projects/satellite_attitude_control/paper.pdf"
+                    target="_blank" rel="noopener">Published Paper</a>
+                <a class="btn-link"
+                    href="../assets/docs/projects/satellite_attitude_control/thesis_presentation.pdf"
+                    target="_blank" rel="noopener">Thesis Presentation</a>
+                <a class="btn-link" href="https://doi.org/10.1016/j.asr.2019.11.005" target="_blank"
+                    rel="noopener">DOI</a>
+                <a class="btn-link" href="../index.html#earlier-research">&larr; Back to Home</a>
+            </div>
+        </section>
+
+        <div class="divider"></div>
+
+        <section id="overview" class="section research-section">
+            <h2>Overview</h2>
+            <p>My undergraduate thesis studied advanced control algorithms for three-axis satellite attitude
+                maneuvering using reaction wheels. The work developed a nonlinear quaternion-based spacecraft
+                model, included reaction-wheel actuator dynamics, and compared integer-order and fractional-order
+                control strategies for attitude stabilization.</p>
+            <p>The main focus was on PD and fractional-order PD&beta; sliding-mode controllers, together with
+                modified reaching laws designed to reduce chattering while preserving disturbance rejection and
+                robustness.</p>
+        </section>
+
+        <div class="divider"></div>
+
+        <section id="model" class="section research-section">
+            <h2>Reaction-Wheel Satellite Attitude Dynamics</h2>
+            <p>Satellite attitude is represented using quaternions, with nonlinear rotational dynamics derived
+                from angular momentum. Three reaction wheels provide control torque, and their actuator dynamics
+                are included explicitly. Attitude and angular-velocity errors provide the feedback signals used by
+                the controllers.</p>
+            <figure class="research-figure">
+                <img src="../assets/images/projects/satellite_attitude_control/system_dynamics.png"
+                    class="card-image"
+                    alt="Open-loop block diagram of reaction-wheel dynamics, satellite attitude dynamics, and quaternion kinematics." />
+                <figcaption class="figure-caption">Nonlinear reaction-wheel-actuated satellite attitude model
+                    used for controller design and simulation.</figcaption>
+            </figure>
+        </section>
+
+        <div class="divider"></div>
+
+        <section id="control" class="section research-section">
+            <h2>Sliding-Mode and Fractional-Order Control</h2>
+            <p>Four nonlinear controller variants were evaluated: PD sliding-mode control (PD-SMC),
+                fractional-order PD&beta;-SMC, and modified-reaching-law versions of both controllers. The modified
+                reaching law was introduced to reduce the chattering associated with conventional switching-based
+                sliding-mode control while retaining fast convergence and robustness.</p>
+            <figure class="research-figure">
+                <img src="../assets/images/projects/satellite_attitude_control/nonlinear_control_architecture.png"
+                    class="card-image"
+                    alt="Closed-loop nonlinear attitude-control architecture with error blocks, sliding surface, controller, reaction wheels, satellite dynamics, and kinematics." />
+                <figcaption class="figure-caption">Closed-loop nonlinear attitude-control architecture with
+                    sliding surface, reaction-wheel dynamics, spacecraft dynamics, and quaternion feedback.
+                </figcaption>
+            </figure>
+        </section>
+
+        <div class="divider"></div>
+
+        <section id="stability" class="section research-section">
+            <h2>Stability and Controller Tuning</h2>
+            <div class="twocol-grid">
+                <div class="twocol-text">
+                    <p>Controller gains and fractional-order parameters were tuned through an optimization
+                        procedure balancing attitude and angular-velocity tracking, transient performance, and
+                        control effort.</p>
+                    <ul class="simple-list">
+                        <li>Finite-time convergence toward the sliding surface</li>
+                        <li>Lyapunov-based stability analysis</li>
+                        <li>Reaching-time analysis</li>
+                        <li>Optimization-based controller parameter tuning</li>
+                    </ul>
+                </div>
+                <div class="twocol-figure">
+                    <figure class="research-figure figure-narrow">
+                        <img src="../assets/images/projects/satellite_attitude_control/sliding_surface.png"
+                            class="card-image"
+                            alt="Schematic of reaching and sliding phases toward a sliding surface." />
+                        <figcaption class="figure-caption">Reaching and sliding phases in sliding-mode control.
+                        </figcaption>
+                    </figure>
+                </div>
+            </div>
+        </section>
+
+        <div class="divider"></div>
+
+        <section id="results" class="section research-section">
+            <h2>Simulation Results</h2>
+            <p>The proposed modified-reaching-law controllers achieved attitude stabilization while eliminating
+                the strong control chattering visible in conventional sliding-mode implementations. Disturbance
+                rejection was tested by injecting external disturbance torque, and robustness was evaluated under
+                spacecraft inertia perturbations.</p>
+            <p>Modified PD-SMC reduced settling and reaching time relative to conventional PD-SMC. The
+                fractional-order controller provided another trade-off between reaching time and control effort.
+                All results shown here are simulation-based.</p>
+
+            <div class="figure-pair">
+                <figure class="research-figure">
+                    <img src="../assets/images/projects/satellite_attitude_control/attitude_response.png"
+                        class="card-image"
+                        alt="Angular-velocity and quaternion convergence plots for PD-SMC with a modified reaching law." />
+                    <figcaption class="figure-caption">Angular-velocity and quaternion convergence using the
+                        modified-reaching-law controller.</figcaption>
+                </figure>
+                <figure class="research-figure">
+                    <img src="../assets/images/projects/satellite_attitude_control/disturbance_rejection.png"
+                        class="card-image"
+                        alt="Angular-velocity and quaternion responses while external disturbance is applied." />
+                    <figcaption class="figure-caption">Closed-loop attitude response under external disturbance.
+                    </figcaption>
+                </figure>
+            </div>
+        </section>
+
+        <div class="divider"></div>
+
+        <section id="findings" class="section research-section">
+            <h2>Main Findings</h2>
+            <div class="callout">
+                <p style="margin: 0 0 16px 0; font-style: italic; color: var(--navy-dark);">Modified reaching laws
+                    reduced sliding-mode chattering while maintaining fast attitude convergence and robustness to
+                    the tested disturbances and model-parameter variation.</p>
+                <ul>
+                    <li>Nonlinear quaternion spacecraft model with reaction-wheel dynamics</li>
+                    <li>Integer- and fractional-order sliding-mode controllers</li>
+                    <li>Modified reaching laws for chattering reduction</li>
+                    <li>Finite-time convergence and Lyapunov-stability analysis</li>
+                    <li>Disturbance rejection and robustness to inertia uncertainty</li>
+                    <li>Optimization-based gain tuning</li>
+                </ul>
+            </div>
+        </section>
+
+        <div class="divider"></div>
+
+        <section id="publication" class="section research-section">
+            <h2>From Undergraduate Thesis to Publication</h2>
+            <p>This B.Tech thesis later led to a journal publication in <em>Advances in Space Research</em>.</p>
+            <p>Debajyoti Chakrabarti and N. Selvaganesan, &ldquo;PD and PD&beta; Based Sliding Mode Control
+                Algorithms with Modified Reaching Law for Satellite Attitude Maneuver,&rdquo; <em>Advances in Space
+                    Research</em>, 65, 1279&ndash;1295, 2020.</p>
+            <div class="btn-row">
+                <a class="btn-link" href="../assets/docs/projects/satellite_attitude_control/paper.pdf"
+                    target="_blank" rel="noopener">Paper</a>
+                <a class="btn-link" href="https://doi.org/10.1016/j.asr.2019.11.005" target="_blank"
+                    rel="noopener">DOI</a>
+            </div>
+        </section>
+
+        <div class="divider"></div>
+
+        <section class="section research-section" style="padding-top: 32px;">
+            <div class="btn-row">
+                <a class="btn-link" href="../assets/docs/projects/satellite_attitude_control/paper.pdf"
+                    target="_blank" rel="noopener">Published Paper</a>
+                <a class="btn-link"
+                    href="../assets/docs/projects/satellite_attitude_control/thesis_presentation.pdf"
+                    target="_blank" rel="noopener">Thesis Presentation</a>
+                <a class="btn-link" href="https://doi.org/10.1016/j.asr.2019.11.005" target="_blank"
+                    rel="noopener">DOI</a>
+                <a class="btn-link" href="../index.html#earlier-research">&larr; Back to Home</a>
+            </div>
+        </section>
+    </main>
+
+    <footer class="container footer">
+        <p>&copy; 2026 Debajyoti Chakrabarti</p>
+    </footer>
+</body>
+
+</html>
