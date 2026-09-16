@@ -87,12 +87,16 @@
                 fractional-order PD&beta;-SMC, and modified-reaching-law versions of both controllers. The modified
                 reaching law was introduced to reduce the chattering associated with conventional switching-based
                 sliding-mode control while retaining fast convergence and robustness.</p>
+            <p>The power-rate reaching law makes the corrective action depend on distance from the sliding surface:
+                it drives the state strongly when the error is large, then softens the switching action near the
+                surface. Substituting that law into the reaction-wheel spacecraft dynamics produces a control torque
+                with model-compensation and nonlinear reaching terms.</p>
             <figure class="research-figure figure-medium">
-                <img src="../assets/images/projects/satellite_attitude_control/control_law_slide.png"
+                <img src="../assets/images/projects/satellite_attitude_control/key_control_equations.png"
                     class="card-image"
-                    alt="Thesis-slide equations deriving the modified PD sliding-mode control torque from the reaching law." />
-                <figcaption class="figure-caption">Modified PD sliding-mode control law from the thesis
-                    presentation.</figcaption>
+                    alt="Published modified reaching law and resulting PD sliding-mode control torque." />
+                <figcaption class="figure-caption">The two key equations: the modified reaching law and the
+                    resulting nonlinear control torque.</figcaption>
             </figure>
         </section>
 
@@ -111,14 +115,18 @@
                         <li>Reaching-time analysis</li>
                         <li>Optimization-based controller parameter tuning</li>
                     </ul>
+                    <p>After the trajectory reaches the sliding surface, the angular-velocity error becomes tied to
+                        the attitude error. A quadratic Lyapunov argument then shows that the attitude-error energy
+                        decreases for positive controller gains, establishing asymptotic convergence. The reaching-law
+                        analysis separately guarantees arrival at the surface in finite time.</p>
                 </div>
                 <div class="twocol-figure">
                     <figure class="research-figure figure-narrow">
-                        <img src="../assets/images/projects/satellite_attitude_control/stability_proof.png"
+                        <img src="../assets/images/projects/satellite_attitude_control/sliding_surface.png"
                             class="card-image"
-                            alt="Lyapunov stability derivation for the satellite attitude error dynamics." />
-                        <figcaption class="figure-caption">Lyapunov argument establishing asymptotic stability
-                            of the attitude-error equilibrium.</figcaption>
+                            alt="Schematic of reaching and sliding phases toward a sliding surface." />
+                        <figcaption class="figure-caption">Reaching and sliding phases in sliding-mode control.
+                        </figcaption>
                     </figure>
                 </div>
             </div>
