@@ -387,6 +387,11 @@ a.btn-link:hover {
     flex: 0 0 320px;
 }
 
+/* Widen the media column for extra-wide/short figures (e.g. wide banner diagrams) */
+.feature-media.is-wide {
+    flex: 0 0 480px;
+}
+
 /* Only the "coming soon" mock box needs a fixed height; real images (.card-image) size naturally */
 .feature-media .img-placeholder {
     aspect-ratio: auto;
@@ -561,7 +566,8 @@ a.btn-link:hover {
         flex-direction: column;
     }
 
-    .feature-media {
+    .feature-media,
+    .feature-media.is-wide {
         flex: none;
     }
 
