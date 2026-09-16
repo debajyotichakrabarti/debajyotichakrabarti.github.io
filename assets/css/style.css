@@ -829,22 +829,57 @@ a.btn-link:hover {
     max-width: 1060px;
 }
 
-.isro-slide-figure {
-    max-width: 1060px;
-    margin-top: 22px;
+.isro-sequence-intro {
+    margin-bottom: 20px;
+}
+
+.isro-content-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1.55fr) minmax(260px, 0.7fr);
+    gap: 34px;
+    align-items: center;
+    margin: 20px 0 30px;
+}
+
+.isro-content-grid .research-figure {
+    margin: 0 auto;
+}
+
+.isro-technical-list {
+    margin: 14px 0 26px;
+    padding-left: 28px;
+}
+
+.isro-technical-list li {
+    margin-bottom: 9px;
+    padding-left: 4px;
+}
+
+.research-figure.isro-flow-figure {
+    max-width: 1000px;
+    margin-top: 20px;
     margin-bottom: 34px;
 }
 
-.isro-slide-figure .card-image {
+.isro-component-figure .card-image,
+.isro-flow-figure .card-image,
+.isro-component-pair .card-image,
+.isro-equation-wide .card-image {
     display: block;
     width: 100%;
+    object-fit: contain;
     background: #fff;
     border: 1px solid var(--border);
-    border-radius: 10px;
+    border-radius: 8px;
 }
 
-.isro-sequence-intro {
-    margin-bottom: 20px;
+.isro-component-pair {
+    align-items: center;
+    margin: 22px 0 34px;
+}
+
+.research-figure.isro-equation-wide {
+    max-width: 820px;
 }
 
 .isro-story-grid,
@@ -943,6 +978,11 @@ a.btn-link:hover {
     .isro-portrait {
         justify-self: center;
         max-width: 420px;
+    }
+
+    .isro-content-grid {
+        grid-template-columns: 1fr;
+        gap: 18px;
     }
 }
 
