@@ -55,23 +55,29 @@
         <div class="divider"></div>
 
         <section class="section research-section">
-            <h2>Training in Isaac Sim</h2>
-            <p>The policies are trained and evaluated in Isaac Sim before transfer to the physical quadruped. The
-                training traces below show success-rate behavior across the evaluated policy runs.</p>
+            <h2>Iterative Self-Play in Isaac Sim</h2>
+            <p>All current training and evaluation are performed in Isaac Sim; the policies have not yet been tested
+                on the physical quadruped.</p>
+            <p>At the first self-play iteration, the opponent follows a random patrolling policy. After the ego policy
+                is trained, it is copied to the opponent for the next iteration, and a new ego policy is trained
+                against that updated opponent. Repeating this process progressively strengthens the competition.</p>
+            <p>The traces and table below summarize the performance of the ego policies across these successive
+                self-play iterations.</p>
             <figure class="research-figure soccer-training-plot">
                 <div class="soccer-training-crop">
                     <img src="../assets/images/projects/robot_soccer/training_success_rate.png"
                         alt="Success-rate traces across ten policy-training runs" />
                 </div>
-                <figcaption class="figure-caption">Success-rate traces during policy training.</figcaption>
+                <figcaption class="figure-caption">Success-rate traces across successive self-play iterations.</figcaption>
             </figure>
-            <p class="soccer-evaluation-note soccer-training-table-title">Training snapshot near 250k iterations:</p>
+            <p class="soccer-evaluation-note soccer-training-table-title">Performance near 250k training steps for
+                each self-play iteration:</p>
             <p class="table-scroll-hint soccer-training-table-hint">Swipe horizontally to view all columns.</p>
             <div class="results-table-wrap soccer-training-results-wrap">
                 <table class="results-table soccer-training-results-table">
                     <thead>
                         <tr>
-                            <th>Policy run</th>
+                            <th>Self-play iteration</th>
                             <th>Success rate</th>
                             <th>Iteration</th>
                             <th>Training time</th>
@@ -118,17 +124,6 @@
                 <div class="soccer-diagram-arrow soccer-branch-arrow" aria-hidden="true">&#8600;&nbsp;&nbsp;&nbsp;&#8601;</div>
                 <div class="soccer-diagram-node">Quadruped execution</div>
             </div>
-        </section>
-
-        <div class="divider"></div>
-
-        <section class="section research-section">
-            <h2>Iterative Self-Play</h2>
-            <p>An ongoing research direction uses iterative self-play to improve competitive high-level decision
-                making. The Dreamer policy trains against evolving opponents while the frozen low-level locomotion
-                skills continue to provide dribbling and kicking execution.</p>
-            <p>This allows the strategic policy to improve through repeated competition without retraining the
-                underlying locomotion controllers after every iteration.</p>
         </section>
 
         <div class="divider"></div>
@@ -237,7 +232,7 @@
             <div class="callout soccer-ongoing-callout">
                 <h3>Ongoing Research</h3>
                 <p>Training and evaluation are ongoing. The comparison above is a current aggregate performance
-                    snapshot; additional checkpoints and physical-robot transfer studies are in progress.</p>
+                    snapshot. All reported results are simulation-only; hardware evaluation remains future work.</p>
             </div>
             <div class="btn-row soccer-back-row">
                 <a class="btn-link" href="../index.html#research">&larr; Back to Home</a>
