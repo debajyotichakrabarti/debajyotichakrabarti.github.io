@@ -829,6 +829,24 @@ a.btn-link:hover {
     max-width: 1060px;
 }
 
+.isro-slide-figure {
+    max-width: 1060px;
+    margin-top: 22px;
+    margin-bottom: 34px;
+}
+
+.isro-slide-figure .card-image {
+    display: block;
+    width: 100%;
+    background: #fff;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+}
+
+.isro-sequence-intro {
+    margin-bottom: 20px;
+}
+
 .isro-story-grid,
 .isro-analysis-grid {
     margin-top: 28px;
