@@ -239,6 +239,14 @@ b, strong {
     font-size: 0.95em;
 }
 
+.edu-institution a {
+    color: inherit;
+}
+
+.edu-institution a:hover {
+    color: var(--accent);
+}
+
 .edu-degree {
     color: var(--grey);
     font-size: 0.9em;
