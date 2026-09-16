@@ -1023,7 +1023,13 @@ a.btn-link:hover {
 
 .slosh-equation-figure {
     margin: 22px auto 28px;
-    max-width: 340px;
+    max-width: 520px;
+}
+
+.slosh-equation-figure .card-image {
+    display: block;
+    max-width: 260px;
+    margin: 0 auto;
 }
 
 .isro-mission-row {
