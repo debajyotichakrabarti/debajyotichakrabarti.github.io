@@ -46,7 +46,7 @@
         <section class="section research-section">
             <h2>Overview</h2>
             <p>This project studies model-based reinforcement learning for quadruped robot soccer. The control stack
-                is hierarchical: a high-level Dreamer policy performs task-level decision making while frozen
+                is hierarchical: a high-level R2-Dreamer policy performs task-level decision making while frozen
                 low-level locomotion policies execute specialized behaviors (dribbling and kicking).</p>
             <p>These low-level locomotion skills are trained separately using domain randomization for robust movement
                 and ball interaction, allowing high-level learning to focus on strategy and skill selection.</p>
@@ -58,9 +58,13 @@
             <h2>Iterative Self-Play in Isaac Sim</h2>
             <p>All current training and evaluation are performed in Isaac Sim; the policies have not yet been tested
                 on the physical quadruped.</p>
-            <p>At the first self-play iteration, the opponent follows a random patrolling policy. After the ego policy
-                is trained, it is copied to the opponent for the next iteration, and a new ego policy is trained
-                against that updated opponent. Repeating this process progressively strengthens the competition.</p>
+            <p>Competitive play creates a non-stationary learning problem: as the opponent changes, the behavior that
+                the ego policy must anticipate also changes. Training only against a fixed opponent can therefore
+                produce a policy that does not adapt to progressively stronger competition.</p>
+            <p>At the first self-play iteration, the opponent follows a random patrolling policy. After the
+                R2-Dreamer ego policy is trained, it is frozen and copied to the opponent for the next iteration. A
+                new ego policy is then trained against this stronger baseline, creating an iterative ladder intended
+                to improve the current policy over time.</p>
             <p>The traces and table below summarize the performance of the ego policies across these successive
                 self-play iterations.</p>
             <figure class="research-figure soccer-training-plot">
@@ -72,46 +76,45 @@
             </figure>
             <p class="soccer-evaluation-note soccer-training-table-title">Performance near 250k training steps for
                 each self-play iteration:</p>
-            <p class="table-scroll-hint soccer-training-table-hint">Swipe horizontally to view all columns.</p>
             <div class="results-table-wrap soccer-training-results-wrap">
                 <table class="results-table soccer-training-results-table">
                     <thead>
                         <tr>
                             <th>Self-play iteration</th>
                             <th>Success rate</th>
-                            <th>Iteration</th>
-                            <th>Training time</th>
                         </tr>
                     </thead>
                     <tbody>
-                        <tr><td>&pi;0</td><td class="highlight">0.945</td><td>249,909</td><td>2.977 hr</td></tr>
-                        <tr><td>&pi;1</td><td>0.595</td><td>249,992</td><td>3.339 hr</td></tr>
-                        <tr><td>&pi;2</td><td>0.650</td><td>250,004</td><td>3.367 hr</td></tr>
-                        <tr><td>&pi;3</td><td>0.550</td><td>250,012</td><td>3.390 hr</td></tr>
-                        <tr><td>&pi;4</td><td>0.620</td><td>249,916</td><td>3.334 hr</td></tr>
-                        <tr><td>&pi;5</td><td>0.590</td><td>249,998</td><td>3.377 hr</td></tr>
-                        <tr><td>&pi;6</td><td>0.575</td><td>249,980</td><td>3.418 hr</td></tr>
-                        <tr><td>&pi;7</td><td>0.625</td><td>249,997</td><td>3.434 hr</td></tr>
-                        <tr><td>&pi;8</td><td>0.645</td><td>249,988</td><td>3.452 hr</td></tr>
-                        <tr><td>&pi;9</td><td>0.590</td><td>249,971</td><td>3.443 hr</td></tr>
+                        <tr><td>&pi;0</td><td>0.945</td></tr>
+                        <tr><td>&pi;1</td><td>0.595</td></tr>
+                        <tr><td>&pi;2</td><td>0.650</td></tr>
+                        <tr><td>&pi;3</td><td>0.550</td></tr>
+                        <tr><td>&pi;4</td><td>0.620</td></tr>
+                        <tr><td>&pi;5</td><td>0.590</td></tr>
+                        <tr><td>&pi;6</td><td>0.575</td></tr>
+                        <tr><td>&pi;7</td><td>0.625</td></tr>
+                        <tr><td>&pi;8</td><td>0.645</td></tr>
+                        <tr><td>&pi;9</td><td>0.590</td></tr>
                     </tbody>
                 </table>
             </div>
+            <p class="soccer-training-note">Each iteration faces a different opponent baseline, so these success
+                rates measure adaptation to changing competition rather than a single fixed benchmark.</p>
         </section>
 
         <div class="divider"></div>
 
         <section class="section research-section">
             <h2>Hierarchical Soccer Policy</h2>
-            <p>The high-level Dreamer policy receives robot, ball, and game state and chooses a task-level command or
+            <p>The high-level R2-Dreamer policy receives robot, ball, and game state and chooses a task-level command or
                 skill. Frozen low-level policies translate that interface into specialized dribbling or kicking
                 behavior. The skills are trained separately and need not share identical observations or command
                 representations.</p>
             <div class="soccer-architecture" role="img"
-                aria-label="Conceptual hierarchy from game state through a Dreamer policy and skill interface to frozen dribbling and kicking policies and quadruped execution">
+                aria-label="Conceptual hierarchy from game state through an R2-Dreamer policy and skill interface to frozen dribbling and kicking policies and quadruped execution">
                 <div class="soccer-diagram-node">Robot, ball, and game state</div>
                 <div class="soccer-diagram-arrow" aria-hidden="true">&darr;</div>
-                <div class="soccer-diagram-node soccer-diagram-primary">Dreamer high-level policy</div>
+                <div class="soccer-diagram-node soccer-diagram-primary">R2-Dreamer high-level policy</div>
                 <div class="soccer-diagram-arrow" aria-hidden="true">&darr;</div>
                 <div class="soccer-diagram-node">Skill / command interface</div>
                 <div class="soccer-diagram-arrow soccer-branch-arrow" aria-hidden="true">&#8601;&nbsp;&nbsp;&nbsp;&#8600;</div>
