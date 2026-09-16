@@ -689,6 +689,16 @@ a.btn-link:hover {
         padding: 48px 0 32px 0;
     }
 
+    .hero-content {
+        width: 100%;
+        max-width: 100%;
+    }
+
+    .hero h1 {
+        font-size: 2em;
+        overflow-wrap: anywhere;
+    }
+
     .contact-row {
         justify-content: center;
     }
@@ -698,9 +708,19 @@ a.btn-link:hover {
     }
 
     .nav {
-        gap: 16px;
+        justify-content: center;
+        gap: 10px 14px;
         height: auto;
         padding: 12px 0;
+    }
+
+    .nav a,
+    .nav .nav-disabled {
+        font-size: 0.82em;
+    }
+
+    .theme-toggle {
+        margin-left: 0;
     }
 
     .section {
