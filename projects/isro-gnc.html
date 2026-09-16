@@ -42,7 +42,7 @@
                     <p>My work covered flight-algorithm development, nonlinear spacecraft dynamics, control design,
                         Monte Carlo analysis, onboard decision logic, high-fidelity simulation, and stability
                         assessment. Chandrayaan-3 was a major focus: I contributed to the GNC analysis behind
-                        its autonomous powered descent and co-authored technical work on guidance feasibility,
+                        its autonomous powered descent and developed methods and analyses for guidance feasibility,
                         real-time retargeting, landing strategy, and propellant-slosh interaction.</p>
                     <div class="btn-row">
                         <a class="btn-link" href="#technical-publications">Technical Publications</a>
@@ -216,10 +216,14 @@
 
         <section id="slosh" class="section research-section">
             <h2>Propellant Slosh Modeling and Control Stability</h2>
-            <p>Partially filled propellant tanks introduce flexible liquid modes into the lander attitude dynamics.
-                As propellant is consumed, the slosh frequency, damping, center of gravity, and spacecraft inertia all
-                change. We represented each dominant liquid mode as a time-varying equivalent pendulum and mapped its
-                motion into disturbance forces and torques on the rigid body.</p>
+            <p>Propellant slosh is the oscillatory motion of liquid propellant relative to its partially filled tank.
+                During powered descent, the lander experiences high acceleration, including lateral acceleration from
+                off-vertical firing of the liquid engines. These forces excite the liquid modes; the moving propellant
+                then generates disturbance forces and torques that couple directly into attitude control.</p>
+            <p>I developed a nonlinear three-axis, multi-tank model in which each dominant liquid mode is represented
+                by a time-varying equivalent pendulum. As propellant is consumed, the model updates slosh frequency,
+                damping, center of gravity, and spacecraft inertia, and maps the pendulum motion into disturbance
+                forces and torques on the rigid body.</p>
 
             <div class="figure-pair isro-equation-pair slosh-model-pair">
                 <figure class="research-figure figure-narrow">
