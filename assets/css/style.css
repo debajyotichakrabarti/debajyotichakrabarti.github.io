@@ -1108,13 +1108,50 @@ a.btn-link:hover {
     border-radius: 10px;
 }
 
-.soccer-training-plot {
-    max-width: 620px;
+.research-figure.soccer-training-plot {
+    max-width: 398px;
     margin: 22px auto 4px;
 }
 
-.soccer-training-plot .card-image {
+.soccer-training-crop {
+    width: 100%;
+    aspect-ratio: 398 / 300;
+    overflow: hidden;
+    border: 1px solid var(--border);
+    border-radius: 8px;
     background: #fff;
+}
+
+.soccer-training-crop img {
+    display: block;
+    width: 100%;
+    height: auto;
+}
+
+.soccer-training-table-title,
+.soccer-training-table-hint,
+.soccer-training-results-wrap {
+    max-width: 680px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.soccer-training-table-title {
+    margin-top: 24px;
+    margin-bottom: 8px;
+}
+
+.soccer-training-results-wrap {
+    margin-top: 8px;
+}
+
+.soccer-training-results-table {
+    min-width: 560px;
+}
+
+.soccer-training-results-table th,
+.soccer-training-results-table td {
+    white-space: nowrap;
 }
 
 .soccer-performance-grid {

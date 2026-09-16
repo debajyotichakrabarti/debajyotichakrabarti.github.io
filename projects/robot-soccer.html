@@ -24,6 +24,8 @@
             <p class="status-line">PRACTICE Lab, UCLA</p>
             <h1>World-Model Reinforcement Learning for Quadruped Robot Soccer</h1>
             <p class="sub-role"><a href="../index.html#about">Debajyoti Chakrabarti</a> &middot;
+                <a href="https://practice-lab-ucla.github.io/people/anushri_dixit/" target="_blank"
+                    rel="noopener">Anushri Dixit</a> &middot; Jacob Pham &middot;
                 <a href="https://practice-lab-ucla.github.io/" target="_blank" rel="noopener">PRACTICE Lab, UCLA</a>
             </p>
             <div class="feature-heading soccer-status-row">
@@ -33,6 +35,7 @@
                 <span class="tag">World Models</span>
                 <span class="tag">Model-Based RL</span>
                 <span class="tag">Hierarchical RL</span>
+                <span class="tag">Self-Play</span>
                 <span class="tag">Quadruped Robotics</span>
                 <span class="tag">Risk-Sensitive Learning</span>
             </div>
@@ -44,22 +47,50 @@
             <h2>Overview</h2>
             <p>This project studies model-based reinforcement learning for quadruped robot soccer. The control stack
                 is hierarchical: a high-level Dreamer policy performs task-level decision making while frozen
-                low-level policies execute dribbling and kicking behaviors.</p>
-            <p>The low-level skills are trained separately using domain randomization for robust locomotion and ball
-                interaction, allowing high-level learning to focus on strategy and skill selection.</p>
+                low-level locomotion policies execute specialized behaviors (dribbling and kicking).</p>
+            <p>These low-level locomotion skills are trained separately using domain randomization for robust movement
+                and ball interaction, allowing high-level learning to focus on strategy and skill selection.</p>
         </section>
 
         <div class="divider"></div>
 
         <section class="section research-section">
-            <h2>Training in Simulation</h2>
+            <h2>Training in Isaac Sim</h2>
             <p>The policies are trained and evaluated in Isaac Sim before transfer to the physical quadruped. The
                 training traces below show success-rate behavior across the evaluated policy runs.</p>
             <figure class="research-figure soccer-training-plot">
-                <img src="../assets/images/projects/robot_soccer/training_success_rate.png" class="card-image"
-                    alt="Success-rate traces across ten policy-training runs" />
+                <div class="soccer-training-crop">
+                    <img src="../assets/images/projects/robot_soccer/training_success_rate.png"
+                        alt="Success-rate traces across ten policy-training runs" />
+                </div>
                 <figcaption class="figure-caption">Success-rate traces during policy training.</figcaption>
             </figure>
+            <p class="soccer-evaluation-note soccer-training-table-title">Training snapshot near 250k iterations:</p>
+            <p class="table-scroll-hint soccer-training-table-hint">Swipe horizontally to view all columns.</p>
+            <div class="results-table-wrap soccer-training-results-wrap">
+                <table class="results-table soccer-training-results-table">
+                    <thead>
+                        <tr>
+                            <th>Policy run</th>
+                            <th>Success rate</th>
+                            <th>Iteration</th>
+                            <th>Training time</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr><td>&pi;0</td><td class="highlight">0.945</td><td>249,909</td><td>2.977 hr</td></tr>
+                        <tr><td>&pi;1</td><td>0.595</td><td>249,992</td><td>3.339 hr</td></tr>
+                        <tr><td>&pi;2</td><td>0.650</td><td>250,004</td><td>3.367 hr</td></tr>
+                        <tr><td>&pi;3</td><td>0.550</td><td>250,012</td><td>3.390 hr</td></tr>
+                        <tr><td>&pi;4</td><td>0.620</td><td>249,916</td><td>3.334 hr</td></tr>
+                        <tr><td>&pi;5</td><td>0.590</td><td>249,998</td><td>3.377 hr</td></tr>
+                        <tr><td>&pi;6</td><td>0.575</td><td>249,980</td><td>3.418 hr</td></tr>
+                        <tr><td>&pi;7</td><td>0.625</td><td>249,997</td><td>3.434 hr</td></tr>
+                        <tr><td>&pi;8</td><td>0.645</td><td>249,988</td><td>3.452 hr</td></tr>
+                        <tr><td>&pi;9</td><td>0.590</td><td>249,971</td><td>3.443 hr</td></tr>
+                    </tbody>
+                </table>
+            </div>
         </section>
 
         <div class="divider"></div>
@@ -87,6 +118,17 @@
                 <div class="soccer-diagram-arrow soccer-branch-arrow" aria-hidden="true">&#8600;&nbsp;&nbsp;&nbsp;&#8601;</div>
                 <div class="soccer-diagram-node">Quadruped execution</div>
             </div>
+        </section>
+
+        <div class="divider"></div>
+
+        <section class="section research-section">
+            <h2>Iterative Self-Play</h2>
+            <p>An ongoing research direction uses iterative self-play to improve competitive high-level decision
+                making. The Dreamer policy trains against evolving opponents while the frozen low-level locomotion
+                skills continue to provide dribbling and kicking execution.</p>
+            <p>This allows the strategic policy to improve through repeated competition without retraining the
+                underlying locomotion controllers after every iteration.</p>
         </section>
 
         <div class="divider"></div>
@@ -184,6 +226,7 @@
             <h2>Current Research Questions</h2>
             <ul class="simple-list soccer-question-list">
                 <li>How should a high-level world-model policy coordinate specialized locomotion skills?</li>
+                <li>How does iterative self-play affect competitive strategy and skill selection?</li>
                 <li>When are imagined tail-risk estimates predictive of real closed-loop risk?</li>
                 <li>How does world-model error on rare failure dynamics affect risk-sensitive policy learning?</li>
                 <li>How can these policies transfer reliably from simulation to a physical quadruped?</li>
