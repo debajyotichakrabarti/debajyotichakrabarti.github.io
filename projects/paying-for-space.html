@@ -74,12 +74,6 @@
                 over travel time, control effort, fuel usage, or route deviation.</p>
             <p>If the central planner relies on self-reported costs, agents may strategically misreport those
                 preferences to obtain more favorable trajectories.</p>
-            <figure class="research-figure">
-                <img src="../assets/images/projects/paying_for_space/problem_setup.png" class="card-image"
-                    alt="Shared AAM landing-coordination scenario with multiple agents competing for access to constrained airspace." />
-                <figcaption class="figure-caption">Shared AAM landing-coordination scenario with multiple agents
-                    competing for access to constrained airspace.</figcaption>
-            </figure>
         </section>
 
         <div class="divider"></div>
@@ -96,11 +90,16 @@
             </ol>
             <p>Each agent then performs its own trajectory optimization inside its assigned safe corridor.</p>
             <figure class="research-figure">
-                <img src="../assets/images/projects/paying_for_space/framework_overview.png" class="card-image"
-                    alt="Incentive-aware airspace allocation framework: agents report preferences, the central planner allocates corridors and computes payments, and each agent executes its own plan within its assigned corridor." />
-                <figcaption class="figure-caption">Incentive-aware airspace allocation framework: agents report
-                    preferences, the planner allocates corridors and computes payments, and each agent executes
-                    its own plan within its assigned corridor.</figcaption>
+                <img src="../assets/images/projects/paying_for_space/mechanism_pipeline.png" class="card-image"
+                    alt="Overview of the incentive-aware airspace allocation framework: objective, central allocation, and decentralized execution, applied to a three-agent shared-corridor scenario." />
+                <figcaption class="figure-caption">Overview of the incentive-aware airspace allocation framework,
+                    applied to a three-agent shared-corridor landing scenario.</figcaption>
+            </figure>
+            <figure class="research-figure figure-narrow">
+                <img src="../assets/images/projects/paying_for_space/payment_scheme.png" class="card-image"
+                    alt="Payment defined as the externality imposed on other agents; utility is the net payoff after the transfer." />
+                <figcaption class="figure-caption">Payment as the externality imposed on other agents; utility is
+                    the net payoff after the transfer.</figcaption>
             </figure>
         </section>
 
@@ -120,14 +119,20 @@
                 </div>
                 <div class="twocol-figure">
                     <figure class="research-figure">
-                        <img src="../assets/images/projects/paying_for_space/bilevel_formulation.png"
+                        <img src="../assets/images/projects/paying_for_space/central_allocation.png"
                             class="card-image"
-                            alt="Bilevel formulation: an outer allocation problem over corridor space coupled with each agent's inner trajectory optimization." />
+                            alt="Bilevel structure: outer level allocates non-overlapping safe space across agents; inner level replicates each agent's own trajectory-cost optimization." />
                         <figcaption class="figure-caption">Outer allocation problem coupled with each agent's
                             inner trajectory optimization.</figcaption>
                     </figure>
                 </div>
             </div>
+            <figure class="research-figure figure-narrow">
+                <img src="../assets/images/projects/paying_for_space/bilevel_formulation.png" class="card-image"
+                    alt="Exact bilevel formulation: outer-level allocation and collision constraints, with each agent's inner-level trajectory optimization circled." />
+                <figcaption class="figure-caption">Exact bilevel formulation, with each agent's inner-level
+                    problem circled.</figcaption>
+            </figure>
         </section>
 
         <div class="divider"></div>
@@ -135,24 +140,18 @@
         <!-- 4. TRACTABLE MULTISTAGE METHOD -->
         <section id="multistage" class="section research-section">
             <h2>From Bilevel Optimization to a Tractable Three-Stage Pipeline</h2>
-            <div class="stage-row">
-                <div class="stage-card">
-                    <div class="stage-number">Stage 1</div>
-                    <p>Nominal collision-free planning</p>
-                </div>
-                <div class="stage-card">
-                    <div class="stage-number">Stage 2</div>
-                    <p>Convex safe-corridor allocation using pairwise separating hyperplanes and mixing
-                        variables</p>
-                </div>
-                <div class="stage-card">
-                    <div class="stage-number">Stage 3</div>
-                    <p>Final decentralized planning and VCG-inspired transfer computation</p>
-                </div>
-            </div>
+            <p>Solving the exact bilevel problem directly is hard, since the collision-avoidance constraints are
+                nonconvex. A three-stage decomposition gives a tractable approximation:</p>
+            <ul class="simple-list" style="margin: 12px 0 20px 0;">
+                <li><strong>Stage 1:</strong> nominal collision-free planning</li>
+                <li><strong>Stage 2:</strong> convex safe-corridor allocation using pairwise separating
+                    hyperplanes and mixing variables</li>
+                <li><strong>Stage 3:</strong> final decentralized planning and VCG-inspired transfer computation
+                </li>
+            </ul>
             <figure class="research-figure">
-                <img src="../assets/images/projects/paying_for_space/three_stage_pipeline.png" class="card-image"
-                    alt="Three-stage decomposition: nominal planning, convex corridor allocation, then decentralized execution with VCG-inspired transfers." />
+                <img src="../assets/images/projects/paying_for_space/multistage_allocation.png" class="card-image"
+                    alt="Three-stage decomposition: nominal planning, convex corridor allocation, then final decentralized planning and payment computation." />
                 <figcaption class="figure-caption">Three-stage decomposition of the bilevel allocation problem
                     into a tractable pipeline.</figcaption>
             </figure>
@@ -189,10 +188,10 @@
         <section id="snapshots" class="section research-section">
             <h2>Decentralized Coordination in the Shared Corridor</h2>
             <figure class="research-figure">
-                <img src="../assets/images/projects/paying_for_space/motion_snapshots.png" class="card-image"
-                    alt="Example landing-coordination sequence: trajectory begin, tunnel entry, tunnel exit, goal reaching." />
-                <figcaption class="figure-caption">Example landing-coordination sequence. Agents enter the shared
-                    corridor and reach their assigned goals at prescribed landing times.</figcaption>
+                <img src="../assets/images/projects/paying_for_space/landing_coordination.gif" class="card-image"
+                    alt="Animated landing-coordination sequence: three agents enter the shared corridor and reach their assigned goals at prescribed landing times." />
+                <figcaption class="figure-caption">Animated replay of the landing-coordination scenario. Agents
+                    enter the shared corridor and reach their assigned goals at prescribed landing times.</figcaption>
             </figure>
         </section>
 
