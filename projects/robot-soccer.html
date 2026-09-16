@@ -45,94 +45,109 @@
 
         <section class="section research-section">
             <h2>Overview</h2>
-            <p>This project studies model-based reinforcement learning for quadruped robot soccer. The control stack
-                is hierarchical: a high-level R2-Dreamer policy performs task-level decision making while frozen
-                low-level locomotion policies execute specialized behaviors (dribbling and kicking).</p>
-            <p>Compared with the original Dreamer, <a href="https://openreview.net/forum?id=Je2QqXrcQq"
-                    target="_blank" rel="noopener">R2-Dreamer</a> removes the image-reconstruction decoder and uses a
-                redundancy-reduction objective to learn compact, task-relevant representations more efficiently while
-                retaining latent imagination for policy learning.</p>
-            <p>These low-level locomotion skills are trained separately using domain randomization for robust movement
-                and ball interaction, allowing high-level learning to focus on strategy and skill selection.</p>
+            <p>This project combines hierarchical world-model reinforcement learning, iterative self-play, and
+                risk-sensitive policy learning for quadruped robot soccer. A high-level R2-Dreamer policy selects
+                frozen dribbling and kicking skills, is trained against progressively stronger opponents, and is
+                extended to account for lower-tail outcomes. Compared with Dreamer, <a
+                    href="https://openreview.net/forum?id=Je2QqXrcQq" target="_blank"
+                    rel="noopener">R2-Dreamer</a> replaces image reconstruction with redundancy-reduced representation
+                learning while retaining latent imagination.</p>
         </section>
 
         <div class="divider"></div>
 
         <section class="section research-section">
-            <h2>Iterative Self-Play in Isaac Sim</h2>
-            <p>All current training and evaluation are performed in Isaac Sim; the policies have not yet been tested
-                on the physical quadruped.</p>
-            <p>Competitive play creates a non-stationary learning problem: as the opponent changes, the behavior that
-                the ego policy must anticipate also changes. Training only against a fixed opponent can therefore
-                produce a policy that does not adapt to progressively stronger competition.</p>
-            <p>At the first self-play iteration, the opponent follows a random patrolling policy. After the
-                R2-Dreamer ego policy is trained, it is frozen and copied to the opponent for the next iteration. A
-                new ego policy is then trained against this stronger baseline, creating an iterative ladder intended
-                to improve the current policy over time.</p>
-            <p>The traces and table below summarize the performance of the ego policies across these successive
-                self-play iterations.</p>
-            <figure class="research-figure soccer-training-plot">
-                <div class="soccer-training-crop">
-                    <img src="../assets/images/projects/robot_soccer/training_success_rate.png"
-                        alt="Success-rate traces across ten policy-training runs" />
-                </div>
-                <figcaption class="figure-caption">Success-rate traces across successive self-play iterations.</figcaption>
-            </figure>
-            <p class="soccer-evaluation-note soccer-training-table-title">Performance near 250k training steps for
-                each self-play iteration:</p>
-            <div class="results-table-wrap soccer-training-results-wrap">
-                <table class="results-table soccer-training-results-table">
-                    <thead>
-                        <tr>
-                            <th>Self-play iteration</th>
-                            <th>Success rate</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr><td>&pi;0</td><td>0.945</td></tr>
-                        <tr><td>&pi;1</td><td>0.595</td></tr>
-                        <tr><td>&pi;2</td><td>0.650</td></tr>
-                        <tr><td>&pi;3</td><td>0.550</td></tr>
-                        <tr><td>&pi;4</td><td>0.620</td></tr>
-                        <tr><td>&pi;5</td><td>0.590</td></tr>
-                        <tr><td>&pi;6</td><td>0.575</td></tr>
-                        <tr><td>&pi;7</td><td>0.625</td></tr>
-                        <tr><td>&pi;8</td><td>0.645</td></tr>
-                        <tr><td>&pi;9</td><td>0.590</td></tr>
-                    </tbody>
-                </table>
-            </div>
-            <p class="soccer-training-note">After the initial random-patrol opponent, the later ego policies settle at
-                approximately 0.55&ndash;0.65 success against their progressively stronger baselines. This suggests an
-                empirical fixed point of the iterative self-play process, but it is not yet a convergence result and
-                requires further investigation. Because each iteration faces a different opponent, these values
-                measure adaptation to changing competition rather than performance on one fixed benchmark.</p>
-        </section>
-
-        <div class="divider"></div>
-
-        <section class="section research-section">
-            <h2>Hierarchical Soccer Policy</h2>
-            <p>The high-level R2-Dreamer policy receives robot, ball, and game state and chooses a task-level command or
-                skill. Frozen low-level policies translate that interface into specialized dribbling or kicking
-                behavior. The skills are trained separately and need not share identical observations or command
-                representations.</p>
+            <h2>System Architecture</h2>
+            <p>The high-level R2-Dreamer policy selects between separately trained, frozen dribbling and kicking
+                policies. The diagram is intentionally conceptual and omits implementation-specific observation and
+                command interfaces.</p>
             <div class="soccer-architecture" role="img"
                 aria-label="Conceptual hierarchy from game state through an R2-Dreamer policy and skill interface to frozen dribbling and kicking policies and quadruped execution">
-                <div class="soccer-diagram-node">Robot, ball, and game state</div>
+                <div class="soccer-diagram-node">Robot + ball + game state</div>
                 <div class="soccer-diagram-arrow" aria-hidden="true">&darr;</div>
-                <div class="soccer-diagram-node soccer-diagram-primary">R2-Dreamer high-level policy</div>
+                <div class="soccer-diagram-node soccer-diagram-primary">R2-Dreamer policy</div>
                 <div class="soccer-diagram-arrow" aria-hidden="true">&darr;</div>
-                <div class="soccer-diagram-node">Skill / command interface</div>
+                <div class="soccer-diagram-node">Skill selection</div>
                 <div class="soccer-diagram-arrow soccer-branch-arrow" aria-hidden="true">&#8601;&nbsp;&nbsp;&nbsp;&#8600;</div>
                 <div class="soccer-skill-grid">
-                    <div class="soccer-diagram-node"><strong>Dribble policy</strong><span>Frozen low-level skill</span>
+                    <div class="soccer-diagram-node"><strong>Dribble policy</strong><span>Frozen skill</span>
                     </div>
-                    <div class="soccer-diagram-node"><strong>Kick policy</strong><span>Frozen low-level skill</span>
+                    <div class="soccer-diagram-node"><strong>Kick policy</strong><span>Frozen skill</span>
                     </div>
                 </div>
                 <div class="soccer-diagram-arrow soccer-branch-arrow" aria-hidden="true">&#8600;&nbsp;&nbsp;&nbsp;&#8601;</div>
-                <div class="soccer-diagram-node">Quadruped execution</div>
+                <div class="soccer-diagram-node">Quadruped</div>
+            </div>
+        </section>
+
+        <div class="divider"></div>
+
+        <section class="section research-section">
+            <h2>Iterative Self-Play</h2>
+            <p>All current training and evaluation are performed in Isaac Sim. Competitive play is non-stationary:
+                as the opponent changes, the ego policy must adapt to a new behavioral baseline.</p>
+            <p>Training begins against a scripted random-patrol opponent. Each trained ego policy is then frozen and
+                used as the opponent for the next iteration, creating progressively stronger competition.</p>
+            <div class="self-play-ladder" role="img"
+                aria-label="Iterative self-play ladder from a scripted opponent through successive trained and frozen policies">
+                <div class="soccer-diagram-node">Scripted opponent<span>Random patrol</span></div>
+                <div class="soccer-diagram-arrow" aria-hidden="true">&darr;</div>
+                <div class="soccer-diagram-node soccer-diagram-primary">Train &pi;0</div>
+                <div class="soccer-diagram-arrow" aria-hidden="true">&darr;</div>
+                <div class="soccer-diagram-node">Freeze &pi;0 as opponent</div>
+                <div class="soccer-diagram-arrow" aria-hidden="true">&darr;</div>
+                <div class="soccer-diagram-node soccer-diagram-primary">Train &pi;1</div>
+                <div class="soccer-diagram-arrow" aria-hidden="true">&darr;</div>
+                <div class="soccer-diagram-node">Freeze &pi;1 and continue&hellip;</div>
+            </div>
+            <figure class="research-figure soccer-training-plot">
+                <div class="soccer-training-crop">
+                    <img src="../assets/images/projects/robot_soccer/training_success_rate.png"
+                        alt="Success-rate traces across ten self-play policy-training iterations" />
+                </div>
+                <figcaption class="figure-caption">Success-rate traces across successive self-play iterations.</figcaption>
+            </figure>
+            <p class="soccer-training-note">Later iterations face progressively stronger opponents, so their success
+                rates are not directly comparable to performance against one fixed benchmark. The similar band reached
+                by later policies is a preliminary empirical observation, not evidence of convergence.</p>
+        </section>
+
+        <div class="divider"></div>
+
+        <section class="section research-section soccer-primary-section">
+            <div class="feature-heading">
+                <h2>Risk-Sensitive World-Model RL</h2>
+                <span class="badge badge-ongoing">Main Research Direction</span>
+            </div>
+            <p>Standard Dreamer learns its policy by optimizing expected return over trajectories imagined by the
+                world model. The risk-sensitive extension also emphasizes lower-tail imagined outcomes, where rare but
+                costly failures are concentrated.</p>
+
+            <div class="cvar-equation" role="img"
+                aria-label="Conditional Value at Risk of G equals the expected value of G conditioned on G being less than or equal to its alpha quantile">
+                <span>CVaR<sub>&alpha;</sub>(G)</span>
+                <span class="equation-equals">=</span>
+                <span>&Eopf;[G &mid; G &le; q<sub>&alpha;</sub>(G)]</span>
+            </div>
+            <p class="equation-caption"><i>G</i> is an imagined trajectory return, and
+                <i>q</i><sub>&alpha;</sub>(<i>G</i>) is its lower &alpha;-quantile.</p>
+
+            <div class="risk-learning-flow" role="img"
+                aria-label="Risk-sensitive world-model learning flow from real interaction through replay, world model, latent imagination, expected and lower-tail returns, to policy learning">
+                <div class="soccer-diagram-node">Real interaction</div>
+                <div class="soccer-diagram-arrow" aria-hidden="true">&darr;</div>
+                <div class="soccer-diagram-node">Replay</div>
+                <div class="soccer-diagram-arrow" aria-hidden="true">&darr;</div>
+                <div class="soccer-diagram-node soccer-diagram-primary">World model</div>
+                <div class="soccer-diagram-arrow" aria-hidden="true">&darr;</div>
+                <div class="soccer-diagram-node">Latent imagination</div>
+                <div class="soccer-diagram-arrow soccer-branch-arrow" aria-hidden="true">&#8601;&nbsp;&nbsp;&nbsp;&#8600;</div>
+                <div class="risk-objective-grid">
+                    <div class="soccer-diagram-node">Expected return</div>
+                    <div class="soccer-diagram-node risk-tail-node">Lower-tail return</div>
+                </div>
+                <div class="soccer-diagram-arrow soccer-branch-arrow" aria-hidden="true">&#8600;&nbsp;&nbsp;&nbsp;&#8601;</div>
+                <div class="soccer-diagram-node soccer-diagram-primary">Policy learning</div>
             </div>
         </section>
 
@@ -140,14 +155,12 @@
 
         <section class="section research-section">
             <div class="feature-heading">
-                <h2>Risk-Sensitive World-Model Learning</h2>
-                <span class="badge badge-ongoing">Performance Study</span>
+                <h2>Preliminary Results</h2>
+                <span class="badge badge-ongoing">Simulation Only</span>
             </div>
-            <p>This study compares the risk-neutral policy with a Conditional Value-at-Risk (CVaR)-constrained
-                extension of R2-Dreamer. Instead of optimizing only expected return, the additional objective
-                emphasizes lower-tail imagined outcomes corresponding to rare but costly failures.</p>
-            <p>A central question is whether risk estimates obtained from imagined world-model trajectories are
-                reliable predictors of real closed-loop tail behavior.</p>
+            <p class="preliminary-label">Preliminary simulation results &mdash; ongoing experiments.</p>
+            <p>The rollout videos are illustrative examples; the aggregate evaluation below provides the quantitative
+                comparison.</p>
 
             <div class="soccer-performance-grid">
                 <figure class="research-figure soccer-video-figure">
@@ -157,7 +170,7 @@
                         <source src="../assets/videos/projects/robot_soccer/RN_fall_001_episode_000000.mp4"
                             type="video/mp4" />
                     </video>
-                    <figcaption class="figure-caption">Representative failure episode.</figcaption>
+                    <figcaption class="figure-caption">Illustrative risk-neutral failure rollout.</figcaption>
                 </figure>
                 <figure class="research-figure soccer-video-figure">
                     <div class="soccer-video-label">CVaR policy</div>
@@ -166,7 +179,7 @@
                         <source src="../assets/videos/projects/robot_soccer/Cvar_success_004_episode_000004.mp4"
                             type="video/mp4" />
                     </video>
-                    <figcaption class="figure-caption">Representative successful episode.</figcaption>
+                    <figcaption class="figure-caption">Illustrative CVaR-policy success rollout.</figcaption>
                 </figure>
             </div>
 
@@ -180,7 +193,6 @@
                             <th>Policy</th>
                             <th>Mean return</th>
                             <th>Goal rate</th>
-                            <th>q10</th>
                             <th>Real CVaR<sub>0.25</sub></th>
                             <th>Fall rate</th>
                             <th>Timeout rate</th>
@@ -191,7 +203,6 @@
                             <td>Risk-neutral</td>
                             <td>229.6</td>
                             <td>82.4%</td>
-                            <td>73.4</td>
                             <td>46.8</td>
                             <td class="highlight">4.8%</td>
                             <td>12.1%</td>
@@ -200,7 +211,6 @@
                             <td class="highlight">CVaR</td>
                             <td class="highlight">251.3</td>
                             <td class="highlight">92.4%</td>
-                            <td class="highlight">146.2</td>
                             <td class="highlight">92.0</td>
                             <td>5.4%</td>
                             <td class="highlight">1.7%</td>
@@ -208,20 +218,27 @@
                     </tbody>
                 </table>
             </div>
-            <p>The CVaR policy improves mean return, goal rate, and both lower-tail metrics while reducing timeouts by
-                roughly sevenfold. The fall rates remain similar across the two policies.</p>
+            <p>In this evaluation snapshot, the CVaR policy has higher mean return, goal rate, and lower-tail return,
+                with substantially fewer timeouts and a similar fall rate. These preliminary results do not yet
+                establish robustness across training checkpoints or hardware deployment.</p>
+        </section>
 
-            <div class="world-model-pipeline" role="img"
-                aria-label="Generic Dreamer pipeline from real interaction through replay, world-model learning, imagination, and actor-critic updates">
-                <div class="soccer-diagram-node">Real interaction</div>
-                <div class="soccer-diagram-arrow horizontal" aria-hidden="true">&rarr;</div>
-                <div class="soccer-diagram-node">Replay</div>
-                <div class="soccer-diagram-arrow horizontal" aria-hidden="true">&rarr;</div>
-                <div class="soccer-diagram-node soccer-diagram-primary">World model</div>
-                <div class="soccer-diagram-arrow horizontal" aria-hidden="true">&rarr;</div>
-                <div class="soccer-diagram-node">Imagination</div>
-                <div class="soccer-diagram-arrow horizontal" aria-hidden="true">&rarr;</div>
-                <div class="soccer-diagram-node">Actor / critic</div>
+        <div class="divider"></div>
+
+        <section class="section research-section">
+            <h2>Understanding Tail-Risk Prediction</h2>
+            <p>A central research question is whether low-return trajectories imagined by the learned world model
+                correspond to genuinely risky behavior when the policy is executed in closed loop. A useful risk
+                signal must preserve that relationship rather than merely identify artifacts of model prediction.</p>
+            <div class="tail-risk-flow" role="img"
+                aria-label="Conceptual comparison from an imagined trajectory and predicted tail outcome to the corresponding real closed-loop outcome">
+                <div class="soccer-diagram-node">Imagined trajectory</div>
+                <div class="soccer-diagram-arrow" aria-hidden="true">&darr;</div>
+                <div class="soccer-diagram-node risk-tail-node">Predicted tail outcome</div>
+                <div class="soccer-diagram-arrow" aria-hidden="true">&darr;</div>
+                <div class="soccer-diagram-node soccer-compare-node">Compare</div>
+                <div class="soccer-diagram-arrow" aria-hidden="true">&darr;</div>
+                <div class="soccer-diagram-node">Real closed-loop outcome</div>
             </div>
         </section>
 
@@ -229,20 +246,21 @@
 
         <section class="section research-section">
             <h2>Current Research Questions</h2>
-            <ul class="simple-list soccer-question-list">
-                <li>How should a high-level world-model policy coordinate specialized locomotion skills?</li>
-                <li>How does iterative self-play affect competitive strategy and skill selection?</li>
-                <li>When are imagined tail-risk estimates predictive of real closed-loop risk?</li>
-                <li>How does world-model error on rare failure dynamics affect risk-sensitive policy learning?</li>
-                <li>How can these policies transfer reliably from simulation to a physical quadruped?</li>
-            </ul>
+            <ol class="simple-list soccer-question-list">
+                <li><strong>Risk-aware imagination:</strong> When do lower-tail outcomes predicted by a learned world
+                    model correspond to real closed-loop failures?</li>
+                <li><strong>Competitive adaptation:</strong> How does iterative self-play influence strategy and skill
+                    selection?</li>
+                <li><strong>Sim-to-real transfer:</strong> How reliably can the hierarchical policy transfer from
+                    Isaac Sim to the physical Unitree Go2?</li>
+            </ol>
         </section>
 
         <section class="section section-compact">
             <div class="callout soccer-ongoing-callout">
-                <h3>Ongoing Research</h3>
-                <p>Training and evaluation are ongoing. The comparison above is a current aggregate performance
-                    snapshot. All reported results are simulation-only; hardware evaluation remains future work.</p>
+                <h3>Ongoing Work</h3>
+                <p>Simulation experiments are ongoing. Hardware evaluation on the Unitree Go2 is planned. Detailed
+                    algorithmic and implementation information is withheld while the work is in progress.</p>
             </div>
             <div class="btn-row soccer-back-row">
                 <a class="btn-link" href="../index.html#research">&larr; Back to Home</a>

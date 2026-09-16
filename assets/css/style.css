@@ -1129,37 +1129,93 @@ a.btn-link:hover {
     margin-top: -10.05%;
 }
 
-.soccer-training-table-title,
-.soccer-training-results-wrap {
-    max-width: 680px;
-    margin-left: auto;
-    margin-right: auto;
-}
-
-.soccer-training-table-title {
-    margin-top: 24px;
-    margin-bottom: 8px;
-}
-
-.soccer-training-results-wrap {
-    margin-top: 8px;
-    max-width: 460px;
-}
-
-.soccer-training-results-table {
-    min-width: 0;
-}
-
-.soccer-training-results-table th,
-.soccer-training-results-table td {
-    white-space: nowrap;
-}
-
 .soccer-training-note {
     max-width: 680px;
-    margin: 8px auto 0;
+    margin: 18px auto 0;
     color: var(--grey-light);
     font-size: 0.86em;
+}
+
+.self-play-ladder,
+.risk-learning-flow,
+.tail-risk-flow {
+    margin: 24px auto;
+    padding: 24px;
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    background: var(--surface);
+}
+
+.self-play-ladder {
+    max-width: 500px;
+}
+
+.risk-learning-flow {
+    max-width: 680px;
+}
+
+.tail-risk-flow {
+    max-width: 520px;
+}
+
+.risk-objective-grid {
+    display: grid;
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    gap: 22px;
+}
+
+.risk-tail-node {
+    border-color: var(--accent);
+    background: color-mix(in srgb, var(--surface) 78%, var(--accent) 22%);
+}
+
+.soccer-compare-node {
+    border-style: dashed;
+    color: var(--accent);
+    font-weight: 600;
+}
+
+.soccer-primary-section {
+    margin-top: 32px;
+    margin-bottom: 32px;
+    padding: 38px 32px;
+    border: 1px solid var(--border);
+    border-left: 4px solid var(--accent);
+    border-radius: 12px;
+    background: linear-gradient(135deg, var(--surface), var(--card));
+}
+
+.cvar-equation {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-wrap: wrap;
+    gap: 14px;
+    max-width: 720px;
+    margin: 24px auto 8px;
+    padding: 20px;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    background: var(--card);
+    color: var(--navy-dark);
+    font-family: Georgia, 'Times New Roman', serif;
+    font-size: 1.5em;
+}
+
+.equation-equals {
+    color: var(--accent);
+}
+
+.equation-caption {
+    margin: 0 auto 24px;
+    color: var(--grey-light);
+    font-size: 0.88em;
+    text-align: center;
+}
+
+.preliminary-label {
+    color: var(--navy-dark);
+    font-weight: 600;
 }
 
 .soccer-performance-grid {
@@ -1195,7 +1251,7 @@ a.btn-link:hover {
 }
 
 .soccer-results-table {
-    min-width: 780px;
+    min-width: 690px;
 }
 
 .soccer-results-table th,
@@ -1261,22 +1317,6 @@ a.btn-link:hover {
     gap: 22px;
 }
 
-.world-model-pipeline {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    gap: 10px;
-    margin: 24px auto 8px;
-}
-
-.world-model-pipeline {
-    max-width: 1040px;
-}
-
-.world-model-pipeline .soccer-diagram-node {
-    flex: 1;
-}
-
 .soccer-question-list li {
     margin-bottom: 9px;
 }
@@ -1317,22 +1357,23 @@ a.btn-link:hover {
         padding: 18px;
     }
 
-    .world-model-pipeline {
-        flex-direction: column;
-    }
-
-    .world-model-pipeline .soccer-diagram-node {
-        flex: none;
-        width: 100%;
-        box-sizing: border-box;
-    }
-
-    .soccer-diagram-arrow.horizontal {
-        transform: rotate(90deg);
-    }
-
     .soccer-performance-grid {
         grid-template-columns: 1fr;
+    }
+
+    .soccer-primary-section {
+        padding: 30px 20px;
+    }
+
+    .self-play-ladder,
+    .risk-learning-flow,
+    .tail-risk-flow {
+        padding: 18px;
+    }
+
+    .cvar-equation {
+        padding: 16px;
+        font-size: 1.25em;
     }
 
     .table-scroll-hint {
