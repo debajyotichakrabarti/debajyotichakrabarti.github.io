@@ -1,0 +1,208 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@200;300;400;600;700;900&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="../assets/css/style.css" />
+    <title>EMG Keystroke Decoding — Debajyoti Chakrabarti</title>
+    <link rel="icon" type="image/x-icon" href="../assets/images/ucla.ico">
+</head>
+
+<body>
+    <header id="header">
+        <nav class="container nav">
+            <a href="../index.html">&larr; Back to Home</a>
+        </nav>
+    </header>
+
+    <main class="container research-main">
+        <!-- HERO -->
+        <section class="section" style="padding-top: 48px; padding-bottom: 24px;">
+            <h1 style="font-size: 1.7em; margin: 0 0 10px 0; line-height: 1.3;">Predicting Keystrokes from
+                Electromyography Signals</h1>
+            <p class="sub-role" style="margin-bottom: 14px;">Peike Li, Wenxuan Karen Li, <a
+                    href="../index.html#about">Debajyoti Chakrabarti</a>, Qizhao Chen</p>
+            <div class="feature-heading">
+                <span class="badge badge-course">UCLA Course Project &middot; 2026</span>
+            </div>
+            <div class="tag-row" style="margin-top: 12px;">
+                <span class="tag">EMG</span>
+                <span class="tag">Sequence Modeling</span>
+                <span class="tag">LSTM</span>
+                <span class="tag">Transformers</span>
+                <span class="tag">CTC</span>
+                <span class="tag">PyTorch</span>
+            </div>
+            <div class="btn-row" style="margin-top: 20px;">
+                <a href="#" class="btn-link disabled"
+                    title="Add assets/docs/projects/emg_keystrokes/report.pdf to enable"
+                    onclick="alert('Coming soon'); return false;">Report</a>
+                <a class="btn-link" href="https://github.com/practice-lab-ucla/c247a" target="_blank"
+                    rel="noopener">Code</a>
+                <a class="btn-link" href="../index.html#projects">&larr; Back to Home</a>
+            </div>
+        </section>
+
+        <div class="divider"></div>
+
+        <!-- OVERVIEW -->
+        <section id="overview" class="section research-section">
+            <h2>Overview</h2>
+            <p>Surface electromyography (sEMG) contains muscle-activity signals that can be used to infer typed
+                keystrokes without a physical keyboard. We studied neural sequence models for decoding keystroke
+                sequences from multichannel EMG recordings, focusing on architectures that can capture temporal
+                dependencies in noisy high-dimensional signals.</p>
+            <p>We compared a CNN baseline with LSTM and Transformer-based models and then studied how
+                performance changes with training-data availability, electrode density, data augmentation, and
+                temporal sampling rate.</p>
+        </section>
+
+        <div class="divider"></div>
+
+        <!-- MODELS -->
+        <section id="models" class="section research-section">
+            <h2>Sequence Models for EMG Decoding</h2>
+            <p><strong>LSTM:</strong></p>
+            <ul class="simple-list" style="margin-bottom: 16px;">
+                <li>Processes multichannel EMG sequences temporally</li>
+                <li>MLP feature projection</li>
+                <li>Stacked LSTM layers</li>
+                <li>CTC loss for sequence alignment</li>
+            </ul>
+            <p><strong>Transformer:</strong></p>
+            <ul class="simple-list">
+                <li>Positional encoding</li>
+                <li>Self-attention over temporal features</li>
+                <li>CTC output</li>
+                <li>Also tested a temporal-convolution (TDSConv) + Transformer variant</li>
+            </ul>
+        </section>
+
+        <div class="divider"></div>
+
+        <!-- MAIN RESULT -->
+        <section id="results" class="section research-section">
+            <h2>Model Performance</h2>
+            <figure class="research-figure figure-medium">
+                <img src="../assets/images/projects/emg_keystrokes/model_comparison.png" class="card-image"
+                    alt="Bar chart comparing test character error rate: 23.21% for the CNN baseline versus 12.06% for the LSTM model." />
+                <figcaption class="figure-caption">Test character error rate across evaluated model
+                    architectures. Lower is better.</figcaption>
+            </figure>
+            <div class="results-table-wrap">
+                <table class="results-table">
+                    <thead>
+                        <tr>
+                            <th>Method</th>
+                            <th>Test CER (%)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Baseline (CNN)</td>
+                            <td>23.21</td>
+                        </tr>
+                        <tr>
+                            <td>LSTM (RNN)</td>
+                            <td class="highlight">12.06</td>
+                        </tr>
+                        <tr>
+                            <td>Transformer (no downsampling)</td>
+                            <td>38.08</td>
+                        </tr>
+                        <tr>
+                            <td>Transformer-only</td>
+                            <td>100.00</td>
+                        </tr>
+                        <tr>
+                            <td>TDSConv + Transformer</td>
+                            <td>30.69</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <p>Under this dataset and training setup, the LSTM generalized best. This does not imply that
+                Transformer architectures are generally worse for EMG decoding &mdash; only that, among the
+                configurations tested here, the LSTM achieved the lowest test CER.</p>
+        </section>
+
+        <div class="divider"></div>
+
+        <!-- ABLATIONS -->
+        <section id="ablations" class="section research-section">
+            <h2>What Affected Decoding Performance?</h2>
+            <figure class="research-figure">
+                <img src="../assets/images/projects/emg_keystrokes/lstm_ablations.png" class="card-image"
+                    alt="Four-panel figure: model comparison, test CER vs. training-data size, vs. number of channels, and vs. sampling rate." />
+                <figcaption class="figure-caption">Evaluation of the LSTM-based model under different
+                    experimental settings.</figcaption>
+            </figure>
+            <ul class="simple-list" style="margin-top: 16px;">
+                <li><strong>Training data:</strong> performance degrades significantly as the available training
+                    set becomes smaller</li>
+                <li><strong>Electrode density:</strong> reducing from 32 to 16 channels causes only a modest
+                    degradation, while reducing to 8 channels degrades performance more strongly</li>
+                <li><strong>Sampling frequency:</strong> an intermediate sampling rate performed best in the
+                    tested configuration</li>
+                <li><strong>Augmentation:</strong> moderate augmentation improved generalization, while excessive
+                    augmentation degraded performance</li>
+            </ul>
+        </section>
+
+        <div class="divider"></div>
+
+        <!-- TRAINING BEHAVIOR -->
+        <section id="training" class="section research-section">
+            <h2>Training Behavior</h2>
+            <figure class="research-figure">
+                <img src="../assets/images/projects/emg_keystrokes/training_curves.png" class="card-image"
+                    alt="Training and validation CER curves across the evaluated architectures." />
+                <figcaption class="figure-caption">Training and validation CER across the evaluated
+                    architectures.</figcaption>
+            </figure>
+            <p>The LSTM showed the strongest validation behavior and the smallest generalization gap among the
+                tested sequence models.</p>
+        </section>
+
+        <div class="divider"></div>
+
+        <!-- KEY TAKEAWAY -->
+        <section id="takeaway" class="section research-section">
+            <h2>Key Takeaway</h2>
+            <div class="callout">
+                <p style="margin: 0 0 16px 0; font-style: italic; color: var(--navy-dark);">Temporal structure
+                    mattered more than model complexity: under this dataset and training setup, the LSTM
+                    substantially outperformed the CNN baseline and the tested Transformer variants.</p>
+                <ul>
+                    <li>LSTM reduced CER from 23.21% to 12.06%</li>
+                    <li>CTC enabled sequence-level keystroke decoding</li>
+                    <li>Performance depended strongly on training-data availability</li>
+                    <li>Moderate sensor reduction remained viable</li>
+                    <li>Sampling rate and augmentation had non-trivial effects on generalization</li>
+                </ul>
+            </div>
+        </section>
+
+        <div class="divider"></div>
+
+        <section class="section research-section" style="padding-top: 32px;">
+            <div class="btn-row">
+                <a href="#" class="btn-link disabled"
+                    title="Add assets/docs/projects/emg_keystrokes/report.pdf to enable"
+                    onclick="alert('Coming soon'); return false;">Report</a>
+                <a class="btn-link" href="https://github.com/practice-lab-ucla/c247a" target="_blank"
+                    rel="noopener">Code</a>
+                <a class="btn-link" href="../index.html#projects">&larr; Back to Home</a>
+            </div>
+        </section>
+    </main>
+
+    <footer class="container footer">
+        <p>&copy; 2026 Debajyoti Chakrabarti</p>
+    </footer>
+</body>
+
+</html>

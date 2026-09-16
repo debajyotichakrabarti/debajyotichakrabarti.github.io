@@ -221,10 +221,8 @@
                 </article>
 
                 <article class="project-card">
-                    <div class="img-placeholder" role="img"
-                        aria-label="Placeholder for EMG keystroke decoding figure">
-                        <span>Image coming soon</span>
-                    </div>
+                    <img src="assets/images/projects/emg_keystrokes/card_model_comparison.png" class="card-image"
+                        alt="Bar chart comparing test character error rate: 23.21% for the CNN baseline versus 12.06% for the LSTM model" />
                     <div class="project-card-body">
                         <h3>Predicting Keystrokes from Electromyography Signals</h3>
                         <p class="status-line">Course Project &middot; 2026</p>
@@ -234,11 +232,20 @@
                             <span class="tag">Transformers</span>
                             <span class="tag">CTC</span>
                         </div>
-                        <p>Built LSTM and Transformer-based sequence models for EMG-to-keystroke decoding using
-                            CTC training.</p>
-                        <p>Reduced test character error rate from 23.21% for the CNN baseline to 12.06% with an
-                            LSTM, with additional studies on training-data scale, sensor density, augmentation,
-                            and sampling frequency.</p>
+                        <p>Developed sequence models for EMG-to-keystroke decoding using LSTMs,
+                            Transformer-based architectures, and CTC training.</p>
+                        <p>The best LSTM model reduced test character error rate from 23.21% for the CNN
+                            baseline to 12.06%, with additional studies on training-data scale, electrode count,
+                            augmentation, and sampling frequency.</p>
+                        <div class="stat-compare">
+                            <div class="stat-row"><span class="stat-label">CNN baseline</span><span
+                                    class="stat-value">23.21% CER</span></div>
+                            <div class="stat-row"><span class="stat-label">LSTM</span><span
+                                    class="stat-value stat-highlight">12.06% CER</span></div>
+                        </div>
+                        <div class="btn-row" style="margin-top: 10px;">
+                            <a class="btn-link" href="projects/emg-keystrokes.html">Project</a>
+                        </div>
                     </div>
                 </article>
             </div>
