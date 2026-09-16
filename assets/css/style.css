@@ -1008,16 +1008,22 @@ a.btn-link:hover {
 }
 
 .slosh-model-pair .research-figure:first-child {
-    flex: 0.7;
+    flex: 0 1 300px;
+    max-width: 300px;
+}
+
+.slosh-model-pair {
+    justify-content: center;
 }
 
 .slosh-model-pair .research-figure:last-child {
-    flex: 1.3;
+    flex: 0 1 480px;
+    max-width: 480px;
 }
 
 .slosh-equation-figure {
-    margin: 22px 0 0;
-    max-width: 560px;
+    margin: 22px auto 28px;
+    max-width: 460px;
 }
 
 .isro-mission-row {
