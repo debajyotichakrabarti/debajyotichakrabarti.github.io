@@ -1045,6 +1045,12 @@ a.btn-link:hover {
     margin-bottom: 16px;
 }
 
+.equal-contribution-note {
+    margin-top: 8px;
+    color: var(--grey-light);
+    font-size: 0.88em;
+}
+
 @media (max-width: 800px) {
     .isro-hero-grid {
         grid-template-columns: 1fr;
