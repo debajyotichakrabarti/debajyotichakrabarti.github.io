@@ -119,10 +119,15 @@
 
         <section id="gnc" class="section research-section">
             <h2>From Powered-Descent GNC to Real-Time Retargeting</h2>
-            <p>A safe, soft landing must survive navigation error, thrust dispersion, and uncertainty in the lander
-                state. The guidance design therefore grows in three layers: <strong>G1</strong> provides the nominal
-                descent, <strong>G2</strong> increases its robustness by adapting the remaining flight time, and
-                <strong>G3</strong> adds retargeting when the original site cannot be reached safely.</p>
+            <p>Fine braking is the critical bridge between high-speed braking and terminal descent: it must deliver
+                the lander to the final approach corridor with tightly controlled position and velocity. During the
+                preceding attitude-hold phase, the navigation sensors provide an updated state estimate. That update,
+                together with large propulsion dispersion, can place the lander at a fine-braking start state from
+                which the nominal guidance law can no longer reach the selected landing site.</p>
+            <p>We therefore added robustness layer by layer. <strong>G1</strong> is the nominal analytical guidance;
+                <strong>G2</strong> computes time-to-go onboard from the dispersed start state; and, if no feasible
+                time-to-go can recover the nominal site, <strong>G3</strong> shifts the target to a nearby reachable
+                location for a safe, soft landing.</p>
 
             <figure class="research-figure isro-component-figure isro-robustness-figure">
                 <img src="../assets/images/isro/retargeting_components/guidance_robustness_layers.png"
@@ -134,29 +139,11 @@
                 </div>
             </figure>
 
-            <h3>G1 &middot; Nominal powered-descent guidance</h3>
-            <p>The base policy models the lander&rsquo;s motion and seeks a fuel-efficient path while respecting thrust,
-                attitude, mass, and touchdown constraints.</p>
-            <div class="figure-pair isro-component-pair">
-                <figure class="research-figure equation-figure isro-dynamics-figure">
-                    <img src="../assets/images/isro/retargeting_components/pdg_dynamics.png" class="card-image"
-                        alt="Lander translational dynamics and mass-depletion equations" />
-                    <figcaption class="figure-caption caption-nowrap">Translational dynamics, thrust acceleration,
-                        and mass depletion.</figcaption>
-                </figure>
-                <figure class="research-figure equation-figure isro-fopdg-figure">
-                    <img src="../assets/images/isro/retargeting_components/pdg_optimization.png" class="card-image"
-                        alt="Fuel-optimal powered-descent objective and constraints" />
-                    <figcaption class="figure-caption caption-nowrap">Fuel-optimal descent with thrust, attitude,
-                        mass, and boundary constraints.</figcaption>
-                </figure>
-            </div>
-
             <h3>G2 &middot; Increase robustness with time-to-go</h3>
-            <p>A fixed descent time can lose efficiency or convergence after dispersion. Offline simulations try
-                candidate time-to-go values for many fine-braking states, retain the feasible trajectories, and select
-                the value with the highest terminal mass. A compact state-dependent policy then supplies that value
-                onboard.</p>
+            <p>The appropriate time-to-go depends on the actual state at fine-braking start. Offline, candidate values
+                are simulated for dispersed initial states; only converged, constraint-satisfying trajectories are
+                retained, and the value with maximum terminal mass is selected. A compact state-to-time-to-go map then
+                evaluates this logic onboard in real time.</p>
             <div class="figure-pair isro-equation-pair isro-base-equations">
                 <figure class="research-figure equation-figure">
                     <img src="../assets/images/isro/polynomial_guidance_law.png" class="card-image"
@@ -182,12 +169,15 @@
             </figure>
 
             <h3>G3 &middot; Check feasibility and retarget</h3>
-            <p>Offline rollouts learn a conservative boundary between states that can and cannot reach the target. A
-                compact reduced state makes the onboard test inexpensive.</p>
-            <figure class="research-figure isro-equation-wide isro-reduced-state-figure equation-figure">
-                <img src="../assets/images/isro/boundary_feature_map.png" class="card-image"
-                    alt="Reduced descent state, quadratic feature vector, and controllability classifier" />
-                <figcaption class="figure-caption caption-nowrap">Compact state and boundary function.</figcaption>
+            <p>Our key innovation was an offline-learned <strong>maximum-margin classifier</strong> separating
+                controllable and uncontrollable states, followed by a conservative zero-loss correction so that an
+                uncontrollable state is not declared safe. Onboard feasibility checking then reduces to evaluating
+                this compact boundary.</p>
+            <figure class="research-figure isro-component-figure isro-classifier-figure">
+                <img src="../assets/images/isro/controllability_boundary.png" class="card-image"
+                    alt="Maximum-margin classifier and conservative zero-loss controllability boundary" />
+                <figcaption class="figure-caption caption-nowrap">Maximum-margin classifier and conservative
+                    zero-loss boundary.</figcaption>
             </figure>
 
             <p>If the current state is outside the feasible region, the landing target is shifted to the nearest point
