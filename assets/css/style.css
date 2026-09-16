@@ -1115,7 +1115,7 @@ a.btn-link:hover {
 
 .soccer-training-crop {
     width: 100%;
-    aspect-ratio: 398 / 300;
+    aspect-ratio: 398 / 260;
     overflow: hidden;
     border: 1px solid var(--border);
     border-radius: 8px;
@@ -1126,6 +1126,7 @@ a.btn-link:hover {
     display: block;
     width: 100%;
     height: auto;
+    margin-top: -10.05%;
 }
 
 .soccer-training-table-title,
