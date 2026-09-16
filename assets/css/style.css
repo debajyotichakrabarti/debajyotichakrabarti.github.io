@@ -882,6 +882,74 @@ a.btn-link:hover {
     max-width: 820px;
 }
 
+.research-main.compact-sections .research-section > .research-figure.isro-development-flow {
+    max-width: 720px;
+    margin-top: 14px;
+    margin-bottom: 8px;
+}
+
+.isro-development-flow + h3 {
+    margin-top: 4px;
+}
+
+.isro-component-pair.figure-pair .research-figure.isro-dynamics-figure {
+    flex: 0 1 440px;
+    max-width: 440px;
+}
+
+.isro-component-pair.figure-pair .research-figure.isro-fopdg-figure {
+    flex: 0 1 600px;
+    max-width: 600px;
+}
+
+.isro-dynamics-figure .card-image {
+    max-width: 220px;
+    margin: 0 auto;
+}
+
+.isro-fopdg-figure .card-image {
+    max-width: 390px;
+    margin: 0 auto;
+}
+
+.isro-base-equations.figure-pair {
+    justify-content: center;
+}
+
+.isro-base-equations.figure-pair .research-figure {
+    flex: 0 1 450px;
+    max-width: 450px;
+}
+
+.isro-base-equations.figure-pair .research-figure.isro-tgo-figure {
+    flex-basis: 450px;
+    max-width: 450px;
+}
+
+.isro-tgo-figure .card-image {
+    max-width: 390px;
+    margin: 0 auto;
+}
+
+.research-figure.isro-equation-compact {
+    max-width: 610px;
+}
+
+.research-figure.isro-levelset-figure {
+    max-width: 520px;
+}
+
+.isro-component-pair .equation-figure .card-image,
+.isro-base-equations .equation-figure .card-image,
+.isro-equation-wide.equation-figure .card-image {
+    border: 0;
+}
+
+.caption-nowrap {
+    white-space: nowrap;
+    font-size: 0.8em;
+}
+
 .isro-story-grid,
 .isro-analysis-grid {
     margin-top: 28px;
@@ -983,6 +1051,10 @@ a.btn-link:hover {
     .isro-content-grid {
         grid-template-columns: 1fr;
         gap: 18px;
+    }
+
+    .caption-nowrap {
+        white-space: normal;
     }
 }
 

@@ -146,11 +146,11 @@
                         time-to-go and finally retargeting.</figcaption>
                 </figure>
             </div>
-            <figure class="research-figure isro-flow-figure">
+            <figure class="research-figure isro-flow-figure isro-development-flow">
                 <img src="../assets/images/isro/retargeting_components/guidance_development_flow.png"
                     class="card-image" alt="Flow from offline trajectory rollouts to time-to-go and controllability-boundary learning, followed by onboard computation and retargeting" />
-                <figcaption class="figure-caption">Offline trajectory rollouts produce the compact models used for
-                    onboard time-to-go computation and retargeting.</figcaption>
+                <figcaption class="figure-caption caption-nowrap">Offline rollouts produce compact models for
+                    onboard time-to-go and retargeting.</figcaption>
             </figure>
 
             <h3>Why a feasibility and retargeting layer is needed</h3>
@@ -187,16 +187,16 @@
                 <li>The analytical base guidance policy approximates fuel-optimal powered-descent guidance.</li>
             </ul>
             <div class="figure-pair isro-component-pair">
-                <figure class="research-figure equation-figure">
+                <figure class="research-figure equation-figure isro-dynamics-figure">
                     <img src="../assets/images/isro/retargeting_components/pdg_dynamics.png" class="card-image"
                         alt="Lander translational dynamics and mass-depletion equations" />
-                    <figcaption class="figure-caption">Translational dynamics, thrust acceleration, and mass
-                        depletion.</figcaption>
+                    <figcaption class="figure-caption caption-nowrap">Translational dynamics, thrust acceleration,
+                        and mass depletion.</figcaption>
                 </figure>
-                <figure class="research-figure equation-figure">
+                <figure class="research-figure equation-figure isro-fopdg-figure">
                     <img src="../assets/images/isro/retargeting_components/pdg_optimization.png" class="card-image"
                         alt="Fuel-optimal powered-descent objective and constraints" />
-                    <figcaption class="figure-caption">Fuel-optimal powered-descent problem with thrust, attitude,
+                    <figcaption class="figure-caption caption-nowrap">Fuel-optimal descent with thrust, attitude,
                         mass, and boundary constraints.</figcaption>
                 </figure>
             </div>
@@ -213,16 +213,16 @@
                     dataset.</li>
                 <li>Formulate onboard time-to-go as a function of the measured fine-braking start state.</li>
             </ul>
-            <div class="figure-pair isro-equation-pair">
+            <div class="figure-pair isro-equation-pair isro-base-equations">
                 <figure class="research-figure equation-figure">
                     <img src="../assets/images/isro/polynomial_guidance_law.png" class="card-image"
                         alt="Cubic polynomial acceleration law used by the base guidance policy" />
                     <figcaption class="figure-caption">Analytical cubic acceleration command.</figcaption>
                 </figure>
-                <figure class="research-figure equation-figure">
+                <figure class="research-figure equation-figure isro-tgo-figure">
                     <img src="../assets/images/isro/time_to_go_policy.png" class="card-image"
                         alt="Learned time-to-go policy based on altitude, downrange, velocity, and the offline dataset" />
-                    <figcaption class="figure-caption">State-dependent onboard time-to-go policy.</figcaption>
+                    <figcaption class="figure-caption caption-nowrap">State-dependent onboard time-to-go policy.</figcaption>
                 </figure>
             </div>
 
@@ -235,7 +235,7 @@
                 <li><strong>Retargeting condition:</strong> if the current state lies outside the nominal controllable
                     set, shift the desired landing state.</li>
             </ul>
-            <figure class="research-figure isro-equation-wide equation-figure">
+            <figure class="research-figure isro-equation-wide isro-equation-compact equation-figure">
                 <img src="../assets/images/isro/reachability_retargeting.png" class="card-image"
                     alt="Mathematical definitions of the controllable set and retargeting condition" />
                 <figcaption class="figure-caption">The controllable-set definition and retargeting condition.</figcaption>
@@ -261,7 +261,8 @@
             <figure class="research-figure isro-equation-wide equation-figure">
                 <img src="../assets/images/isro/boundary_feature_map.png" class="card-image"
                     alt="Reduced descent state, quadratic feature vector, and controllability classifier" />
-                <figcaption class="figure-caption">Reduced state, quadratic feature map, and decision function.</figcaption>
+                <figcaption class="figure-caption caption-nowrap">Reduced state, quadratic feature map, and decision
+                    function.</figcaption>
             </figure>
 
             <p>The boundary coefficients are solved offline with two-level optimization. Level 1 learns a
@@ -273,11 +274,11 @@
                 <figcaption class="figure-caption">Offline two-level optimization: maximum margin followed by a
                     zero-loss correction.</figcaption>
             </figure>
-            <figure class="research-figure isro-equation-wide equation-figure">
+            <figure class="research-figure isro-equation-wide isro-levelset-figure equation-figure">
                 <img src="../assets/images/isro/retargeting_components/boundary_set_equations.png"
                     class="card-image" alt="Equations defining the controllability boundary and controllable set" />
-                <figcaption class="figure-caption">The fitted zero level-set defines the boundary; positive values
-                    define the controllable set.</figcaption>
+                <figcaption class="figure-caption caption-nowrap">Zero level-set: boundary at zero; controllable set
+                    for positive values.</figcaption>
             </figure>
 
             <h3>Real-time retargeting by boundary projection</h3>
