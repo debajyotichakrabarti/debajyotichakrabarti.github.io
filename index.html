@@ -163,10 +163,8 @@
             <h2>Selected Robotics &amp; Learning Projects</h2>
             <div class="project-grid">
                 <article class="project-card">
-                    <div class="img-placeholder" role="img"
-                        aria-label="Placeholder for adaptive safety shielding figure">
-                        <span>Image coming soon</span>
-                    </div>
+                    <img src="assets/images/projects/adaptive_shielding/card_results.png" class="card-image"
+                        alt="Comparison of low-disturbance BRT, switching BRT, and hierarchical BRT safety shielding methods" />
                     <div class="project-card-body">
                         <h3>Adaptive Safety Shielding for Goal-Directed Navigation under Exogenous Disturbance</h3>
                         <p class="status-line">Course Research Project &middot; 2026</p>
@@ -176,15 +174,20 @@
                             <span class="tag">PPO</span>
                             <span class="tag">Safety Filters</span>
                         </div>
-                        <p>Combined a nominal PPO navigation policy with an offline bank of Hamilton-Jacobi
-                            back-reachable-tube safety certificates and online disturbance-bound estimation.</p>
-                        <p>Designed adaptive certificate selection and hierarchical fallback for safety under
-                            distribution shift.</p>
+                        <p>Combined a nominal PPO navigation policy with offline Hamilton-Jacobi reachability
+                            certificates and online disturbance estimation to adapt the safety shield during
+                            deployment.</p>
+                        <p>Under shifted obstacles and time-varying disturbance, vanilla PPO achieved 58% success
+                            / 42% collision, while hierarchical adaptive shielding achieved 100% success / 0%
+                            collision.</p>
                         <div class="stat-compare">
                             <div class="stat-row"><span class="stat-label">Vanilla PPO</span><span
                                     class="stat-value">58% success / 42% collision</span></div>
                             <div class="stat-row"><span class="stat-label">Adaptive shielding</span><span
                                     class="stat-value stat-highlight">100% success / 0% collision</span></div>
+                        </div>
+                        <div class="btn-row" style="margin-top: 10px;">
+                            <a class="btn-link" href="projects/adaptive-safety-shielding.html">Project</a>
                         </div>
                     </div>
                 </article>

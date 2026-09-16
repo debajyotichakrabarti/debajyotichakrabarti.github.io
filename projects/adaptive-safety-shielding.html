@@ -1,0 +1,222 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@200;300;400;600;700;900&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="../assets/css/style.css" />
+    <title>Adaptive Safety Shielding — Debajyoti Chakrabarti</title>
+    <link rel="icon" type="image/x-icon" href="../assets/images/ucla.ico">
+</head>
+
+<body>
+    <header id="header">
+        <nav class="container nav">
+            <a href="../index.html">&larr; Back to Home</a>
+        </nav>
+    </header>
+
+    <main class="container research-main">
+        <!-- HERO -->
+        <section class="section" style="padding-top: 48px; padding-bottom: 24px;">
+            <h1 style="font-size: 1.7em; margin: 0 0 10px 0; line-height: 1.25;">Adaptive Safety Shielding for
+                Goal-Directed Navigation under Exogenous Disturbance</h1>
+            <p class="sub-role" style="margin-bottom: 14px;"><a href="../index.html#about">Debajyoti
+                    Chakrabarti</a>, Shawn Yuxuan Dong</p>
+            <div class="feature-heading">
+                <span class="badge badge-course">UCLA M237 Course Research Project &middot; Spring 2026</span>
+            </div>
+            <div class="tag-row" style="margin-top: 12px;">
+                <span class="tag">Safe RL</span>
+                <span class="tag">Hamilton-Jacobi Reachability</span>
+                <span class="tag">PPO</span>
+                <span class="tag">Safety Filters</span>
+                <span class="tag">Adaptive Control</span>
+            </div>
+            <div class="btn-row" style="margin-top: 20px;">
+                <a href="#" class="btn-link disabled"
+                    title="Add assets/docs/projects/adaptive_shielding/report.pdf to enable"
+                    onclick="alert('Coming soon'); return false;">Report</a>
+                <a href="#" class="btn-link disabled"
+                    title="Add assets/docs/projects/adaptive_shielding/presentation.pptx to enable"
+                    onclick="alert('Coming soon'); return false;">Presentation</a>
+                <a class="btn-link" href="../index.html#projects">&larr; Back to Home</a>
+            </div>
+        </section>
+
+        <div class="divider"></div>
+
+        <!-- OVERVIEW -->
+        <section id="overview" class="section research-section">
+            <h2>Overview</h2>
+            <p>Learning-based navigation policies can be efficient in nominal conditions but may become unsafe
+                when obstacles or disturbances differ from training. We combine a PPO navigation policy with an
+                offline bank of Hamilton-Jacobi backward-reachable-tube (BRT) safety certificates. At runtime, a
+                moving-window estimator tracks the active disturbance level, selects an appropriate certificate,
+                and overrides the learned policy near the certified safety boundary.</p>
+            <p>The main question is whether safety certificates can be adapted online as disturbance conditions
+                change without solving a new Hamilton-Jacobi PDE during deployment.</p>
+            <figure class="research-figure figure-medium">
+                <img src="../assets/images/projects/adaptive_shielding/problem_setup.png" class="card-image"
+                    alt="Goal-directed navigation under time-varying disturbance: the PPO policy drives the vehicle toward the goal while the safety shield prevents unsafe actions near obstacles." />
+                <figcaption class="figure-caption">Goal-directed navigation under time-varying disturbance. The
+                    PPO policy drives the vehicle toward the goal, while the safety shield prevents unsafe actions
+                    near obstacles.</figcaption>
+            </figure>
+        </section>
+
+        <div class="divider"></div>
+
+        <!-- METHOD -->
+        <section id="method" class="section research-section">
+            <h2>Adaptive Reachability-Based Shielding</h2>
+            <p><strong>Offline:</strong></p>
+            <ul class="simple-list" style="margin-bottom: 16px;">
+                <li>Precompute HJ/BRT safety certificates for several disturbance bounds</li>
+                <li>Store the associated safe sets and safety actions</li>
+            </ul>
+            <p><strong>Online:</strong></p>
+            <ul class="simple-list">
+                <li>Estimate the current disturbance bound from recent samples</li>
+                <li>Select the smallest precomputed BRT that covers the estimate</li>
+                <li>Allow PPO actions inside the certified region</li>
+                <li>Override PPO near the safety boundary</li>
+                <li>Use hierarchical fallback when the selected conservative certificate becomes infeasible</li>
+            </ul>
+            <p style="margin-top: 16px;">Each BRT certificate provides a safety guarantee under its corresponding
+                assumed disturbance bound; the hierarchical fallback is a practical recovery mechanism for when
+                certificate selection is momentarily too conservative, not an independent formal guarantee.</p>
+
+            <figure class="research-figure">
+                <img src="../assets/images/projects/adaptive_shielding/runtime_architecture.png" class="card-image"
+                    alt="Runtime shielding architecture: PPO policy, safety shield / filter bank, vehicle dynamics, disturbance estimator, and BRT bank selector." />
+                <figcaption class="figure-caption">Runtime architecture: the PPO policy, safety filter bank,
+                    vehicle dynamics, disturbance estimator, and BRT bank selector.</figcaption>
+            </figure>
+
+            <div class="twocol-grid" style="margin-top: 8px;">
+                <div class="twocol-text">
+                    <p>Offline, we precompute BRT certificates for a range of disturbance bounds. Larger assumed
+                        disturbances produce more conservative certified safe sets, trading some performance for
+                        robustness margin.</p>
+                </div>
+                <div class="twocol-figure">
+                    <figure class="research-figure">
+                        <img src="../assets/images/projects/adaptive_shielding/brt_filter_bank.png"
+                            class="card-image"
+                            alt="Offline BRT certificates for different disturbance bounds; larger assumed disturbances produce more conservative certified safe sets." />
+                        <figcaption class="figure-caption">Offline BRT certificates for different disturbance
+                            bounds. Larger assumed disturbances produce more conservative certified safe
+                            sets.</figcaption>
+                    </figure>
+                </div>
+            </div>
+        </section>
+
+        <div class="divider"></div>
+
+        <!-- RESULTS -->
+        <section id="results" class="section research-section">
+            <h2>Deployment-Shift Results</h2>
+            <p>The nominal PPO policy was trained for goal reaching with obstacle avoidance. Under shifted
+                obstacle locations and time-varying disturbance:</p>
+            <div class="results-table-wrap">
+                <table class="results-table">
+                    <thead>
+                        <tr>
+                            <th>Method</th>
+                            <th>Success</th>
+                            <th>Collision</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Vanilla PPO</td>
+                            <td>58%</td>
+                            <td>42%</td>
+                        </tr>
+                        <tr>
+                            <td>PPO + fixed low BRT</td>
+                            <td>96%</td>
+                            <td>4%</td>
+                        </tr>
+                        <tr>
+                            <td>PPO + switching BRT</td>
+                            <td>90%</td>
+                            <td>10%</td>
+                        </tr>
+                        <tr>
+                            <td>PPO + hierarchical BRT</td>
+                            <td class="highlight">100%</td>
+                            <td class="highlight">0%</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <p>The hierarchical fallback achieved the strongest tested performance, but required more
+                safety-filter intervention than the fixed or switching BRT variants.</p>
+            <figure class="research-figure">
+                <img src="../assets/images/projects/adaptive_shielding/method_comparison.png" class="card-image"
+                    alt="Three-panel comparison of PPO with a single low-disturbance safety BRT, a switching safety BRT bank, and a hierarchical safety BRT bank." />
+                <figcaption class="figure-caption">PPO with a single low-disturbance safety BRT, a switching
+                    safety BRT bank, and a hierarchical safety BRT bank.</figcaption>
+            </figure>
+        </section>
+
+        <div class="divider"></div>
+
+        <!-- DISTURBANCE ESTIMATION -->
+        <section id="estimation" class="section research-section">
+            <h2>Online Disturbance Estimation</h2>
+            <p>A moving-window estimator tracks the time-varying disturbance magnitude and is used to select the
+                active BRT certificate.</p>
+            <figure class="research-figure figure-medium">
+                <img src="../assets/images/projects/adaptive_shielding/disturbance_estimator.png"
+                    class="card-image" alt="Online disturbance-bound estimator tracking the time-varying disturbance magnitude." />
+                <figcaption class="figure-caption">Online disturbance-bound estimator used to select the active
+                    BRT certificate.</figcaption>
+            </figure>
+        </section>
+
+        <div class="divider"></div>
+
+        <!-- KEY TAKEAWAY -->
+        <section id="takeaway" class="section research-section">
+            <h2>Key Takeaway</h2>
+            <div class="callout">
+                <p style="margin: 0 0 16px 0; font-style: italic; color: var(--navy-dark);">Adaptive shielding is
+                    not only about reducing collisions; it is about matching the safety certificate to the active
+                    disturbance level while keeping practical recovery feasible.</p>
+                <ul>
+                    <li>Learned PPO provides efficient goal-directed behavior</li>
+                    <li>Reachability certificates provide safety intervention</li>
+                    <li>Adaptive BRT selection responds to changing disturbance</li>
+                    <li>Hierarchical fallback avoids failures caused by overly conservative certificate
+                        selection</li>
+                </ul>
+            </div>
+        </section>
+
+        <div class="divider"></div>
+
+        <section class="section research-section" style="padding-top: 32px;">
+            <div class="btn-row">
+                <a href="#" class="btn-link disabled"
+                    title="Add assets/docs/projects/adaptive_shielding/report.pdf to enable"
+                    onclick="alert('Coming soon'); return false;">Report</a>
+                <a href="#" class="btn-link disabled"
+                    title="Add assets/docs/projects/adaptive_shielding/presentation.pptx to enable"
+                    onclick="alert('Coming soon'); return false;">Presentation</a>
+                <a class="btn-link" href="../index.html#projects">&larr; Back to Home</a>
+            </div>
+        </section>
+    </main>
+
+    <footer class="container footer">
+        <p>&copy; 2026 Debajyoti Chakrabarti</p>
+    </footer>
+</body>
+
+</html>
