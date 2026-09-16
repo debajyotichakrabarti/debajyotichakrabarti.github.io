@@ -873,6 +873,23 @@ a.btn-link:hover {
     background: #000;
 }
 
+.isro-gnc-flow .stage-card {
+    text-align: left;
+}
+
+.isro-gnc-foundation,
+.isro-boundary-pair {
+    margin: 24px 0 30px;
+    align-items: center;
+}
+
+.isro-gnc-foundation .card-image,
+.isro-boundary-pair .card-image {
+    max-height: 390px;
+    object-fit: contain;
+    background: #fff;
+}
+
 .slosh-model-pair .research-figure:first-child {
     flex: 0.7;
 }
