@@ -1271,27 +1271,6 @@ a.btn-link:hover {
     font-size: 0.78em;
 }
 
-.soccer-available-module {
-    max-width: 440px;
-    margin: 24px auto 0;
-    padding: 12px 16px;
-    border: 1px dashed var(--border);
-    border-radius: 8px;
-    color: var(--grey-light);
-    text-align: center;
-    line-height: 1.35;
-}
-
-.soccer-available-module strong,
-.soccer-available-module span {
-    display: block;
-}
-
-.soccer-available-module span {
-    margin-top: 3px;
-    font-size: 0.78em;
-}
-
 .soccer-diagram-primary {
     border-color: var(--accent);
     box-shadow: inset 3px 0 0 var(--accent);

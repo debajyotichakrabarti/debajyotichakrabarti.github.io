@@ -47,8 +47,9 @@
             <h2>Overview</h2>
             <p>This project combines hierarchical world-model reinforcement learning, iterative self-play, and
                 risk-sensitive policy learning for quadruped robot soccer. In the current experiments, a high-level
-                R2-Dreamer policy directs a frozen dribbling controller and is trained against progressively stronger
-                opponents before being extended to account for lower-tail outcomes. Compared with Dreamer, <a
+                R2-Dreamer policy directs a separately trained dribbling controller, which remains frozen during
+                high-level training. R2-Dreamer is trained against progressively stronger opponents before being
+                extended to account for lower-tail outcomes. Compared with Dreamer, <a
                     href="https://openreview.net/forum?id=Je2QqXrcQq" target="_blank"
                     rel="noopener">R2-Dreamer</a> replaces image reconstruction with redundancy-reduced representation
                 learning while retaining latent imagination.</p>
@@ -59,24 +60,20 @@
         <section class="section research-section">
             <h2>System Architecture</h2>
             <p>The current soccer experiments use a hierarchical architecture in which R2-Dreamer performs high-level
-                decision making while a frozen dribbling policy executes low-level locomotion and ball-control
-                commands. A separately trained kicking skill exists in the broader project but is not currently part
-                of the active high-level control loop.</p>
+                decision making. A lower-level dribbling policy is trained separately with domain randomization, then
+                frozen during high-level training to execute locomotion and ball-control commands.</p>
             <div class="soccer-architecture" role="img"
-                aria-label="Current architecture from robot, ball, and game state through R2-Dreamer and a high-level command to the frozen dribble policy and quadruped; the separately trained kick policy is not active">
+                aria-label="Current architecture from robot, ball, and game state through R2-Dreamer and a high-level command to a frozen lower-level dribbling locomotion policy and the quadruped">
                 <div class="soccer-diagram-node">Robot + ball + game state</div>
                 <div class="soccer-diagram-arrow" aria-hidden="true">&darr;</div>
                 <div class="soccer-diagram-node soccer-diagram-primary">R2-Dreamer policy</div>
                 <div class="soccer-diagram-arrow" aria-hidden="true">&darr;</div>
                 <div class="soccer-diagram-node">High-level command</div>
                 <div class="soccer-diagram-arrow" aria-hidden="true">&darr;</div>
-                <div class="soccer-diagram-node soccer-diagram-primary"><strong>Frozen dribble policy</strong><span>Low-level locomotion and ball control</span></div>
+                <div class="soccer-diagram-node soccer-diagram-primary"><strong>Frozen lower-level locomotion policy
+                        (dribbling)</strong><span>Trained separately with domain randomization</span></div>
                 <div class="soccer-diagram-arrow" aria-hidden="true">&darr;</div>
                 <div class="soccer-diagram-node">Quadruped</div>
-                <div class="soccer-available-module">
-                    <strong>Separately trained kick policy</strong>
-                    <span>Available in the broader project; not active in current experiments</span>
-                </div>
             </div>
         </section>
 
