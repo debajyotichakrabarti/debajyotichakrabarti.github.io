@@ -18,12 +18,11 @@
         </nav>
     </header>
 
-    <main class="container">
-        <section class="section" style="padding-top: 48px;">
-            <div class="feature-heading" style="margin-bottom: 6px;">
-                <h1 style="font-size: 1.7em; margin: 0;">Paying for Space: Incentive-Aware Motion Planning for
-                    Multi-Agent Collision Avoidance</h1>
-            </div>
+    <main class="container research-main">
+        <!-- HERO -->
+        <section class="section" style="padding-top: 48px; padding-bottom: 24px;">
+            <h1 style="font-size: 1.9em; margin: 0 0 10px 0; line-height: 1.25;">Paying for Space: Incentive-Aware
+                Motion Planning for Multi-Agent Collision Avoidance</h1>
             <p class="sub-role" style="margin-bottom: 14px;"><a href="../index.html#about">Debajyoti
                     Chakrabarti</a>, <a href="https://practice-lab-ucla.github.io/people/anushri_dixit/">Anushri
                     Dixit</a> &middot; <a href="https://cdc2026.ieeecss.org/">IEEE Conference on Decision and
@@ -37,102 +36,292 @@
                 <span class="tag">Optimal Control</span>
                 <span class="tag">Mechanism Design</span>
             </div>
-
-            <div class="btn-row" style="margin-top: 20px; margin-bottom: 32px;">
+            <div class="btn-row" style="margin-top: 20px;">
                 <a class="btn-link" href="../assets/papers/Chakrabarti_Dixit_CDC2026_PayingForSpace.pdf"
                     target="_blank" rel="noopener">Paper</a>
                 <a href="#" class="btn-link disabled" onclick="alert('Coming soon'); return false;">Code</a>
+                <a class="btn-link" href="../index.html#projects">&larr; Back to Home</a>
             </div>
+        </section>
 
-            <img src="../assets/images/cdc_multiagent.png"
-                alt="Overview of the incentive-aware airspace allocation framework: agents report private preferences, a central planner allocates collision-free corridors and computes payments, and each agent decentrally executes its own plan within its assigned corridor."
-                style="width: 100%; border: 1px solid var(--border); border-radius: 10px;" />
-            <p class="placeholder-note" style="margin-top: 10px;">Fig. 1 from the paper: overview of the
-                incentive-aware collision-free airspace allocation framework for Advanced Air Mobility (AAM)
-                systems.</p>
+        <!-- ABSTRACT -->
+        <section class="section research-section" style="padding-top: 0;">
+            <div class="research-abstract">
+                <h2>Abstract</h2>
+                <p>Advanced Air Mobility (AAM) systems require scalable coordination mechanisms to manage large
+                    fleets of aerial vehicles operating in shared, capacity-limited airspace. In such
+                    environments, different operators may have private preferences over trajectory
+                    characteristics, such as travel time, fuel consumption, or deviation from nominal routes. If
+                    centralized traffic management relies on self-reported preferences, operators may
+                    strategically misreport their costs to obtain more favorable trajectories.</p>
+                <p>This paper proposes a multistage motion planning framework augmented with mechanism design to
+                    enable collision avoidance for AAM systems with privately known costs. The proposed approach
+                    integrates convex safe corridor construction with a VCG-inspired mechanism to ensure
+                    conflict-free passage through constrained airspace while incentivizing truthful revelation of
+                    private preferences. Simulation results demonstrate safe and decentralized coordination among
+                    agents with heterogeneous preferences.</p>
+            </div>
+        </section>
 
-            <h2 style="margin-top: 48px;">Abstract</h2>
-            <p>Advanced Air Mobility (AAM) systems require scalable coordination mechanisms to manage large fleets
-                of aerial vehicles operating in shared, capacity-limited airspace. In such environments, different
-                operators may have private preferences over trajectory characteristics, such as travel time, fuel
-                consumption, or deviation from nominal routes. If centralized traffic management relies on
-                self-reported preferences, operators may strategically misreport their costs to obtain more
-                favorable trajectories.</p>
-            <p>This paper proposes a multistage motion planning framework augmented with mechanism design to
-                enable collision avoidance for AAM systems with privately known costs. The proposed approach
-                integrates convex safe corridor construction with a VCG-inspired mechanism to ensure conflict-free
-                passage through constrained airspace while incentivizing truthful revelation of private
-                preferences. Simulation results demonstrate safe and decentralized coordination among agents with
-                heterogeneous preferences.</p>
+        <div class="divider"></div>
 
-            <h2 style="margin-top: 40px;">Key Contributions</h2>
-            <ul style="padding-left: 20px; list-style: disc;">
-                <li style="margin-bottom: 10px;">An incentive-aware, VCG-based framework for multi-agent air
-                    corridor allocation under collision-avoidance constraints.</li>
-                <li style="margin-bottom: 10px;">A bilevel allocation-and-execution formulation that connects
-                    centralized airspace allocation with decentralized agent-level trajectory generation, together
-                    with a tractable multistage decomposition of the bilevel optimization.</li>
-                <li style="margin-bottom: 10px;">A convex safe-corridor construction based on pairwise separating
-                    hyperplanes with optimized locations, enabling non-overlapping corridor allocation without
-                    mixed-integer scheduling.</li>
-                <li style="margin-bottom: 10px;">Simulation studies assessing nominal performance and empirical
-                    incentive behavior under truthful and misreported preference reports.</li>
-            </ul>
+        <!-- 1. PROBLEM MOTIVATION -->
+        <section id="problem" class="section research-section">
+            <h2>Why Collision Avoidance Is Not Enough</h2>
+            <p>Advanced Air Mobility systems may involve multiple autonomous aerial vehicles sharing constrained
+                airspace or landing corridors.</p>
+            <p>The challenge is not only avoiding collisions. Different operators can have private preferences
+                over travel time, control effort, fuel usage, or route deviation.</p>
+            <p>If the central planner relies on self-reported costs, agents may strategically misreport those
+                preferences to obtain more favorable trajectories.</p>
+            <figure class="research-figure">
+                <img src="../assets/images/projects/paying_for_space/problem_setup.png" class="card-image"
+                    alt="Shared AAM landing-coordination scenario with multiple agents competing for access to constrained airspace." />
+                <figcaption class="figure-caption">Shared AAM landing-coordination scenario with multiple agents
+                    competing for access to constrained airspace.</figcaption>
+            </figure>
+        </section>
 
-            <h2 style="margin-top: 40px;">Method Overview</h2>
-            <p>Agents report private cost preferences to a central planner. A three-stage decomposition first
-                computes nominal collision-free trajectories, then solves decentralized per-agent problems to
-                determine convex corridor "mixing" variables that split the shared airspace via pairwise
-                separating hyperplanes, and finally fixes the resulting corridors so each agent can independently
-                plan within its own assigned region. VCG-inspired transfers are computed from the same allocation
-                to incentivize truthful preference reporting. Because the decomposition only approximates the
-                exact centralized VCG allocation, the resulting mechanism is best described as
-                <b>incentive-aware</b> rather than strictly strategyproof.</p>
+        <div class="divider"></div>
 
-            <h2 style="margin-top: 40px;">Results</h2>
-            <p>In a simulated AAM landing-coordination scenario, the proposed method (P4) was compared against
-                two baselines: Stage-1-only centralized planning without corridor sharing (P2), and a fixed
-                50/50 corridor split (P3). Across 70 Monte Carlo trials with randomized initial conditions and
-                preference profiles, the proposed method achieved higher average social valuation than both
-                baselines, in both truthful and misreporting settings.</p>
-            <div style="overflow-x: auto; margin: 16px 0;">
-                <table style="border-collapse: collapse; font-size: 0.9em; min-width: 420px;">
-                    <caption style="caption-side: bottom; text-align: left; color: var(--grey-light); font-size: 0.85em; padding-top: 8px;">
-                        Average social valuation (&times;10<sup>8</sup>) across Monte Carlo trials — higher is better.
-                    </caption>
+        <!-- 2. CORE IDEA -->
+        <section id="idea" class="section research-section">
+            <h2>Incentive-Aware Airspace Allocation</h2>
+            <p>The framework treats shared airspace as a scarce resource. A central planner:</p>
+            <ol style="padding-left: 20px; margin: 0 0 16px 0;">
+                <li style="margin-bottom: 8px;">allocates collision-free corridors,</li>
+                <li style="margin-bottom: 8px;">accounts for each agent's reported preferences,</li>
+                <li style="margin-bottom: 8px;">computes VCG-inspired transfers based on the externality imposed
+                    on other agents.</li>
+            </ol>
+            <p>Each agent then performs its own trajectory optimization inside its assigned safe corridor.</p>
+            <figure class="research-figure">
+                <img src="../assets/images/projects/paying_for_space/framework_overview.png" class="card-image"
+                    alt="Incentive-aware airspace allocation framework: agents report preferences, the central planner allocates corridors and computes payments, and each agent executes its own plan within its assigned corridor." />
+                <figcaption class="figure-caption">Incentive-aware airspace allocation framework: agents report
+                    preferences, the planner allocates corridors and computes payments, and each agent executes
+                    its own plan within its assigned corridor.</figcaption>
+            </figure>
+        </section>
+
+        <div class="divider"></div>
+
+        <!-- 3. BILEVEL FORMULATION -->
+        <section id="bilevel" class="section research-section">
+            <h2>Central Allocation with Decentralized Execution</h2>
+            <div class="twocol-grid">
+                <div class="twocol-text">
+                    <p>The ideal formulation is bilevel.</p>
+                    <p><strong>Outer level:</strong> allocates non-overlapping safe airspace, chooses how shared
+                        corridor space is divided, and minimizes total reported cost.</p>
+                    <p><strong>Inner level:</strong> represents each agent solving its own trajectory
+                        optimization, ensuring the assigned corridor is compatible with decentralized behavior.
+                    </p>
+                </div>
+                <div class="twocol-figure">
+                    <figure class="research-figure">
+                        <img src="../assets/images/projects/paying_for_space/bilevel_formulation.png"
+                            class="card-image"
+                            alt="Bilevel formulation: an outer allocation problem over corridor space coupled with each agent's inner trajectory optimization." />
+                        <figcaption class="figure-caption">Outer allocation problem coupled with each agent's
+                            inner trajectory optimization.</figcaption>
+                    </figure>
+                </div>
+            </div>
+        </section>
+
+        <div class="divider"></div>
+
+        <!-- 4. TRACTABLE MULTISTAGE METHOD -->
+        <section id="multistage" class="section research-section">
+            <h2>From Bilevel Optimization to a Tractable Three-Stage Pipeline</h2>
+            <div class="stage-row">
+                <div class="stage-card">
+                    <div class="stage-number">Stage 1</div>
+                    <p>Nominal collision-free planning</p>
+                </div>
+                <div class="stage-card">
+                    <div class="stage-number">Stage 2</div>
+                    <p>Convex safe-corridor allocation using pairwise separating hyperplanes and mixing
+                        variables</p>
+                </div>
+                <div class="stage-card">
+                    <div class="stage-number">Stage 3</div>
+                    <p>Final decentralized planning and VCG-inspired transfer computation</p>
+                </div>
+            </div>
+            <figure class="research-figure">
+                <img src="../assets/images/projects/paying_for_space/three_stage_pipeline.png" class="card-image"
+                    alt="Three-stage decomposition: nominal planning, convex corridor allocation, then decentralized execution with VCG-inspired transfers." />
+                <figcaption class="figure-caption">Three-stage decomposition of the bilevel allocation problem
+                    into a tractable pipeline.</figcaption>
+            </figure>
+        </section>
+
+        <div class="divider"></div>
+
+        <!-- 5. SAFE CORRIDOR CONSTRUCTION -->
+        <section id="corridors" class="section research-section">
+            <h2>Time-Varying Convex Safe Corridors</h2>
+            <p>Pairwise separating hyperplanes define convex regions for each agent. Continuous mixing variables
+                control where the separating boundary lies between pairs of agents.</p>
+            <p>After reconciliation, each agent receives a non-overlapping time-varying polytopic corridor and
+                can plan independently inside it.</p>
+            <div class="figure-pair">
+                <figure class="research-figure">
+                    <img src="../assets/images/projects/paying_for_space/corridor_3d.png" class="card-image"
+                        alt="Allocated time-varying polytopic corridor for one agent." />
+                    <figcaption class="figure-caption">Allocated time-varying polytopic corridor for one
+                        agent.</figcaption>
+                </figure>
+                <figure class="research-figure">
+                    <img src="../assets/images/projects/paying_for_space/mixing_variables.png" class="card-image"
+                        alt="Halfspace mixing variables controlling pairwise corridor allocation over time." />
+                    <figcaption class="figure-caption">Halfspace mixing variables controlling pairwise corridor
+                        allocation over time.</figcaption>
+                </figure>
+            </div>
+        </section>
+
+        <div class="divider"></div>
+
+        <!-- 6. MOTION SNAPSHOTS -->
+        <section id="snapshots" class="section research-section">
+            <h2>Decentralized Coordination in the Shared Corridor</h2>
+            <figure class="research-figure">
+                <img src="../assets/images/projects/paying_for_space/motion_snapshots.png" class="card-image"
+                    alt="Example landing-coordination sequence: trajectory begin, tunnel entry, tunnel exit, goal reaching." />
+                <figcaption class="figure-caption">Example landing-coordination sequence. Agents enter the shared
+                    corridor and reach their assigned goals at prescribed landing times.</figcaption>
+            </figure>
+        </section>
+
+        <div class="divider"></div>
+
+        <!-- 7. RESULTS -->
+        <section id="results" class="section research-section">
+            <h2>Results</h2>
+
+            <h3 class="pub-subheading">A. Social Valuation</h3>
+            <p>Across 70 Monte Carlo trials with randomized initial conditions, goals, preferences, and
+                misreporting agents, the proposed method achieved the highest average social valuation among the
+                compared methods in both truthful and misreporting settings.</p>
+            <div class="results-table-wrap">
+                <table class="results-table">
+                    <caption>Average social valuation &times;10<sup>8</sup>; higher is better.</caption>
                     <thead>
                         <tr>
-                            <th style="text-align: left; padding: 8px 16px 8px 0; border-bottom: 2px solid var(--accent);">Reporting</th>
-                            <th style="text-align: right; padding: 8px 16px; border-bottom: 2px solid var(--accent);">P2</th>
-                            <th style="text-align: right; padding: 8px 16px; border-bottom: 2px solid var(--accent);">P3</th>
-                            <th style="text-align: right; padding: 8px 0 8px 16px; border-bottom: 2px solid var(--accent); color: var(--navy);">P4 (Ours)</th>
+                            <th>Reporting</th>
+                            <th>P2</th>
+                            <th>P3</th>
+                            <th>P4 (Ours)</th>
                         </tr>
                     </thead>
                     <tbody>
                         <tr>
-                            <td style="padding: 8px 16px 8px 0; border-bottom: 1px solid var(--border);">Truthful</td>
-                            <td style="text-align: right; padding: 8px 16px; border-bottom: 1px solid var(--border);">-3.30854</td>
-                            <td style="text-align: right; padding: 8px 16px; border-bottom: 1px solid var(--border);">-3.30907</td>
-                            <td style="text-align: right; padding: 8px 0 8px 16px; border-bottom: 1px solid var(--border); font-weight: 600; color: var(--navy);">-3.30782</td>
+                            <td>Truthful</td>
+                            <td>-3.30854</td>
+                            <td>-3.30907</td>
+                            <td class="highlight">-3.30782</td>
                         </tr>
                         <tr>
-                            <td style="padding: 8px 16px 8px 0;">Misreport</td>
-                            <td style="text-align: right; padding: 8px 16px;">-3.3431</td>
-                            <td style="text-align: right; padding: 8px 16px;">-3.34105</td>
-                            <td style="text-align: right; padding: 8px 0 8px 16px; font-weight: 600; color: var(--navy);">-3.33867</td>
+                            <td>Misreport</td>
+                            <td>-3.3431</td>
+                            <td>-3.34105</td>
+                            <td class="highlight">-3.33867</td>
                         </tr>
                     </tbody>
                 </table>
             </div>
-            <p>Comparing truthful vs. misreported utility with and without the VCG-inspired transfer (P1 vs. P4),
-                adding the transfer shifted the mean truth-minus-misreport utility from negative to positive,
-                indicating that the payment mechanism helps incentivize truthful reporting, consistent with the
-                framework being incentive-aware.</p>
 
-            <div class="btn-row" style="margin-top: 32px; margin-bottom: 8px;">
+            <h3 class="pub-subheading" style="margin-top: 32px;">B. Incentive Behavior</h3>
+            <p>The effect of the VCG-inspired transfer was evaluated using the difference between truthful and
+                misreported utility (&Delta;u).</p>
+            <ul class="simple-list" style="margin: 12px 0 16px 0;">
+                <li>Without transfer: mean &Delta;u = &minus;2.4 &times; 10<sup>5</sup></li>
+                <li>With proposed transfer: mean &Delta;u = 2.74 &times; 10<sup>6</sup></li>
+            </ul>
+            <p>The positive mean indicates that the transfer mechanism helps incentivize truthful reporting on
+                average. This does not establish exact strategyproofness &mdash; see Limitations below.</p>
+
+            <h3 class="pub-subheading" style="margin-top: 32px;">C. Scalability</h3>
+            <div class="results-table-wrap">
+                <table class="results-table">
+                    <thead>
+                        <tr>
+                            <th>Agents</th>
+                            <th>Central time (s)</th>
+                            <th>Agent time (s)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>3</td>
+                            <td>147.08</td>
+                            <td>2.26</td>
+                        </tr>
+                        <tr>
+                            <td>4</td>
+                            <td>347.4</td>
+                            <td>2.30</td>
+                        </tr>
+                        <tr>
+                            <td>5</td>
+                            <td>924</td>
+                            <td>2.34</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <p>Centralized computation is the main bottleneck, while decentralized agent-level computation
+                remains approximately constant across the tested cases.</p>
+        </section>
+
+        <div class="divider"></div>
+
+        <!-- 8. TAKEAWAYS -->
+        <section id="takeaways" class="section research-section">
+            <h2>Takeaways and Limitations</h2>
+            <div class="twocol-grid">
+                <div class="callout">
+                    <h3>Key Takeaways</h3>
+                    <ul>
+                        <li>Collision avoidance can be combined with incentive-aware allocation.</li>
+                        <li>Convex corridor allocation enables decentralized execution.</li>
+                        <li>The VCG-inspired transfer improves truthful-reporting behavior on average.</li>
+                        <li>The method achieved higher social valuation than the tested baselines.</li>
+                    </ul>
+                </div>
+                <div class="callout">
+                    <h3>Limitations</h3>
+                    <ul>
+                        <li>The multistage decomposition is only an approximation of the exact VCG allocation.
+                        </li>
+                        <li>The method is therefore incentive-aware, not strictly strategyproof.</li>
+                        <li>Centralized leave-one-out computations remain the scalability bottleneck.</li>
+                        <li>The current study uses deterministic planar double-integrator dynamics.</li>
+                    </ul>
+                </div>
+            </div>
+
+            <h3 class="pub-subheading" style="margin-top: 28px;">Future Directions</h3>
+            <ul class="simple-list">
+                <li>More scalable or iterative allocation</li>
+                <li>Stronger approximation guarantees</li>
+                <li>Higher-fidelity dynamics</li>
+                <li>Uncertainty and communication delays</li>
+                <li>Dynamic obstacles</li>
+                <li>Receding-horizon corridor allocation</li>
+            </ul>
+        </section>
+
+        <div class="divider"></div>
+
+        <section class="section research-section" style="padding-top: 32px;">
+            <div class="btn-row">
                 <a class="btn-link" href="../assets/papers/Chakrabarti_Dixit_CDC2026_PayingForSpace.pdf"
                     target="_blank" rel="noopener">Read the full paper</a>
-                <a class="btn-link" href="../index.html#projects">&larr; Back to home</a>
+                <a class="btn-link" href="../index.html#projects">&larr; Back to Home</a>
             </div>
         </section>
     </main>

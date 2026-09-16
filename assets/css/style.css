@@ -676,4 +676,177 @@ a.btn-link:hover {
     .project-grid {
         grid-template-columns: 1fr;
     }
+
+    .twocol-grid {
+        flex-direction: column;
+    }
+
+    .stage-row {
+        flex-direction: column;
+    }
+
+    .figure-pair {
+        flex-direction: column;
+    }
+}
+
+/**************************************************/
+/* Research project pages (e.g. projects/paying-for-space.html) */
+
+.research-main .section {
+    max-width: 1180px;
+}
+
+.research-abstract {
+    max-width: 880px;
+    margin: 0 auto;
+}
+
+.research-section h2 {
+    margin-bottom: 16px;
+}
+
+.research-figure {
+    margin: 28px 0;
+}
+
+.figure-caption {
+    font-size: 0.85em;
+    color: var(--grey-light);
+    font-style: italic;
+    text-align: center;
+    margin: 10px 0 0 0;
+}
+
+.twocol-grid {
+    display: flex;
+    gap: 40px;
+    align-items: flex-start;
+}
+
+.twocol-text,
+.twocol-figure {
+    flex: 1;
+    min-width: 0;
+}
+
+.twocol-figure .research-figure {
+    margin: 0;
+}
+
+.figure-pair {
+    display: flex;
+    gap: 32px;
+    align-items: flex-start;
+}
+
+.figure-pair .research-figure {
+    flex: 1 1 320px;
+    min-width: 0;
+    margin: 0;
+}
+
+.stage-row {
+    display: flex;
+    gap: 20px;
+    margin: 24px 0 32px 0;
+}
+
+.stage-card {
+    flex: 1;
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 20px;
+    text-align: center;
+}
+
+.stage-number {
+    font-size: 0.72em;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: var(--accent);
+    font-weight: 700;
+    margin-bottom: 8px;
+}
+
+.stage-card p {
+    margin: 0;
+    font-size: 0.92em;
+    color: var(--grey);
+}
+
+.callout {
+    background: var(--surface);
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    padding: 24px;
+}
+
+.callout h3 {
+    margin: 0 0 12px 0;
+    font-size: 1em;
+    color: var(--navy-dark);
+}
+
+.callout ul {
+    margin: 0;
+    padding-left: 20px;
+}
+
+.callout li {
+    margin-bottom: 8px;
+    font-size: 0.92em;
+    color: var(--grey);
+}
+
+.callout li:last-child {
+    margin-bottom: 0;
+}
+
+.results-table-wrap {
+    overflow-x: auto;
+    margin: 16px 0;
+}
+
+.results-table {
+    border-collapse: collapse;
+    font-size: 0.9em;
+    min-width: 420px;
+    width: 100%;
+}
+
+.results-table caption {
+    caption-side: bottom;
+    text-align: left;
+    color: var(--grey-light);
+    font-size: 0.85em;
+    padding-top: 8px;
+}
+
+.results-table th {
+    text-align: right;
+    padding: 8px 16px;
+    border-bottom: 2px solid var(--accent);
+}
+
+.results-table th:first-child,
+.results-table td:first-child {
+    text-align: left;
+    padding-left: 0;
+}
+
+.results-table td {
+    text-align: right;
+    padding: 8px 16px;
+    border-bottom: 1px solid var(--border);
+}
+
+.results-table tr:last-child td {
+    border-bottom: none;
+}
+
+.results-table .highlight {
+    font-weight: 600;
+    color: var(--navy);
 }
