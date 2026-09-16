@@ -523,7 +523,17 @@ a.btn-link:hover {
     display: grid;
     grid-template-columns: repeat(2, 1fr);
     gap: 24px;
-    align-items: start;
+}
+
+.project-column {
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+}
+
+/* Keep the two masonry-style columns level along their lower edge. */
+.project-column .project-card:last-child {
+    flex: 1;
 }
 
 .project-card {
@@ -675,7 +685,28 @@ a.btn-link:hover {
     }
 
     .project-grid {
-        grid-template-columns: 1fr;
+        display: flex;
+        flex-direction: column;
+    }
+
+    .project-column {
+        display: contents;
+    }
+
+    .project-card-adaptive {
+        order: 1;
+    }
+
+    .project-card-vlaps {
+        order: 2;
+    }
+
+    .project-card-emg {
+        order: 3;
+    }
+
+    .project-card-obca {
+        order: 4;
     }
 
     .twocol-grid {
