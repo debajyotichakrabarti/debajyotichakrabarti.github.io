@@ -547,6 +547,13 @@ a.btn-link:hover {
     border-radius: 0;
 }
 
+/* Give the extra-wide Adaptive Safety result montage more visual presence on the homepage. */
+.project-card .adaptive-safety-card-image {
+    width: 112%;
+    max-width: none;
+    margin-left: -6%;
+}
+
 .project-card-body {
     padding: 18px 20px;
     display: flex;

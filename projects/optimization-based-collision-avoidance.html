@@ -1,0 +1,243 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@200;300;400;600;700;900&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="../assets/css/style.css" />
+    <title>Optimization-Based Collision Avoidance — Debajyoti Chakrabarti</title>
+    <link rel="icon" type="image/x-icon" href="../assets/images/ucla.ico">
+</head>
+
+<body>
+    <header id="header">
+        <nav class="container nav">
+            <a href="../index.html">&larr; Back to Home</a>
+        </nav>
+    </header>
+
+    <main class="container research-main">
+        <section class="section" style="padding-top: 48px; padding-bottom: 24px;">
+            <h1 style="font-size: 1.7em; margin: 0 0 10px 0; line-height: 1.25;">Optimization-Based Collision
+                Avoidance</h1>
+            <p class="sub-role" style="margin-bottom: 14px;">Ayush Agrawal, <a
+                    href="../index.html#about">Debajyoti Chakrabarti</a>, Radha Lahoti</p>
+            <div class="feature-heading">
+                <span class="badge badge-course">UCLA MAE 271D Course Project</span>
+            </div>
+            <div class="tag-row" style="margin-top: 12px;">
+                <span class="tag">Optimal Control</span>
+                <span class="tag">Model Predictive Control</span>
+                <span class="tag">Collision Avoidance</span>
+                <span class="tag">Autonomous Parking</span>
+                <span class="tag">Dynamic Obstacles</span>
+            </div>
+            <div class="btn-row" style="margin-top: 20px;">
+                <a class="btn-link"
+                    href="https://docs.google.com/presentation/d/1uO2jRhwbMtGSPM1zjlT1PadNkAwcZkNAZWFIBGD4Wao/edit?usp=drive_link"
+                    target="_blank" rel="noopener">Presentation</a>
+                <a class="btn-link" href="https://github.com/Radha-Lahoti/MAE271D-Seminar" target="_blank"
+                    rel="noopener">Code</a>
+                <a class="btn-link" href="https://doi.org/10.1109/TCST.2019.2949540" target="_blank"
+                    rel="noopener">Reference Paper</a>
+                <a class="btn-link" href="../index.html#projects">&larr; Back to Home</a>
+            </div>
+        </section>
+
+        <div class="divider"></div>
+
+        <section id="overview" class="section research-section">
+            <h2>Overview</h2>
+            <p>Collision constraints are typically nonconvex and difficult to include directly in a trajectory
+                optimizer. This project implements an optimization-based collision-avoidance formulation that
+                uses convex duality to express the separation between a full-dimensional vehicle and convex
+                obstacles as smooth nonlinear constraints.</p>
+            <p>We studied the formulation in both a one-shot optimal control problem (OCP) and a receding-horizon
+                model predictive controller (MPC). The experiments cover reverse and parallel parking, strict
+                collision avoidance, minimum-penetration trajectories, and moving obstacles.</p>
+            <figure class="research-figure">
+                <div style="overflow: hidden; aspect-ratio: 1890 / 520; border-radius: 8px;">
+                    <img src="../assets/images/projects/obca/collision_vs_penetration.png" class="card-image"
+                        style="border-radius: 8px 8px 0 0;"
+                        alt="Reverse-parking trajectories comparing strict collision avoidance with a minimum-penetration formulation." />
+                </div>
+                <figcaption class="figure-caption">One-shot reverse parking. The collision-free formulation
+                    enforces a safety margin, while the softened formulation penalizes unavoidable penetration.
+                </figcaption>
+            </figure>
+        </section>
+
+        <div class="divider"></div>
+
+        <section id="formulation" class="section research-section">
+            <h2>Two Collision-Constraint Formulations</h2>
+            <h3>Geometry and finite-horizon control</h3>
+            <p>Each convex obstacle is represented in half-space form. The controlled vehicle is a translated
+                and rotated copy of a fixed base shape, so the optimizer reasons about the complete
+                vehicle footprint rather than a point-mass approximation.</p>
+            <p>The nominal finite-horizon problem minimizes state and control cost subject to the initial and
+                terminal states, vehicle dynamics, state/input bounds, and geometric separation:</p>
+            <figure class="research-figure">
+                <img src="../assets/images/projects/obca/formulation_overview.png" class="card-image"
+                    alt="Presentation slide showing the convex obstacle and full-dimensional vehicle sets together with the finite-horizon optimal-control problem and its constraints." />
+                <figcaption class="figure-caption">Problem statement from the presentation: convex obstacle and
+                    vehicle geometry, dynamics, bounds, terminal condition, and collision-avoidance constraint.
+                </figcaption>
+            </figure>
+
+            <h3>Collision-free and minimum-penetration reformulations</h3>
+            <p><strong>Collision-free trajectories</strong> enforce a positive separation between the vehicle and
+                every obstacle throughout the prediction horizon. The dual reformulation preserves the full
+                rectangular vehicle geometry without introducing integer variables.</p>
+            <p><strong>Minimum-penetration trajectories</strong> soften the separation constraint with a
+                nonnegative slack variable and penalize that slack in the objective. This provides a
+                least-intrusive solution when strict avoidance is infeasible in a tight environment.</p>
+            <figure class="research-figure">
+                <img src="../assets/images/projects/obca/collision_formulations.png" class="card-image"
+                    alt="Presentation comparison of the dual collision-free and minimum-penetration optimization formulations and their cost functions." />
+                <figcaption class="figure-caption">The two nonlinear programs from the presentation. Minimum
+                    penetration replaces the hard clearance with nonnegative slack and penalizes total intrusion
+                    by the weight kappa.</figcaption>
+            </figure>
+            <div class="results-table-wrap">
+                <table class="results-table">
+                    <thead>
+                        <tr>
+                            <th>Formulation</th>
+                            <th>Design parameter</th>
+                            <th>Behavior</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Collision-free</td>
+                            <td>Minimum separation, d<sub>min</sub></td>
+                            <td>Maintains a hard safety margin</td>
+                        </tr>
+                        <tr>
+                            <td>Minimum penetration</td>
+                            <td>Penetration weight, &kappa;</td>
+                            <td>Allows controlled overlap when necessary</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <p>A larger penetration weight suppresses obstacle intrusion, but also makes the nonlinear program
+                harder and slower to solve. We additionally penalized changes in acceleration and steering to
+                produce smoother control profiles.</p>
+        </section>
+
+        <div class="divider"></div>
+
+        <section id="parking" class="section research-section">
+            <h2>Autonomous Parking</h2>
+            <p>The vehicle is modeled with nonlinear bicycle dynamics and its complete rectangular footprint is
+                included in the optimization. One-shot OCP successfully reached exact terminal poses in both
+                reverse- and parallel-parking scenarios.</p>
+            <figure class="research-figure figure-medium">
+                <img src="../assets/images/projects/obca/bicycle_dynamics.png" class="card-image"
+                    alt="Presentation figure showing bicycle-model geometry and the discrete vehicle dynamics used by the optimizer." />
+                <figcaption class="figure-caption">Bicycle-model geometry and discrete dynamics used in the OCP
+                    and MPC implementations.</figcaption>
+            </figure>
+            <div class="twocol-grid">
+                <div class="twocol-figure">
+                    <figure class="research-figure">
+                        <img src="../assets/images/projects/obca/reverse_parking.gif" class="card-image"
+                            alt="Animated one-shot optimal-control trajectory for a vehicle performing reverse parking." />
+                        <figcaption class="figure-caption">Animated reverse-parking trajectory from the
+                            presentation.</figcaption>
+                    </figure>
+                </div>
+                <div class="twocol-figure">
+                    <figure class="research-figure">
+                        <img src="../assets/images/projects/obca/parallel_parking.gif" class="card-image"
+                            alt="Animated one-shot optimal-control trajectory for a vehicle performing parallel parking." />
+                        <figcaption class="figure-caption">Animated parallel-parking trajectory from the
+                            presentation.</figcaption>
+                    </figure>
+                </div>
+            </div>
+        </section>
+
+        <div class="divider"></div>
+
+        <section id="dynamic" class="section research-section">
+            <h2>Dynamic Obstacles</h2>
+            <p>We extended the original static-obstacle formulation with time-varying polytope constraints. At
+                every prediction step, the obstacle's half-space representation is updated from its prescribed
+                translation and rotation.</p>
+            <figure class="research-figure">
+                <img src="../assets/images/projects/obca/dynamic_obstacle_equations.png" class="card-image"
+                    alt="Presentation slide defining the time-varying half-space matrices for translating and rotating obstacles." />
+                <figcaption class="figure-caption">Time-varying obstacle representation from the presentation.
+                    Translation and rotation update the half-space matrices at every timestep.</figcaption>
+            </figure>
+            <figure class="research-figure figure-medium">
+                <img src="../assets/images/projects/obca/dynamic_translating.gif" class="card-image"
+                    alt="Animated MPC trajectory avoiding a rectangular obstacle as it translates through the parking entrance." />
+                <figcaption class="figure-caption">Translating obstacle. The vehicle times its approach while the
+                    obstacle moves vertically through the parking entrance.</figcaption>
+            </figure>
+            <figure class="research-figure figure-medium">
+                <img src="../assets/images/projects/obca/dynamic_rotating.gif" class="card-image"
+                    alt="Animated MPC trajectory around a rotating rectangular obstacle at the parking entrance." />
+                <figcaption class="figure-caption">Rotating obstacle. MPC plans through the entrance while the
+                    rectangular obstacle changes orientation.</figcaption>
+            </figure>
+        </section>
+
+        <div class="divider"></div>
+
+        <section id="findings" class="section research-section">
+            <h2>Key Findings</h2>
+            <ul class="simple-list">
+                <li>Minimum-penetration optimization was more robust in tight environments, at the cost of extra
+                    variables and computation time.</li>
+                <li>One-shot OCP with an exact terminal constraint reliably reached the parking goal when a
+                    sufficiently long horizon was available.</li>
+                <li>MPC improved goal tracking without a hard terminal constraint, but recursive feasibility was
+                    not guaranteed around moving obstacles.</li>
+                <li>Dynamic-obstacle performance was highly sensitive to prediction horizon; neither a uniformly
+                    longer nor shorter horizon was always better.</li>
+                <li>Small errors in the estimated obstacle state could destabilize MPC, motivating robust or
+                    stochastic extensions.</li>
+            </ul>
+        </section>
+
+        <div class="divider"></div>
+
+        <section id="takeaway" class="section research-section">
+            <h2>Key Takeaway</h2>
+            <div class="callout">
+                <p style="margin: 0; font-style: italic; color: var(--navy-dark);">Smooth geometric constraints
+                    make it possible to optimize directly over the vehicle's full footprint, while a softened
+                    minimum-penetration variant provides a practical fallback for tight or temporarily blocked
+                    environments.</p>
+            </div>
+        </section>
+
+        <div class="divider"></div>
+
+        <section class="section research-section" style="padding-top: 32px;">
+            <div class="btn-row">
+                <a class="btn-link"
+                    href="https://docs.google.com/presentation/d/1uO2jRhwbMtGSPM1zjlT1PadNkAwcZkNAZWFIBGD4Wao/edit?usp=drive_link"
+                    target="_blank" rel="noopener">Presentation</a>
+                <a class="btn-link" href="https://github.com/Radha-Lahoti/MAE271D-Seminar" target="_blank"
+                    rel="noopener">Code</a>
+                <a class="btn-link" href="https://doi.org/10.1109/TCST.2019.2949540" target="_blank"
+                    rel="noopener">Reference Paper</a>
+                <a class="btn-link" href="../index.html#projects">&larr; Back to Home</a>
+            </div>
+        </section>
+    </main>
+
+    <footer class="container footer">
+        <p>&copy; 2026 Debajyoti Chakrabarti</p>
+    </footer>
+</body>
+
+</html>
