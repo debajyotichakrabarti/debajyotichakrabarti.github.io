@@ -119,11 +119,12 @@
 
         <section id="gnc" class="section research-section">
             <h2>From Powered-Descent GNC to Real-Time Retargeting</h2>
-            <p>Fine braking is the critical bridge between high-speed braking and terminal descent: it must deliver
-                the lander to the final approach corridor with tightly controlled position and velocity. During the
-                preceding attitude-hold phase, the navigation sensors provide an updated state estimate. That update,
-                together with large propulsion dispersion, can place the lander at a fine-braking start state from
-                which the nominal guidance law can no longer reach the selected landing site.</p>
+            <p>Fine braking follows rough braking and attitude hold. Its objective is to bring the lander over the
+                selected landing site at the prescribed altitude, with near-zero horizontal velocity and the specified
+                vertical velocity for terminal descent. During attitude hold, the navigation sensors update the lander
+                state after rough braking. Large propulsion dispersion accumulated during rough braking can therefore
+                shift the fine-braking initial state enough that the nominal guidance law cannot reach the selected
+                site while satisfying its constraints.</p>
             <p>We therefore added robustness layer by layer. <strong>G1</strong> is the nominal analytical guidance;
                 <strong>G2</strong> computes time-to-go onboard from the dispersed start state; and, if no feasible
                 time-to-go can recover the nominal site, <strong>G3</strong> shifts the target to a nearby reachable
