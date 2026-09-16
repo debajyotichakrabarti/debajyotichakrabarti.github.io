@@ -121,14 +121,17 @@
             <h2>From Powered-Descent GNC to Real-Time Retargeting</h2>
             <p>One of the most critical phases of Chandrayaan-3 powered descent was fine braking. Using the navigation
                 state updated during the preceding attitude-hold phase, fine-braking guidance had to bring the lander
-                over the selected landing site at the prescribed altitude, with near-zero horizontal velocity and the
-                specified vertical velocity for terminal descent. However, large propulsion dispersion accumulated
-                during rough braking could shift this updated fine-braking initial state enough that the nominal
-                guidance law could no longer reach the selected site while satisfying its constraints.</p>
-            <p>We therefore added robustness layer by layer. <strong>G1</strong> is the nominal analytical guidance;
-                <strong>G2</strong> computes time-to-go onboard from the dispersed start state; and, if no feasible
-                time-to-go can recover the nominal site, <strong>G3</strong> shifts the target to a nearby reachable
-                location for a safe, soft landing.</p>
+                over the selected landing site at the prescribed altitude, with near-zero horizontal and vertical
+                velocity and in the vertical orientation required for the subsequent hovering and terminal-descent
+                phases. However, large propulsion dispersion accumulated during rough braking could shift this updated
+                fine-braking initial state enough
+                that the nominal guidance law could no longer reach the selected site while satisfying its
+                constraints.</p>
+            <p>To handle this rough-braking-induced state dispersion without replacing the nominal analytical
+                guidance (<strong>G1</strong>), we added robustness in two layers. <strong>G2</strong> computes
+                time-to-go onboard from the updated fine-braking state, increasing the range of dispersed states that
+                can still reach the nominal site. If no feasible time-to-go can recover that site, <strong>G3</strong>
+                shifts the target to a nearby reachable location for a safe, soft landing.</p>
 
             <figure class="research-figure isro-component-figure isro-robustness-figure">
                 <img src="../assets/images/isro/retargeting_components/guidance_robustness_layers.png"
