@@ -730,6 +730,17 @@ a.btn-link:hover {
     max-width: 1180px;
 }
 
+/* Denser rhythm for long, sectioned project pages. */
+.research-main.compact-sections .research-section {
+    padding-top: 32px;
+    padding-bottom: 32px;
+}
+
+.research-main.compact-sections .research-section > .research-figure {
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+
 .research-abstract {
     max-width: 880px;
     margin: 0 auto;

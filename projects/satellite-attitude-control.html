@@ -18,7 +18,7 @@
         </nav>
     </header>
 
-    <main class="container research-main">
+    <main class="container research-main compact-sections">
         <section class="section" style="padding-top: 48px; padding-bottom: 24px;">
             <h1 style="font-size: 1.7em; margin: 0 0 10px 0; line-height: 1.3;">Advanced Control Algorithms for
                 Satellite Attitude Maneuver</h1>
@@ -91,7 +91,7 @@
                 it drives the state strongly when the error is large, then softens the switching action near the
                 surface. Substituting that law into the reaction-wheel spacecraft dynamics produces a control torque
                 with model-compensation and nonlinear reaching terms.</p>
-            <figure class="research-figure figure-medium">
+            <figure class="research-figure figure-narrow">
                 <img src="../assets/images/projects/satellite_attitude_control/key_control_equations.png"
                     class="card-image"
                     alt="Published modified reaching law and resulting PD sliding-mode control torque." />
@@ -160,6 +160,15 @@
                     </figcaption>
                 </figure>
             </div>
+
+            <figure class="research-figure">
+                <img src="../assets/images/projects/satellite_attitude_control/controller_performance_table.png"
+                    class="card-image"
+                    alt="Comparison of control effort and reaching time for six sliding-mode controller configurations." />
+                <figcaption class="figure-caption">Controller comparison over 200-second simulations. Saturation
+                    reduced control effort but increased reaching time; the modified reaching laws provided a more
+                    balanced trade-off.</figcaption>
+            </figure>
         </section>
 
         <div class="divider"></div>
@@ -183,12 +192,29 @@
 
         <div class="divider"></div>
 
+        <section id="limitations" class="section research-section">
+            <h2>Limitations and Future Work</h2>
+            <p>The study was simulation-based and used simplified disturbance and uncertainty models. It did not
+                model several environmental effects that matter in flight, including solar-radiation pressure,
+                gravity variations caused by Earth&rsquo;s non-spherical shape, and disturbances from Earth&rsquo;s
+                magnetic field.</p>
+            <p>The paper identifies three natural extensions: develop a fractional-order controller that jointly
+                minimizes energy use and reaching time, introduce adaptive control to strengthen robustness to
+                parameter uncertainty, and validate the controllers with physics-based environmental models driven
+                by representative real-time data.</p>
+        </section>
+
+        <div class="divider"></div>
+
         <section id="publication" class="section research-section">
             <h2>From Undergraduate Thesis to Publication</h2>
-            <p>This B.Tech thesis later led to a journal publication in <em>Advances in Space Research</em>.</p>
-            <p>Debajyoti Chakrabarti and N. Selvaganesan, &ldquo;PD and PD&beta; Based Sliding Mode Control
-                Algorithms with Modified Reaching Law for Satellite Attitude Maneuver,&rdquo; <em>Advances in Space
-                    Research</em>, 65, 1279&ndash;1295, 2020.</p>
+            <p>This B.Tech thesis later led to a journal publication in <a
+                    href="https://doi.org/10.1016/j.asr.2019.11.005" target="_blank" rel="noopener"><em>Advances
+                        in Space Research</em></a>.</p>
+            <p><strong>Debajyoti Chakrabarti</strong> and N. Selvaganesan, &ldquo;PD and PD&beta; Based Sliding Mode
+                Control Algorithms with Modified Reaching Law for Satellite Attitude Maneuver,&rdquo; <a
+                    href="https://doi.org/10.1016/j.asr.2019.11.005" target="_blank" rel="noopener"><em>Advances
+                        in Space Research</em></a>, 65, 1279&ndash;1295, 2020.</p>
             <div class="btn-row">
                 <a class="btn-link" href="../assets/docs/projects/satellite_attitude_control/paper.pdf"
                     target="_blank" rel="noopener">Paper</a>
