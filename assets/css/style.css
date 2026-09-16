@@ -707,7 +707,8 @@ a.btn-link:hover {
 }
 
 .research-figure {
-    margin: 28px 0;
+    max-width: 880px;
+    margin: 28px auto;
 }
 
 .research-figure.figure-narrow {
