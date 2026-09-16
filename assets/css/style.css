@@ -354,6 +354,16 @@ a.btn-link:hover {
     text-align: center;
 }
 
+/* Real project/research figures: natural aspect ratio, no cropping, no fixed height */
+.card-image {
+    display: block;
+    width: 100%;
+    height: auto;
+    max-width: 100%;
+    border: 1px solid var(--border);
+    border-radius: 8px;
+}
+
 /**************************************************/
 /* Current Research: large horizontal feature cards */
 
@@ -365,7 +375,7 @@ a.btn-link:hover {
 
 .feature-card {
     display: flex;
-    align-items: stretch;
+    align-items: flex-start;
     gap: 32px;
     padding: 28px;
     border: 1px solid var(--border);
@@ -377,10 +387,10 @@ a.btn-link:hover {
     flex: 0 0 320px;
 }
 
+/* Only the "coming soon" mock box needs a fixed height; real images (.card-image) size naturally */
 .feature-media .img-placeholder {
-    height: 100%;
     aspect-ratio: auto;
-    min-height: 240px;
+    height: 240px;
 }
 
 .feature-body {
@@ -425,6 +435,13 @@ a.btn-link:hover {
     aspect-ratio: 16 / 9;
     border-radius: 0;
     border-width: 0 0 1px 0;
+}
+
+/* Real project figures: edge-to-edge, natural aspect ratio, no cropping */
+.project-card .card-image {
+    border: none;
+    border-bottom: 1px solid var(--border);
+    border-radius: 0;
 }
 
 .project-card-body {
@@ -549,7 +566,7 @@ a.btn-link:hover {
     }
 
     .feature-media .img-placeholder {
-        min-height: 180px;
+        height: 180px;
     }
 
     .project-grid {
