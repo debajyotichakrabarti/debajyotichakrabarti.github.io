@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@200;300;400;600;700;900&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="../assets/css/style.css" />
+    <title>Paying for Space — Debajyoti Chakrabarti</title>
+    <link rel="icon" type="image/x-icon" href="../assets/images/ucla.ico">
+</head>
+
+<body>
+    <header id="header">
+        <nav class="container nav">
+            <a href="../index.html">&larr; Back to Home</a>
+        </nav>
+    </header>
+
+    <main class="container">
+        <section class="section" style="padding-top: 48px;">
+            <div class="feature-heading" style="margin-bottom: 6px;">
+                <h1 style="font-size: 1.7em; margin: 0;">Paying for Space: Incentive-Aware Motion Planning for
+                    Multi-Agent Collision Avoidance</h1>
+            </div>
+            <p class="sub-role" style="margin-bottom: 14px;">Debajyoti Chakrabarti, Anushri Dixit &middot; IEEE
+                Conference on Decision and Control (CDC), 2026</p>
+            <div class="feature-heading">
+                <span class="badge badge-accepted">IEEE CDC 2026 &middot; Accepted</span>
+            </div>
+            <div class="tag-row" style="margin-top: 12px;">
+                <span class="tag">Multi-Agent Systems</span>
+                <span class="tag">Motion Planning</span>
+                <span class="tag">Optimal Control</span>
+                <span class="tag">Mechanism Design</span>
+            </div>
+
+            <div class="btn-row" style="margin-top: 20px; margin-bottom: 32px;">
+                <a class="btn-link" href="../assets/papers/Chakrabarti_Dixit_CDC2026_PayingForSpace.pdf"
+                    target="_blank" rel="noopener">Paper</a>
+                <a href="#" class="btn-link disabled" onclick="alert('Coming soon'); return false;">Code</a>
+            </div>
+
+            <img src="../assets/images/cdc_multiagent.png"
+                alt="Overview of the incentive-aware airspace allocation framework: agents report private preferences, a central planner allocates collision-free corridors and computes payments, and each agent decentrally executes its own plan within its assigned corridor."
+                style="width: 100%; border: 1px solid var(--border); border-radius: 10px;" />
+            <p class="placeholder-note" style="margin-top: 10px;">Fig. 1 from the paper: overview of the
+                incentive-aware collision-free airspace allocation framework for Advanced Air Mobility (AAM)
+                systems.</p>
+
+            <h2 style="margin-top: 48px;">Abstract</h2>
+            <p>Advanced Air Mobility (AAM) systems require scalable coordination mechanisms to manage large fleets
+                of aerial vehicles operating in shared, capacity-limited airspace. In such environments, different
+                operators may have private preferences over trajectory characteristics, such as travel time, fuel
+                consumption, or deviation from nominal routes. If centralized traffic management relies on
+                self-reported preferences, operators may strategically misreport their costs to obtain more
+                favorable trajectories.</p>
+            <p>This paper proposes a multistage motion planning framework augmented with mechanism design to
+                enable collision avoidance for AAM systems with privately known costs. The proposed approach
+                integrates convex safe corridor construction with a VCG-inspired mechanism to ensure conflict-free
+                passage through constrained airspace while incentivizing truthful revelation of private
+                preferences. Simulation results demonstrate safe and decentralized coordination among agents with
+                heterogeneous preferences.</p>
+
+            <h2 style="margin-top: 40px;">Key Contributions</h2>
+            <ul style="padding-left: 20px; list-style: disc;">
+                <li style="margin-bottom: 10px;">An incentive-aware, VCG-based framework for multi-agent air
+                    corridor allocation under collision-avoidance constraints.</li>
+                <li style="margin-bottom: 10px;">A bilevel allocation-and-execution formulation that connects
+                    centralized airspace allocation with decentralized agent-level trajectory generation, together
+                    with a tractable multistage decomposition of the bilevel optimization.</li>
+                <li style="margin-bottom: 10px;">A convex safe-corridor construction based on pairwise separating
+                    hyperplanes with optimized locations, enabling non-overlapping corridor allocation without
+                    mixed-integer scheduling.</li>
+                <li style="margin-bottom: 10px;">Simulation studies assessing nominal performance and empirical
+                    incentive behavior under truthful and misreported preference reports.</li>
+            </ul>
+
+            <h2 style="margin-top: 40px;">Method Overview</h2>
+            <p>Agents report private cost preferences to a central planner. A three-stage decomposition first
+                computes nominal collision-free trajectories, then solves decentralized per-agent problems to
+                determine convex corridor "mixing" variables that split the shared airspace via pairwise
+                separating hyperplanes, and finally fixes the resulting corridors so each agent can independently
+                plan within its own assigned region. VCG-inspired transfers are computed from the same allocation
+                to incentivize truthful preference reporting. Because the decomposition only approximates the
+                exact centralized VCG allocation, the resulting mechanism is best described as
+                <b>incentive-aware</b> rather than strictly strategyproof.</p>
+
+            <h2 style="margin-top: 40px;">Results</h2>
+            <p>In a simulated AAM landing-coordination scenario, the proposed method (P4) was compared against
+                two baselines: Stage-1-only centralized planning without corridor sharing (P2), and a fixed
+                50/50 corridor split (P3). Across 70 Monte Carlo trials with randomized initial conditions and
+                preference profiles, the proposed method achieved higher average social valuation than both
+                baselines, in both truthful and misreporting settings.</p>
+            <div style="overflow-x: auto; margin: 16px 0;">
+                <table style="border-collapse: collapse; font-size: 0.9em; min-width: 420px;">
+                    <caption style="caption-side: bottom; text-align: left; color: var(--grey-light); font-size: 0.85em; padding-top: 8px;">
+                        Average social valuation (&times;10<sup>8</sup>) across Monte Carlo trials — higher is better.
+                    </caption>
+                    <thead>
+                        <tr>
+                            <th style="text-align: left; padding: 8px 16px 8px 0; border-bottom: 2px solid var(--accent);">Reporting</th>
+                            <th style="text-align: right; padding: 8px 16px; border-bottom: 2px solid var(--accent);">P2</th>
+                            <th style="text-align: right; padding: 8px 16px; border-bottom: 2px solid var(--accent);">P3</th>
+                            <th style="text-align: right; padding: 8px 0 8px 16px; border-bottom: 2px solid var(--accent); color: var(--navy);">P4 (Ours)</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td style="padding: 8px 16px 8px 0; border-bottom: 1px solid var(--border);">Truthful</td>
+                            <td style="text-align: right; padding: 8px 16px; border-bottom: 1px solid var(--border);">-3.30854</td>
+                            <td style="text-align: right; padding: 8px 16px; border-bottom: 1px solid var(--border);">-3.30907</td>
+                            <td style="text-align: right; padding: 8px 0 8px 16px; border-bottom: 1px solid var(--border); font-weight: 600; color: var(--navy);">-3.30782</td>
+                        </tr>
+                        <tr>
+                            <td style="padding: 8px 16px 8px 0;">Misreport</td>
+                            <td style="text-align: right; padding: 8px 16px;">-3.3431</td>
+                            <td style="text-align: right; padding: 8px 16px;">-3.34105</td>
+                            <td style="text-align: right; padding: 8px 0 8px 16px; font-weight: 600; color: var(--navy);">-3.33867</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <p>Comparing truthful vs. misreported utility with and without the VCG-inspired transfer (P1 vs. P4),
+                adding the transfer shifted the mean truth-minus-misreport utility from negative to positive,
+                indicating that the payment mechanism helps incentivize truthful reporting, consistent with the
+                framework being incentive-aware.</p>
+
+            <div class="btn-row" style="margin-top: 32px; margin-bottom: 8px;">
+                <a class="btn-link" href="../assets/papers/Chakrabarti_Dixit_CDC2026_PayingForSpace.pdf"
+                    target="_blank" rel="noopener">Read the full paper</a>
+                <a class="btn-link" href="../index.html#projects">&larr; Back to home</a>
+            </div>
+        </section>
+    </main>
+
+    <footer class="container footer">
+        <p>&copy; 2026 Debajyoti Chakrabarti</p>
+    </footer>
+</body>
+
+</html>
