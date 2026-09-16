@@ -98,40 +98,6 @@
             <h2>Current Research</h2>
             <div class="feature-grid">
                 <article class="feature-card">
-                    <div class="feature-media">
-                        <div class="img-placeholder" role="img"
-                            aria-label="Placeholder for R2-Dreamer robot soccer figure">
-                            <span>Image coming soon</span>
-                        </div>
-                    </div>
-                    <div class="feature-body">
-                        <div class="feature-heading">
-                            <h3>CVaR-Constrained R2-Dreamer for Risk-Aware Robot Soccer</h3>
-                            <span class="badge badge-ongoing">Ongoing</span>
-                        </div>
-                        <div class="tag-row">
-                            <span class="tag">Model-Based RL</span>
-                            <span class="tag">World Models</span>
-                            <span class="tag">Risk-Sensitive Learning</span>
-                            <span class="tag">Robot Learning</span>
-                        </div>
-                        <p>I am developing a risk-sensitive extension of R2-Dreamer for quadruped robot soccer by
-                            optimizing lower-tail Conditional Value-at-Risk (CVaR) over imagined trajectory
-                            returns.</p>
-                        <p>The project studies when risk estimated through a learned world model is actually
-                            predictive of real closed-loop safety.</p>
-                        <p class="highlight-line"><strong>Highlights:</strong> CVaR over imagined returns &middot;
-                            reward-scale calibration &middot; multi-seed evaluation &middot; risk-horizon
-                            ablations</p>
-                        <div class="btn-row">
-                            <a href="#" class="btn-link disabled" onclick="alert('Coming soon'); return false;">Project</a>
-                            <a href="#" class="btn-link disabled" onclick="alert('Coming soon'); return false;">Code</a>
-                            <a href="#" class="btn-link disabled" onclick="alert('Coming soon'); return false;">Slides</a>
-                        </div>
-                    </div>
-                </article>
-
-                <article class="feature-card">
                     <div class="feature-media is-wide">
                         <img src="assets/images/cdc_highres.png" class="card-image"
                             alt="Overview of the incentive-aware airspace allocation framework for multi-agent collision avoidance" />
@@ -159,6 +125,40 @@
                             <a href="#" class="btn-link disabled" onclick="alert('Coming soon'); return false;">Code
                                 &middot; Coming soon</a>
                             <a class="btn-link" href="projects/paying-for-space.html">Project</a>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="feature-card">
+                    <div class="feature-media">
+                        <div class="img-placeholder soccer-placeholder" role="img"
+                            aria-label="Placeholder for a future Isaac Sim quadruped soccer training video">
+                            <span>Isaac Sim training video coming soon</span>
+                        </div>
+                    </div>
+                    <div class="feature-body">
+                        <div class="feature-heading">
+                            <h3>World-Model Reinforcement Learning for Quadruped Robot Soccer</h3>
+                            <span class="badge badge-ongoing">Ongoing</span>
+                        </div>
+                        <div class="tag-row">
+                            <span class="tag">World Models</span>
+                            <span class="tag">Model-Based RL</span>
+                            <span class="tag">Hierarchical RL</span>
+                            <span class="tag">Self-Play</span>
+                            <span class="tag">Robot Learning</span>
+                        </div>
+                        <p>Developing a hierarchical world-model reinforcement learning framework for quadruped robot
+                            soccer, where a high-level Dreamer policy selects between frozen dribbling and kicking
+                            skills trained with domain randomization.</p>
+                        <p>Current research explores iterative self-play for competitive decision making and,
+                            separately, risk-sensitive world-model learning using a CVaR-constrained R2-Dreamer
+                            formulation.</p>
+                        <p class="highlight-line"><strong>Highlights:</strong> Hierarchical Dreamer &middot; frozen
+                            locomotion skills &middot; iterative self-play &middot; risk-sensitive learning &middot;
+                            sim-to-real</p>
+                        <div class="btn-row">
+                            <a class="btn-link" href="projects/robot-soccer.html">Project</a>
                         </div>
                     </div>
                 </article>

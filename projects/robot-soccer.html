@@ -1,0 +1,165 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@200;300;400;600;700;900&amp;display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="../assets/css/style.css" />
+    <script src="../assets/js/theme.js"></script>
+    <title>Quadruped Robot Soccer &mdash; Debajyoti Chakrabarti</title>
+    <link rel="icon" type="image/x-icon" href="../assets/images/ucla.ico">
+</head>
+
+<body>
+    <header id="header">
+        <nav class="container nav">
+            <a href="../index.html#research">&larr; Back to Home</a>
+        </nav>
+    </header>
+
+    <main class="container research-main compact-sections">
+        <section class="section soccer-hero-section">
+            <p class="status-line">PRACTICE Lab, UCLA</p>
+            <h1>World-Model Reinforcement Learning for Quadruped Robot Soccer</h1>
+            <p class="sub-role"><a href="../index.html#about">Debajyoti Chakrabarti</a> &middot;
+                <a href="https://practice-lab-ucla.github.io/" target="_blank" rel="noopener">PRACTICE Lab, UCLA</a>
+            </p>
+            <div class="feature-heading soccer-status-row">
+                <span class="badge badge-ongoing">Ongoing Research</span>
+            </div>
+            <div class="tag-row">
+                <span class="tag">World Models</span>
+                <span class="tag">Model-Based RL</span>
+                <span class="tag">Hierarchical RL</span>
+                <span class="tag">Self-Play</span>
+                <span class="tag">Quadruped Robotics</span>
+                <span class="tag">Risk-Sensitive Learning</span>
+            </div>
+        </section>
+
+        <div class="divider"></div>
+
+        <section class="section research-section">
+            <h2>Overview</h2>
+            <p>This project studies model-based reinforcement learning for quadruped robot soccer. The control stack
+                is hierarchical: a high-level Dreamer policy performs task-level decision making while frozen
+                low-level policies execute dribbling and kicking behaviors.</p>
+            <p>The low-level skills are trained separately using domain randomization for robust locomotion and ball
+                interaction, allowing high-level learning to focus on strategy and skill selection.</p>
+        </section>
+
+        <div class="divider"></div>
+
+        <section class="section research-section">
+            <h2>Training in Simulation</h2>
+            <div class="soccer-video-placeholder" role="img"
+                aria-label="Placeholder for a future quadruped soccer training video from Isaac Sim">
+                <span>Isaac Sim training video coming soon</span>
+            </div>
+            <p class="figure-caption">Quadruped soccer training in Isaac Sim.</p>
+        </section>
+
+        <div class="divider"></div>
+
+        <section class="section research-section">
+            <h2>Hierarchical Soccer Policy</h2>
+            <p>The high-level Dreamer policy receives robot, ball, and game state and chooses a task-level command or
+                skill. Frozen low-level policies translate that interface into specialized dribbling or kicking
+                behavior. The skills are trained separately and need not share identical observations or command
+                representations.</p>
+            <div class="soccer-architecture" role="img"
+                aria-label="Conceptual hierarchy from game state through a Dreamer policy and skill interface to frozen dribbling and kicking policies and quadruped execution">
+                <div class="soccer-diagram-node">Robot, ball, and game state</div>
+                <div class="soccer-diagram-arrow" aria-hidden="true">&darr;</div>
+                <div class="soccer-diagram-node soccer-diagram-primary">Dreamer high-level policy</div>
+                <div class="soccer-diagram-arrow" aria-hidden="true">&darr;</div>
+                <div class="soccer-diagram-node">Skill / command interface</div>
+                <div class="soccer-diagram-arrow soccer-branch-arrow" aria-hidden="true">&#8601;&nbsp;&nbsp;&nbsp;&#8600;</div>
+                <div class="soccer-skill-grid">
+                    <div class="soccer-diagram-node"><strong>Dribble policy</strong><span>Frozen low-level skill</span>
+                    </div>
+                    <div class="soccer-diagram-node"><strong>Kick policy</strong><span>Frozen low-level skill</span>
+                    </div>
+                </div>
+                <div class="soccer-diagram-arrow soccer-branch-arrow" aria-hidden="true">&#8600;&nbsp;&nbsp;&nbsp;&#8601;</div>
+                <div class="soccer-diagram-node">Quadruped execution</div>
+            </div>
+        </section>
+
+        <div class="divider"></div>
+
+        <section class="section research-section">
+            <h2>Iterative Self-Play</h2>
+            <p>One research direction uses iterative self-play to improve competitive high-level decision making. The
+                Dreamer policy learns against evolving opponents while the underlying locomotion skills remain fixed.</p>
+            <p>The goal is to learn increasingly capable strategic behavior without repeatedly retraining the
+                low-level motor policies.</p>
+            <div class="self-play-flow" role="img"
+                aria-label="Conceptual self-play update from the current policy through training against evolving opponents to an improved policy">
+                <div class="soccer-diagram-node">Policy <i>k</i></div>
+                <div class="soccer-diagram-arrow horizontal" aria-hidden="true">&rarr;</div>
+                <div class="soccer-diagram-node soccer-diagram-primary">Train against evolving opponents</div>
+                <div class="soccer-diagram-arrow horizontal" aria-hidden="true">&rarr;</div>
+                <div class="soccer-diagram-node">Policy <i>k</i> + 1</div>
+            </div>
+        </section>
+
+        <div class="divider"></div>
+
+        <section class="section research-section">
+            <div class="feature-heading">
+                <h2>Risk-Sensitive World-Model Learning</h2>
+                <span class="badge badge-ongoing">Separate Experiment</span>
+            </div>
+            <p>A separate research direction studies risk-sensitive decision making with a Conditional Value-at-Risk
+                (CVaR)-constrained extension of R2-Dreamer. Instead of optimizing only expected return, the additional
+                objective emphasizes lower-tail imagined outcomes corresponding to rare but costly failures.</p>
+            <p>A central question is whether risk estimates obtained from imagined world-model trajectories are
+                reliable predictors of real closed-loop tail behavior.</p>
+            <div class="world-model-pipeline" role="img"
+                aria-label="Generic Dreamer pipeline from real interaction through replay, world-model learning, imagination, and actor-critic updates">
+                <div class="soccer-diagram-node">Real interaction</div>
+                <div class="soccer-diagram-arrow horizontal" aria-hidden="true">&rarr;</div>
+                <div class="soccer-diagram-node">Replay</div>
+                <div class="soccer-diagram-arrow horizontal" aria-hidden="true">&rarr;</div>
+                <div class="soccer-diagram-node soccer-diagram-primary">World model</div>
+                <div class="soccer-diagram-arrow horizontal" aria-hidden="true">&rarr;</div>
+                <div class="soccer-diagram-node">Imagination</div>
+                <div class="soccer-diagram-arrow horizontal" aria-hidden="true">&rarr;</div>
+                <div class="soccer-diagram-node">Actor / critic</div>
+            </div>
+        </section>
+
+        <div class="divider"></div>
+
+        <section class="section research-section">
+            <h2>Current Research Questions</h2>
+            <ul class="simple-list soccer-question-list">
+                <li>How should a high-level world-model policy coordinate specialized locomotion skills?</li>
+                <li>How does iterative self-play affect strategic behavior and skill selection?</li>
+                <li>When are imagined tail-risk estimates predictive of real closed-loop risk?</li>
+                <li>How does world-model error on rare failure dynamics affect risk-sensitive policy learning?</li>
+                <li>How can these policies transfer reliably from simulation to a physical quadruped?</li>
+            </ul>
+        </section>
+
+        <section class="section section-compact">
+            <div class="callout soccer-ongoing-callout">
+                <h3>Ongoing Research</h3>
+                <p>Results and evaluation protocols are still evolving. Detailed algorithmic and quantitative results
+                    will be released with future publications.</p>
+            </div>
+            <div class="btn-row soccer-back-row">
+                <a class="btn-link" href="../index.html#research">&larr; Back to Home</a>
+            </div>
+        </section>
+    </main>
+
+    <footer class="container footer">
+        <p>&copy; 2026 Debajyoti Chakrabarti</p>
+    </footer>
+</body>
+
+</html>
