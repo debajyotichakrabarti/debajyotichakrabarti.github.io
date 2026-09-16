@@ -158,36 +158,7 @@
                 </figure>
             </div>
 
-            <h3>The initial thread: a lightweight onboard feasibility test</h3>
-            <p>My 2018 ISRO internship on applications of convex optimization supplied the methodological starting
-                point. The mission-specific question that followed was practical: how can a lander decide in real
-                time whether its current state can still reach the nominated site, without storing a massive
-                simulation database or solving a nonlinear optimization problem onboard? In the later
-                Chandrayaan-3 study, ground-based high-fidelity Monte Carlo runs varied position, velocity, and mass;
-                successful landings were labeled feasible, while nonconvergent or constraint-violating cases were
-                labeled infeasible.</p>
-            <p>The subsequent IFAC paper formulated a constrained convex fit in downrange, altitude, and mass. In
-                contrast to an unconstrained least-squares surface that could spill into the infeasible region, the
-                fitted quadratic boundary was required to remain inside the feasible set. Only ten coefficients had
-                to be stored onboard, reducing the real-time decision to evaluating one function and checking its
-                sign. This provided a conservative, memory-efficient trigger for nominal landing or contingency
-                logic.</p>
-            <div class="figure-pair isro-boundary-pair">
-                <figure class="research-figure">
-                    <img src="../assets/images/isro/ifac_constrained_boundary.png" class="card-image"
-                        alt="Constrained convex boundary fitted to Chandrayaan-3 downrange altitude and mass data" />
-                    <figcaption class="figure-caption">The internship-to-IFAC formulation: a constrained
-                        three-dimensional surface stays inside the feasible data region.</figcaption>
-                </figure>
-                <figure class="research-figure equation-figure">
-                    <img src="../assets/images/isro/boundary_feature_map.png" class="card-image"
-                        alt="Reduced state and quadratic feature map used by the later controllability boundary" />
-                    <figcaption class="figure-caption">The later retargeting formulation compresses altitude,
-                        downrange, and velocity into a reduced state and evaluates a quadratic feature map.</figcaption>
-                </figure>
-            </div>
-
-            <h3>Analytical guidance with learned time-to-go</h3>
+            <h3>Base guidance policy with learned time-to-go</h3>
             <p>The base policy uses a cubic acceleration profile whose coefficients satisfy the measured initial
                 state and desired terminal boundary conditions. Rather than optimize an entire trajectory onboard,
                 an offline-trained model supplies a robust time-to-go from altitude, downrange, and vertical and
@@ -208,25 +179,64 @@
                 </figure>
             </div>
 
-            <h3>From feasibility classification to target repair</h3>
-            <p>The later work generalized the feasibility check into a controllability boundary. Offline rollouts
-                labeled dispersed states according to whether the analytical policy could satisfy the dynamics and
-                terminal constraints. A maximum-margin classifier captured the trend, followed by a conservative
-                zero-loss fit that excluded known uncontrollable samples. When the current state fell outside the
-                nominal controllable set, the onboard logic shifted the target to the nearest point on that boundary
-                instead of invoking online trajectory optimization.</p>
+            <h3>Controllability boundary: from the initial idea to an onboard classifier</h3>
+            <p>My 2018 ISRO internship on applications of convex optimization supplied the methodological starting
+                point. The mission-specific question was practical: how can a lander decide in real time whether its
+                current state can still reach the nominated site, without storing a massive simulation database or
+                solving a nonlinear optimization problem onboard? In the later Chandrayaan-3 study, high-fidelity
+                Monte Carlo runs varied position, velocity, and mass; successful landings were labeled feasible,
+                while nonconvergent or constraint-violating cases were labeled infeasible.</p>
+            <p>A constrained quadratic surface was fitted in downrange, altitude, and mass. Unlike an unconstrained
+                least-squares surface that could spill into the infeasible region, this boundary was required to
+                remain inside the feasible set. Only ten coefficients had to be stored onboard, reducing the
+                real-time decision to one function evaluation and a sign check.</p>
+            <div class="figure-pair isro-boundary-pair">
+                <figure class="research-figure">
+                    <img src="../assets/images/isro/ifac_constrained_boundary.png" class="card-image"
+                        alt="Constrained convex boundary fitted to Chandrayaan-3 downrange altitude and mass data" />
+                    <figcaption class="figure-caption">A constrained three-dimensional surface stays inside the
+                        feasible data region while closely following its boundary.</figcaption>
+                </figure>
+                <figure class="research-figure equation-figure">
+                    <img src="../assets/images/isro/boundary_feature_map.png" class="card-image"
+                        alt="Reduced state and quadratic feature map used by the controllability boundary" />
+                    <figcaption class="figure-caption">For retargeting, altitude, downrange, and velocity are
+                        compressed into a reduced state and lifted into a quadratic feature vector.</figcaption>
+                </figure>
+            </div>
             <div class="figure-pair isro-boundary-pair">
                 <figure class="research-figure equation-figure">
-                    <img src="../assets/images/isro/reachability_retargeting.png" class="card-image"
-                        alt="Controllable-set definition and retargeting condition" />
-                    <figcaption class="figure-caption">The controllable set contains initial states that can reach
-                        the target under the base policy; leaving it triggers a shift to a feasible target.</figcaption>
+                    <img src="../assets/images/isro/boundary_bilevel_optimization.png" class="card-image"
+                        alt="Maximum-margin and zero-loss optimization stages for the controllability boundary" />
+                    <figcaption class="figure-caption">The two offline stages first learn a maximum-margin
+                        classifier, then move it to enforce zero misclassification of uncontrollable samples.</figcaption>
                 </figure>
                 <figure class="research-figure">
                     <img src="../assets/images/isro/controllability_boundary.png" class="card-image"
                         alt="Maximum-margin classifier and conservative zero-loss convex controllability boundary" />
                     <figcaption class="figure-caption">The zero-loss boundary is deliberately more conservative
                         than the maximum-margin classifier, protecting the onboard feasibility decision.</figcaption>
+                </figure>
+            </div>
+
+            <h3>Real-time retargeting by boundary projection</h3>
+            <p>The controllable set contains states from which the base policy can satisfy the dynamics, constraints,
+                and terminal conditions. If the navigation update places the lander outside that set for the nominal
+                target, the onboard logic projects the target to the nearest point on the learned boundary. This
+                changes the landing range with minimum deviation while retaining the same analytical guidance law
+                and avoiding online trajectory optimization.</p>
+            <div class="figure-pair isro-boundary-pair">
+                <figure class="research-figure equation-figure">
+                    <img src="../assets/images/isro/reachability_retargeting.png" class="card-image"
+                        alt="Controllable-set definition and retargeting condition" />
+                    <figcaption class="figure-caption">Leaving the nominal controllable set triggers a shift from
+                        the original target to a reachable target.</figcaption>
+                </figure>
+                <figure class="research-figure equation-figure">
+                    <img src="../assets/images/isro/retargeting_projection_math.png" class="card-image"
+                        alt="Projection and boundary equations used for real-time retargeting" />
+                    <figcaption class="figure-caption">The online step is a geometric projection onto the fitted
+                        boundary, implemented as a compact conic calculation.</figcaption>
                 </figure>
             </div>
             <p>The design was evaluated through dispersed-state rollouts, high-fidelity six-degree-of-freedom
@@ -247,20 +257,12 @@
                         Monte Carlo bounds (blue).</figcaption>
                 </figure>
             </div>
-            <div class="figure-pair isro-results-pair">
-                <figure class="research-figure">
-                    <img src="../assets/images/isro/retargeting_policy_comparison.png" class="card-image"
-                        alt="Comparison of base guidance and retargeting-policy trajectory and control histories" />
-                    <figcaption class="figure-caption">A representative infeasible initial condition: retargeting
-                        reshapes altitude and thrust histories to recover a feasible terminal state.</figcaption>
-                </figure>
-                <figure class="research-figure">
-                    <img src="../assets/images/isro/landing_dispersion.png" class="card-image"
-                        alt="Six-sigma Monte Carlo landing dispersion ellipse for Chandrayaan-3" />
-                    <figcaption class="figure-caption">Six-sigma Monte Carlo touchdown dispersion within the
-                        designated landing region, from the landing-profile analysis.</figcaption>
-                </figure>
-            </div>
+            <figure class="research-figure figure-medium">
+                <img src="../assets/images/isro/retargeting_policy_comparison.png" class="card-image"
+                    alt="Comparison of base guidance and retargeting-policy trajectory and control histories" />
+                <figcaption class="figure-caption">A representative infeasible initial condition: retargeting
+                    reshapes altitude and thrust histories to recover a feasible terminal state.</figcaption>
+            </figure>
         </section>
 
         <div class="divider"></div>
