@@ -20,6 +20,7 @@ html, body {
 
 body {
     font-family: 'Source Sans Pro', sans-serif;
+    font-size: 17px;
     font-weight: 300;
     letter-spacing: 0.2px;
     color: var(--grey);
