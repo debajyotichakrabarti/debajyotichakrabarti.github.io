@@ -1158,10 +1158,16 @@ a.btn-link:hover {
     max-width: 520px;
 }
 
-.risk-objective-grid {
+.risk-outcome-grid {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 22px;
+    align-items: start;
+}
+
+.risk-tail-column {
+    display: grid;
+    gap: 4px;
 }
 
 .risk-tail-node {
@@ -1183,34 +1189,6 @@ a.btn-link:hover {
     border-left: 4px solid var(--accent);
     border-radius: 12px;
     background: linear-gradient(135deg, var(--surface), var(--card));
-}
-
-.cvar-equation {
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-wrap: wrap;
-    gap: 14px;
-    max-width: 720px;
-    margin: 24px auto 8px;
-    padding: 20px;
-    border: 1px solid var(--border);
-    border-radius: 10px;
-    background: var(--card);
-    color: var(--navy-dark);
-    font-family: Georgia, 'Times New Roman', serif;
-    font-size: 1.5em;
-}
-
-.equation-equals {
-    color: var(--accent);
-}
-
-.equation-caption {
-    margin: 0 auto 24px;
-    color: var(--grey-light);
-    font-size: 0.88em;
-    text-align: center;
 }
 
 .preliminary-label {
@@ -1293,6 +1271,27 @@ a.btn-link:hover {
     font-size: 0.78em;
 }
 
+.soccer-available-module {
+    max-width: 440px;
+    margin: 24px auto 0;
+    padding: 12px 16px;
+    border: 1px dashed var(--border);
+    border-radius: 8px;
+    color: var(--grey-light);
+    text-align: center;
+    line-height: 1.35;
+}
+
+.soccer-available-module strong,
+.soccer-available-module span {
+    display: block;
+}
+
+.soccer-available-module span {
+    margin-top: 3px;
+    font-size: 0.78em;
+}
+
 .soccer-diagram-primary {
     border-color: var(--accent);
     box-shadow: inset 3px 0 0 var(--accent);
@@ -1309,12 +1308,6 @@ a.btn-link:hover {
 .soccer-branch-arrow {
     letter-spacing: 2.5em;
     text-indent: 2.5em;
-}
-
-.soccer-skill-grid {
-    display: grid;
-    grid-template-columns: repeat(2, minmax(0, 1fr));
-    gap: 22px;
 }
 
 .soccer-question-list li {
@@ -1369,11 +1362,6 @@ a.btn-link:hover {
     .risk-learning-flow,
     .tail-risk-flow {
         padding: 18px;
-    }
-
-    .cvar-equation {
-        padding: 16px;
-        font-size: 1.25em;
     }
 
     .table-scroll-hint {

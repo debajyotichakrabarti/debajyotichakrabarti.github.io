@@ -46,9 +46,9 @@
         <section class="section research-section">
             <h2>Overview</h2>
             <p>This project combines hierarchical world-model reinforcement learning, iterative self-play, and
-                risk-sensitive policy learning for quadruped robot soccer. A high-level R2-Dreamer policy selects
-                frozen dribbling and kicking skills, is trained against progressively stronger opponents, and is
-                extended to account for lower-tail outcomes. Compared with Dreamer, <a
+                risk-sensitive policy learning for quadruped robot soccer. In the current experiments, a high-level
+                R2-Dreamer policy directs a frozen dribbling controller and is trained against progressively stronger
+                opponents before being extended to account for lower-tail outcomes. Compared with Dreamer, <a
                     href="https://openreview.net/forum?id=Je2QqXrcQq" target="_blank"
                     rel="noopener">R2-Dreamer</a> replaces image reconstruction with redundancy-reduced representation
                 learning while retaining latent imagination.</p>
@@ -58,25 +58,25 @@
 
         <section class="section research-section">
             <h2>System Architecture</h2>
-            <p>The high-level R2-Dreamer policy selects between separately trained, frozen dribbling and kicking
-                policies. The diagram is intentionally conceptual and omits implementation-specific observation and
-                command interfaces.</p>
+            <p>The current soccer experiments use a hierarchical architecture in which R2-Dreamer performs high-level
+                decision making while a frozen dribbling policy executes low-level locomotion and ball-control
+                commands. A separately trained kicking skill exists in the broader project but is not currently part
+                of the active high-level control loop.</p>
             <div class="soccer-architecture" role="img"
-                aria-label="Conceptual hierarchy from game state through an R2-Dreamer policy and skill interface to frozen dribbling and kicking policies and quadruped execution">
+                aria-label="Current architecture from robot, ball, and game state through R2-Dreamer and a high-level command to the frozen dribble policy and quadruped; the separately trained kick policy is not active">
                 <div class="soccer-diagram-node">Robot + ball + game state</div>
                 <div class="soccer-diagram-arrow" aria-hidden="true">&darr;</div>
                 <div class="soccer-diagram-node soccer-diagram-primary">R2-Dreamer policy</div>
                 <div class="soccer-diagram-arrow" aria-hidden="true">&darr;</div>
-                <div class="soccer-diagram-node">Skill selection</div>
-                <div class="soccer-diagram-arrow soccer-branch-arrow" aria-hidden="true">&#8601;&nbsp;&nbsp;&nbsp;&#8600;</div>
-                <div class="soccer-skill-grid">
-                    <div class="soccer-diagram-node"><strong>Dribble policy</strong><span>Frozen skill</span>
-                    </div>
-                    <div class="soccer-diagram-node"><strong>Kick policy</strong><span>Frozen skill</span>
-                    </div>
-                </div>
-                <div class="soccer-diagram-arrow soccer-branch-arrow" aria-hidden="true">&#8600;&nbsp;&nbsp;&nbsp;&#8601;</div>
+                <div class="soccer-diagram-node">High-level command</div>
+                <div class="soccer-diagram-arrow" aria-hidden="true">&darr;</div>
+                <div class="soccer-diagram-node soccer-diagram-primary"><strong>Frozen dribble policy</strong><span>Low-level locomotion and ball control</span></div>
+                <div class="soccer-diagram-arrow" aria-hidden="true">&darr;</div>
                 <div class="soccer-diagram-node">Quadruped</div>
+                <div class="soccer-available-module">
+                    <strong>Separately trained kick policy</strong>
+                    <span>Available in the broader project; not active in current experiments</span>
+                </div>
             </div>
         </section>
 
@@ -119,35 +119,24 @@
                 <h2>Risk-Sensitive World-Model RL</h2>
                 <span class="badge badge-ongoing">Main Research Direction</span>
             </div>
-            <p>Standard Dreamer learns its policy by optimizing expected return over trajectories imagined by the
-                world model. The risk-sensitive extension also emphasizes lower-tail imagined outcomes, where rare but
-                costly failures are concentrated.</p>
-
-            <div class="cvar-equation" role="img"
-                aria-label="Conditional Value at Risk of G equals the expected value of G conditioned on G being less than or equal to its alpha quantile">
-                <span>CVaR<sub>&alpha;</sub>(G)</span>
-                <span class="equation-equals">=</span>
-                <span>&Eopf;[G &mid; G &le; q<sub>&alpha;</sub>(G)]</span>
-            </div>
-            <p class="equation-caption"><i>G</i> is an imagined trajectory return, and
-                <i>q</i><sub>&alpha;</sub>(<i>G</i>) is its lower &alpha;-quantile.</p>
+            <p>The risk-sensitive extension augments R2-Dreamer with a lower-tail objective that places additional
+                emphasis on poor imagined outcomes. In the soccer task, these low-return trajectories can correspond
+                to falls, collisions, timeouts, failure to make progress, or otherwise unsuccessful play.</p>
 
             <div class="risk-learning-flow" role="img"
-                aria-label="Risk-sensitive world-model learning flow from real interaction through replay, world model, latent imagination, expected and lower-tail returns, to policy learning">
-                <div class="soccer-diagram-node">Real interaction</div>
-                <div class="soccer-diagram-arrow" aria-hidden="true">&darr;</div>
-                <div class="soccer-diagram-node">Replay</div>
-                <div class="soccer-diagram-arrow" aria-hidden="true">&darr;</div>
-                <div class="soccer-diagram-node soccer-diagram-primary">World model</div>
-                <div class="soccer-diagram-arrow" aria-hidden="true">&darr;</div>
+                aria-label="Conceptual flow from latent imagination to predicted trajectory returns, split into typical and low-return outcomes, with additional risk emphasis on low-return outcomes">
                 <div class="soccer-diagram-node">Latent imagination</div>
+                <div class="soccer-diagram-arrow" aria-hidden="true">&darr;</div>
+                <div class="soccer-diagram-node">Predicted trajectory returns</div>
                 <div class="soccer-diagram-arrow soccer-branch-arrow" aria-hidden="true">&#8601;&nbsp;&nbsp;&nbsp;&#8600;</div>
-                <div class="risk-objective-grid">
-                    <div class="soccer-diagram-node">Expected return</div>
-                    <div class="soccer-diagram-node risk-tail-node">Lower-tail return</div>
+                <div class="risk-outcome-grid">
+                    <div class="soccer-diagram-node">Typical outcomes</div>
+                    <div class="risk-tail-column">
+                        <div class="soccer-diagram-node risk-tail-node">Low-return outcomes</div>
+                        <div class="soccer-diagram-arrow" aria-hidden="true">&darr;</div>
+                        <div class="soccer-diagram-node soccer-diagram-primary">More risk emphasis</div>
+                    </div>
                 </div>
-                <div class="soccer-diagram-arrow soccer-branch-arrow" aria-hidden="true">&#8600;&nbsp;&nbsp;&nbsp;&#8601;</div>
-                <div class="soccer-diagram-node soccer-diagram-primary">Policy learning</div>
             </div>
         </section>
 
