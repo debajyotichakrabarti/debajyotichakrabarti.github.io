@@ -58,7 +58,73 @@
 
         <section id="research" class="section">
             <h2>Current Research</h2>
-            <p class="placeholder-note">Content coming soon.</p>
+            <div class="feature-grid">
+                <article class="feature-card">
+                    <div class="feature-media">
+                        <div class="img-placeholder" role="img"
+                            aria-label="Placeholder for R2-Dreamer robot soccer figure">
+                            <span>Image coming soon</span>
+                        </div>
+                    </div>
+                    <div class="feature-body">
+                        <div class="feature-heading">
+                            <h3>CVaR-Constrained R2-Dreamer for Risk-Aware Robot Soccer</h3>
+                            <span class="badge badge-ongoing">Ongoing</span>
+                        </div>
+                        <div class="tag-row">
+                            <span class="tag">Model-Based RL</span>
+                            <span class="tag">World Models</span>
+                            <span class="tag">Risk-Sensitive Learning</span>
+                            <span class="tag">Robot Learning</span>
+                        </div>
+                        <p>I am developing a risk-sensitive extension of R2-Dreamer for quadruped robot soccer by
+                            optimizing lower-tail Conditional Value-at-Risk (CVaR) over imagined trajectory
+                            returns.</p>
+                        <p>The project studies when risk estimated through a learned world model is actually
+                            predictive of real closed-loop safety.</p>
+                        <p class="highlight-line"><strong>Highlights:</strong> CVaR over imagined returns &middot;
+                            reward-scale calibration &middot; multi-seed evaluation &middot; risk-horizon
+                            ablations</p>
+                        <div class="btn-row">
+                            <span class="btn-link disabled" title="Link coming soon">Project</span>
+                            <span class="btn-link disabled" title="Link coming soon">Code</span>
+                            <span class="btn-link disabled" title="Link coming soon">Slides</span>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="feature-card">
+                    <div class="feature-media">
+                        <div class="img-placeholder" role="img"
+                            aria-label="Placeholder for multi-agent motion planning figure">
+                            <span>Image coming soon</span>
+                        </div>
+                    </div>
+                    <div class="feature-body">
+                        <div class="feature-heading">
+                            <h3>Paying for Space: Incentive-Aware Motion Planning for Multi-Agent Collision
+                                Avoidance</h3>
+                            <span class="badge badge-accepted">IEEE CDC 2026 &middot; Accepted</span>
+                        </div>
+                        <div class="tag-row">
+                            <span class="tag">Multi-Agent Systems</span>
+                            <span class="tag">Motion Planning</span>
+                            <span class="tag">Optimal Control</span>
+                            <span class="tag">Mechanism Design</span>
+                        </div>
+                        <p>Developed an incentive-aware multi-agent motion planning framework for agents with
+                            heterogeneous private preferences.</p>
+                        <p>The method combines bilevel optimization, convex safe-corridor allocation,
+                            decentralized trajectory execution, and VCG-inspired transfers to coordinate
+                            collision-free motion under strategic agent behavior.</p>
+                        <div class="btn-row">
+                            <span class="btn-link disabled" title="Link coming soon">Paper</span>
+                            <span class="btn-link disabled" title="Link coming soon">Code</span>
+                            <span class="btn-link disabled" title="Link coming soon">Project</span>
+                        </div>
+                    </div>
+                </article>
+            </div>
         </section>
 
         <section id="earlier-research" class="section">
@@ -69,8 +135,77 @@
         <div class="divider"></div>
 
         <section id="projects" class="section">
-            <h2>Selected Robotics &amp; AI Projects</h2>
-            <p class="placeholder-note">Content coming soon.</p>
+            <h2>Selected Robotics &amp; Learning Projects</h2>
+            <div class="project-grid">
+                <article class="project-card">
+                    <div class="img-placeholder" role="img"
+                        aria-label="Placeholder for adaptive safety shielding figure">
+                        <span>Image coming soon</span>
+                    </div>
+                    <div class="project-card-body">
+                        <h3>Adaptive Safety Shielding for Goal-Directed Navigation under Exogenous Disturbance</h3>
+                        <p class="status-line">Course Research Project &middot; 2026</p>
+                        <div class="tag-row">
+                            <span class="tag">Safe RL</span>
+                            <span class="tag">Hamilton-Jacobi Reachability</span>
+                            <span class="tag">PPO</span>
+                            <span class="tag">Safety Filters</span>
+                        </div>
+                        <p>Combined a nominal PPO navigation policy with an offline bank of Hamilton-Jacobi
+                            back-reachable-tube safety certificates and online disturbance-bound estimation.</p>
+                        <p>Designed adaptive certificate selection and hierarchical fallback for safety under
+                            distribution shift.</p>
+                        <div class="stat-compare">
+                            <div class="stat-row"><span class="stat-label">Vanilla PPO</span><span
+                                    class="stat-value">58% success / 42% collision</span></div>
+                            <div class="stat-row"><span class="stat-label">Adaptive shielding</span><span
+                                    class="stat-value stat-highlight">100% success / 0% collision</span></div>
+                        </div>
+                    </div>
+                </article>
+
+                <article class="project-card">
+                    <div class="img-placeholder" role="img" aria-label="Placeholder for VLAPS figure">
+                        <span>Image coming soon</span>
+                    </div>
+                    <div class="project-card-body">
+                        <h3>VLM-Augmented Policy Switching for Safe Driving (VLAPS)</h3>
+                        <p class="status-line">Course Project &middot; 2025</p>
+                        <div class="tag-row">
+                            <span class="tag">Vision-Language Models</span>
+                            <span class="tag">Imitation Learning</span>
+                            <span class="tag">TD Learning</span>
+                            <span class="tag">Motion Planning</span>
+                        </div>
+                        <p>Developed a VLM-gated policy-switching framework that replaces human
+                            trajectory-preference queries with automated visual-language-model supervision.</p>
+                        <p>Combined RRT* motion planning with imitation and TD learning, achieving 86% success
+                            with zero crashes in the tested simulated urban-driving environment.</p>
+                    </div>
+                </article>
+
+                <article class="project-card">
+                    <div class="img-placeholder" role="img"
+                        aria-label="Placeholder for EMG keystroke decoding figure">
+                        <span>Image coming soon</span>
+                    </div>
+                    <div class="project-card-body">
+                        <h3>Predicting Keystrokes from Electromyography Signals</h3>
+                        <p class="status-line">Course Project &middot; 2026</p>
+                        <div class="tag-row">
+                            <span class="tag">PyTorch</span>
+                            <span class="tag">LSTM</span>
+                            <span class="tag">Transformers</span>
+                            <span class="tag">CTC</span>
+                        </div>
+                        <p>Built LSTM and Transformer-based sequence models for EMG-to-keystroke decoding using
+                            CTC training.</p>
+                        <p>Reduced test character error rate from 23.21% for the CNN baseline to 12.06% with an
+                            LSTM, with additional studies on training-data scale, sensor density, augmentation,
+                            and sampling frequency.</p>
+                    </div>
+                </article>
+            </div>
         </section>
 
         <div class="divider"></div>

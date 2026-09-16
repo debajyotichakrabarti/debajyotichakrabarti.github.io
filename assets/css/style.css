@@ -212,6 +212,233 @@ b, strong {
 }
 
 /**************************************************/
+/* Shared card elements: badges, tags, buttons, image placeholders */
+
+.badge {
+    display: inline-block;
+    font-size: 0.68em;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    font-weight: 600;
+    padding: 3px 10px;
+    border-radius: 4px;
+    white-space: nowrap;
+}
+
+.badge-ongoing {
+    color: var(--navy);
+    border: 1px solid var(--accent);
+    background: #fff;
+}
+
+.badge-accepted {
+    color: #fff;
+    background: var(--navy);
+}
+
+.badge-course {
+    color: var(--grey-light);
+    border: 1px solid var(--border);
+    background: var(--surface);
+}
+
+.tag-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-bottom: 14px;
+}
+
+.tag {
+    font-size: 0.72em;
+    color: var(--grey-light);
+    background: var(--surface);
+    border: 1px solid var(--border);
+    padding: 2px 9px;
+    border-radius: 999px;
+}
+
+.highlight-line {
+    font-size: 0.85em;
+    color: var(--grey-light);
+    margin-top: 4px;
+}
+
+.highlight-line strong {
+    color: var(--navy);
+}
+
+.btn-row {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-top: 16px;
+}
+
+.btn-link {
+    font-size: 0.85em;
+    padding: 5px 14px;
+    border: 1px solid var(--accent);
+    border-radius: 4px;
+    color: var(--accent);
+    transition: background 0.2s ease;
+}
+
+a.btn-link:hover {
+    background: var(--surface);
+    text-decoration: none;
+}
+
+.btn-link.disabled {
+    color: #b9bfc7;
+    border-color: var(--border);
+    cursor: default;
+}
+
+.img-placeholder {
+    width: 100%;
+    aspect-ratio: 4 / 3;
+    background: var(--surface);
+    border: 1px dashed var(--border);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: var(--grey-light);
+    font-size: 0.8em;
+    text-align: center;
+}
+
+/**************************************************/
+/* Current Research: large horizontal feature cards */
+
+.feature-grid {
+    display: flex;
+    flex-direction: column;
+    gap: 32px;
+}
+
+.feature-card {
+    display: flex;
+    align-items: stretch;
+    gap: 32px;
+    padding: 28px;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    background: #fff;
+}
+
+.feature-media {
+    flex: 0 0 320px;
+}
+
+.feature-media .img-placeholder {
+    height: 100%;
+    aspect-ratio: auto;
+    min-height: 240px;
+}
+
+.feature-body {
+    flex: 1;
+    min-width: 0;
+}
+
+.feature-heading {
+    display: flex;
+    align-items: baseline;
+    flex-wrap: wrap;
+    gap: 10px;
+    margin-bottom: 10px;
+}
+
+.feature-heading h3 {
+    margin: 0;
+    font-size: 1.25em;
+    font-weight: 600;
+    color: var(--navy-dark);
+}
+
+/**************************************************/
+/* Selected Robotics & Learning Projects: compact grid */
+
+.project-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 24px;
+}
+
+.project-card {
+    display: flex;
+    flex-direction: column;
+    border: 1px solid var(--border);
+    border-radius: 10px;
+    background: #fff;
+    overflow: hidden;
+}
+
+.project-card .img-placeholder {
+    aspect-ratio: 16 / 9;
+    border-radius: 0;
+    border-width: 0 0 1px 0;
+}
+
+.project-card-body {
+    padding: 18px 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+}
+
+.project-card-body h3 {
+    margin: 0;
+    font-size: 1.05em;
+    font-weight: 600;
+    color: var(--navy-dark);
+}
+
+.status-line {
+    font-size: 0.72em;
+    text-transform: uppercase;
+    letter-spacing: 0.06em;
+    color: var(--grey-light);
+    margin: 0;
+}
+
+.project-card-body p {
+    font-size: 0.92em;
+    margin: 0;
+}
+
+.stat-compare {
+    margin-top: 8px;
+    border-top: 1px solid var(--border);
+    padding-top: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+}
+
+.stat-row {
+    display: flex;
+    justify-content: space-between;
+    gap: 12px;
+    font-size: 0.85em;
+}
+
+.stat-label {
+    color: var(--grey-light);
+}
+
+.stat-value {
+    font-weight: 600;
+    color: var(--grey);
+}
+
+.stat-value.stat-highlight {
+    color: var(--navy);
+}
+
+/**************************************************/
 
 .footer {
     padding: 32px 24px 48px 24px;
@@ -249,5 +476,23 @@ b, strong {
 
     .section {
         padding: 40px 24px;
+    }
+}
+
+@media (max-width: 800px) {
+    .feature-card {
+        flex-direction: column;
+    }
+
+    .feature-media {
+        flex: none;
+    }
+
+    .feature-media .img-placeholder {
+        min-height: 180px;
+    }
+
+    .project-grid {
+        grid-template-columns: 1fr;
     }
 }
