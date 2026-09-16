@@ -41,7 +41,7 @@
                     </div>
                     <p>My work covered flight-algorithm development, nonlinear spacecraft dynamics, control design,
                         Monte Carlo analysis, onboard decision logic, high-fidelity simulation, and stability
-                        assessment. Chandrayaan-3 was the central effort: I contributed to the GNC analysis behind
+                        assessment. Chandrayaan-3 was a major focus: I contributed to the GNC analysis behind
                         its autonomous powered descent and co-authored technical work on guidance feasibility,
                         real-time retargeting, landing strategy, and propellant-slosh interaction.</p>
                     <div class="btn-row">
@@ -51,8 +51,8 @@
                 </div>
                 <figure class="isro-portrait">
                     <img src="../assets/images/isro/debajyoti_chandrayaan3.jpg" class="card-image"
-                        alt="Debajyoti Chakrabarti standing in front of a Chandrayaan-3 lander display at ISRO" />
-                    <figcaption class="figure-caption">With a Chandrayaan-3 lander display at ISRO.</figcaption>
+                        alt="Debajyoti Chakrabarti standing in front of an Aditya-L1 solar observatory replica at ISRO" />
+                    <figcaption class="figure-caption">With an Aditya-L1 solar observatory replica at ISRO.</figcaption>
                 </figure>
             </div>
         </section>
@@ -61,10 +61,24 @@
 
         <section id="chandrayaan-3" class="section research-section">
             <h2><a href="https://www.isro.gov.in/Chandrayaan3_Details.html" target="_blank"
-                    rel="noopener">Chandrayaan-3</a>: The Central Mission</h2>
+                    rel="noopener">Chandrayaan-3 Moon Landing</a></h2>
             <p>Chandrayaan-3 demonstrated autonomous safe and soft landing near the lunar south-polar region on
                 23 August 2023. The U R Rao Satellite Centre team designed, analyzed, implemented, and realized the
                 powered-descent GNC system that brought the lander from orbital velocity to touchdown.</p>
+            <div class="figure-pair isro-opening-figures">
+                <figure class="research-figure">
+                    <img src="../assets/images/isro/ch3_lander_on_moon.png" class="card-image"
+                        alt="Chandrayaan-3 Vikram lander on the lunar surface" />
+                    <figcaption class="figure-caption">Vikram after landing on the lunar surface. Image credit:
+                        ISRO.</figcaption>
+                </figure>
+                <figure class="research-figure">
+                    <img src="../assets/images/isro/ch3_onboard_descent.gif" class="card-image"
+                        alt="Animated onboard navigation-camera view during Chandrayaan-3 descent" />
+                    <figcaption class="figure-caption">Onboard navigation-camera view during powered descent.
+                        Image credit: ISRO.</figcaption>
+                </figure>
+            </div>
             <p>The descent was deliberately staged: rough braking removed most of the approximately 1.68 km/s
                 horizontal velocity, attitude hold prepared the sensor and propulsion geometry, fine braking drove
                 the state toward the terminal corridor, and terminal descent completed hazard-aware vertical
@@ -75,6 +89,7 @@
                     alt="Chandrayaan-3 powered descent profile from 30 kilometers altitude through rough braking, attitude hold, fine braking, and terminal descent" />
                 <figcaption class="figure-caption">Powered-descent architecture from 30 km altitude to touchdown,
                     showing the four major phases and their velocity, altitude, range, and timing objectives.
+                    Figure credit: ISRO.
                 </figcaption>
             </figure>
             <div class="twocol-grid isro-story-grid">
@@ -94,7 +109,7 @@
                         <img src="../assets/images/isro/pragyan_rover_tracks.jpg" class="card-image"
                             alt="Pragyan rover tracks on the lunar surface after the Chandrayaan-3 landing" />
                         <figcaption class="figure-caption">Pragyan rover tracks on the lunar surface after the
-                            successful landing.</figcaption>
+                            successful landing. Image credit: ISRO.</figcaption>
                     </figure>
                 </div>
             </div>
@@ -131,6 +146,20 @@
                 set, the retargeting logic projected the target toward the learned boundary instead of solving a
                 full trajectory-optimization problem onboard. This preserved a transparent analytical guidance law
                 while expanding the recoverable operating region.</p>
+            <div class="figure-pair isro-equation-pair">
+                <figure class="research-figure equation-figure">
+                    <img src="../assets/images/isro/polynomial_guidance_law.png" class="card-image"
+                        alt="Cubic polynomial acceleration law for powered descent guidance" />
+                    <figcaption class="figure-caption">Cubic acceleration command: its coefficients enforce the
+                        measured initial state and desired terminal boundary conditions.</figcaption>
+                </figure>
+                <figure class="research-figure equation-figure">
+                    <img src="../assets/images/isro/time_to_go_policy.png" class="card-image"
+                        alt="Data-driven time-to-go policy as a function of altitude, downrange, and velocity" />
+                    <figcaption class="figure-caption">Offline-learned time-to-go policy evaluated onboard from
+                        altitude, downrange, and vertical and horizontal velocity.</figcaption>
+                </figure>
+            </div>
             <p>The design was evaluated through dispersed-state rollouts, high-fidelity six-degree-of-freedom
                 simulation, Monte Carlo campaigns, and comparison with flight telemetry. The flight trace remained
                 within the preflight Monte Carlo performance envelope for the fine-braking phase.</p>
@@ -149,6 +178,20 @@
                         Monte Carlo bounds (blue).</figcaption>
                 </figure>
             </div>
+            <div class="figure-pair isro-results-pair">
+                <figure class="research-figure">
+                    <img src="../assets/images/isro/retargeting_policy_comparison.png" class="card-image"
+                        alt="Comparison of base guidance and retargeting-policy trajectory and control histories" />
+                    <figcaption class="figure-caption">A representative infeasible initial condition: retargeting
+                        reshapes altitude and thrust histories to recover a feasible terminal state.</figcaption>
+                </figure>
+                <figure class="research-figure">
+                    <img src="../assets/images/isro/landing_dispersion.png" class="card-image"
+                        alt="Six-sigma Monte Carlo landing dispersion ellipse for Chandrayaan-3" />
+                    <figcaption class="figure-caption">Six-sigma Monte Carlo touchdown dispersion within the
+                        designated landing region, from the landing-profile analysis.</figcaption>
+                </figure>
+            </div>
         </section>
 
         <div class="divider"></div>
@@ -160,6 +203,21 @@
                 dominant liquid modes with time-varying equivalent pendulums inside a nonlinear three-axis,
                 multi-tank spacecraft model. The model converts pendulum motion into disturbance force and torque
                 acting on the lander.</p>
+
+            <div class="figure-pair isro-equation-pair slosh-model-pair">
+                <figure class="research-figure figure-narrow">
+                    <img src="../assets/images/isro/slosh_pendulum_geometry.png" class="card-image"
+                        alt="Equivalent pendulum model of propellant slosh in the lander tank" />
+                    <figcaption class="figure-caption">Equivalent-pendulum geometry for a dominant liquid mode in
+                        the roll-yaw plane.</figcaption>
+                </figure>
+                <figure class="research-figure equation-figure">
+                    <img src="../assets/images/isro/slosh_pendulum_dynamics.png" class="card-image"
+                        alt="Nonlinear propellant slosh pendulum dynamics without an equation number" />
+                    <figcaption class="figure-caption">A representative nonlinear pendulum-mode equation,
+                        including spacecraft rotation, damping, forcing, and tank coupling.</figcaption>
+                </figure>
+            </div>
 
             <figure class="research-figure isro-figure-wide">
                 <img src="../assets/images/isro/slosh_control_loop.png" class="card-image"
@@ -195,6 +253,20 @@
                             slosh-coupled attitude loop at representative descent times.</figcaption>
                     </figure>
                 </div>
+            </div>
+            <div class="figure-pair isro-results-pair">
+                <figure class="research-figure">
+                    <img src="../assets/images/isro/pwpf_architecture.png" class="card-image"
+                        alt="Pulse-width pulse-frequency modulator architecture with filter and hysteresis" />
+                    <figcaption class="figure-caption">The PWPF nonlinearity combines a dynamic filter and
+                        hysteresis to convert continuous attitude commands into RCS on-off pulses.</figcaption>
+                </figure>
+                <figure class="research-figure">
+                    <img src="../assets/images/isro/slosh_time_domain_instability.png" class="card-image"
+                        alt="Time-domain slosh instability under a two-RCS failure scenario" />
+                    <figcaption class="figure-caption">High-fidelity time-domain verification: amplified pendulum
+                        motion and body-rate response expose the predicted instability window.</figcaption>
+                </figure>
             </div>
         </section>
 
