@@ -119,31 +119,26 @@
 
         <section id="gnc" class="section research-section">
             <h2>From Powered-Descent GNC to Real-Time Retargeting</h2>
-            <p>During fine braking, navigation estimates the lander&rsquo;s position, velocity, and mass; guidance
-                converts that state into a commanded acceleration and thrust direction; and the inner attitude and
-                propulsion loops execute the command. The trajectory must reach a tightly specified terminal state
-                while respecting thrust, attitude, velocity, glide-slope, and no-sub-target-travel constraints.</p>
-
-            <p class="isro-sequence-intro">The technical sequence below follows the actual design flow: define the
-                constrained descent problem, construct a robust base policy and time-to-go, identify the controllable
-                set, fit a conservative boundary offline, and project an infeasible nominal target back to that
-                boundary onboard.</p>
+            <p>During fine braking, the guidance system turns navigation estimates into safe thrust commands. The
+                core idea was to keep this guidance law simple, then add just enough onboard intelligence to detect
+                when the nominal landing site was no longer reachable and select a nearby alternative.</p>
 
             <div class="isro-content-grid">
                 <div class="isro-slide-copy">
                     <ul class="isro-technical-list">
-                        <li>Analytical base guidance policy for constrained powered descent</li>
-                        <li>Offline-optimized time-to-go (<i>t</i><sub>go</sub>) for fuel-efficient descent</li>
-                        <li>Controllability boundary learned in a reduced state space</li>
-                        <li>Real-time landing-site retargeting by projection onto that boundary</li>
-                        <li>Validation with simulations and Chandrayaan-3 flight data</li>
+                        <li>An analytical policy guides the nominal descent.</li>
+                        <li>A state-dependent time-to-go improves fuel use and robustness.</li>
+                        <li>A learned feasibility boundary enables real-time retargeting.</li>
                     </ul>
                 </div>
                 <figure class="research-figure isro-component-figure figure-narrow">
                     <img src="../assets/images/isro/retargeting_components/guidance_robustness_layers.png"
                         class="card-image" alt="Nested guidance capabilities showing increasing robustness from base guidance through time-to-go adaptation and retargeting" />
-                    <figcaption class="figure-caption">Robustness grows from the base policy to state-dependent
-                        time-to-go and finally retargeting.</figcaption>
+                    <div class="isro-guidance-key">
+                        <span><strong>G1</strong> Base guidance</span>
+                        <span><strong>G2</strong> G1 + adaptive time-to-go</span>
+                        <span><strong>G3</strong> G2 + retargeting</span>
+                    </div>
                 </figure>
             </div>
             <figure class="research-figure isro-flow-figure isro-development-flow">
@@ -153,23 +148,9 @@
                     onboard time-to-go and retargeting.</figcaption>
             </figure>
 
-            <h3>Why a feasibility and retargeting layer is needed</h3>
-            <div class="isro-content-grid">
-                <div class="isro-slide-copy">
-                    <ul class="isro-technical-list">
-                        <li>A navigation update after attitude hold, or propulsion dispersion, may shift the lander
-                            state at fine-braking start.</li>
-                        <li>The nominal landing site may become infeasible.</li>
-                        <li>Computing the reachable set onboard is computationally expensive.</li>
-                        <li>A fast feasibility check and safe alternate-target selection are therefore required.</li>
-                    </ul>
-                </div>
-                <figure class="research-figure isro-component-figure">
-                    <img src="../assets/images/isro/fine_braking_geometry.png" class="card-image"
-                        alt="Fine-braking trajectory geometry showing altitude, downrange, thrust direction, and boundary velocities" />
-                    <figcaption class="figure-caption">Fine-braking geometry and the dispersed initial state.</figcaption>
-                </figure>
-            </div>
+            <h3>Why retarget?</h3>
+            <p>A late navigation update or propulsion error can make the nominated site infeasible. Instead of solving
+                a large trajectory-optimization problem onboard, the lander performs a quick feasibility check.</p>
             <figure class="research-figure isro-flow-figure figure-medium">
                 <img src="../assets/images/isro/retargeting_components/feasibility_decision_flow.png"
                     class="card-image" alt="Decision flow that retains the nominal landing site when guidance is feasible and switches to an alternate site otherwise" />
@@ -177,15 +158,9 @@
                     otherwise switch to an alternate site.</figcaption>
             </figure>
 
-            <h3>Constrained powered-descent formulation</h3>
-            <ul class="isro-technical-list">
-                <li>The lander is modeled in a local surface-fixed guidance frame.</li>
-                <li>The state contains position and velocity; translational control is applied through commanded
-                    acceleration and thrust.</li>
-                <li>Guidance must satisfy thrust, attitude, velocity, and terminal constraints.</li>
-                <li>The objective is to reach a hazard-free target with minimum propellant loss.</li>
-                <li>The analytical base guidance policy approximates fuel-optimal powered-descent guidance.</li>
-            </ul>
+            <h3>1. Guide the nominal descent</h3>
+            <p>The base policy models the lander&rsquo;s motion and seeks a fuel-efficient path while respecting thrust,
+                attitude, mass, and touchdown constraints.</p>
             <div class="figure-pair isro-component-pair">
                 <figure class="research-figure equation-figure isro-dynamics-figure">
                     <img src="../assets/images/isro/retargeting_components/pdg_dynamics.png" class="card-image"
@@ -201,18 +176,8 @@
                 </figure>
             </div>
 
-            <h3>Base guidance policy and robust time-to-go</h3>
-            <ul class="isro-technical-list">
-                <li>Use a polynomial acceleration profile that satisfies the boundary constraints.</li>
-                <li>Optimize the time-to-go offline, where <i>t</i><sub>go</sub> is the difference between final and
-                    current time.</li>
-                <li>For each dispersed initial state, simulate the guidance law over candidate
-                    <i>t</i><sub>go</sub> values.</li>
-                <li>Retain only trajectories that converge and satisfy the constraints.</li>
-                <li>Among feasible pairs, select the time-to-go with maximum terminal mass and store the resulting
-                    dataset.</li>
-                <li>Formulate onboard time-to-go as a function of the measured fine-braking start state.</li>
-            </ul>
+            <p>A cubic acceleration command satisfies the boundary conditions. Offline simulations then learn a
+                robust time-to-go from altitude, downrange, and velocity; onboard evaluation remains lightweight.</p>
             <div class="figure-pair isro-equation-pair isro-base-equations">
                 <figure class="research-figure equation-figure">
                     <img src="../assets/images/isro/polynomial_guidance_law.png" class="card-image"
@@ -226,84 +191,27 @@
                 </figure>
             </div>
 
-            <h3>From reachability to a controllability boundary</h3>
-            <ul class="isro-technical-list">
-                <li><strong>Constrained reachable set:</strong> terminal states achievable from the current state
-                    under the base policy while satisfying the dynamics and constraints.</li>
-                <li><strong>Constrained controllable set:</strong> initial states that can reach the desired target
-                    under the same policy and constraints.</li>
-                <li><strong>Retargeting condition:</strong> if the current state lies outside the nominal controllable
-                    set, shift the desired landing state.</li>
-            </ul>
-            <figure class="research-figure isro-equation-wide isro-equation-compact equation-figure">
-                <img src="../assets/images/isro/reachability_retargeting.png" class="card-image"
-                    alt="Mathematical definitions of the controllable set and retargeting condition" />
-                <figcaption class="figure-caption">The controllable-set definition and retargeting condition.</figcaption>
-            </figure>
-            <figure class="research-figure isro-flow-figure">
-                <img src="../assets/images/isro/retargeting_components/retargeting_condition_diagram.png"
-                    class="card-image" alt="Reduced-space diagram showing an infeasible current state projected to the controllability boundary and a shifted target" />
-                <figcaption class="figure-caption">Projection onto the controllability boundary converts an
-                    infeasible nominal target into a shifted, controllable target.</figcaption>
-            </figure>
-
-            <h3>A lightweight onboard feasibility test</h3>
-            <p>My 2018 ISRO internship on convex optimization provided the methodological starting point. The later
-                landing formulation made that idea mission-specific:</p>
-            <ul class="isro-technical-list">
-                <li>Rollouts under the time-to-go policy label dispersed initial states as controllable or
-                    uncontrollable.</li>
-                <li>A reduced state retains the dominant descent-feasibility variables: downrange and altitude,
-                    normalized by horizontal and vertical velocity.</li>
-                <li>A convex quadratic decision boundary separates the feasible and infeasible regions.</li>
-                <li>The reduced state is lifted into a compact quadratic feature vector for onboard evaluation.</li>
-            </ul>
-            <figure class="research-figure isro-equation-wide equation-figure">
+            <h3>2. Learn the feasible region offline</h3>
+            <p>High-fidelity rollouts label which starting states can still reach the target. A compact reduced state
+                and quadratic boundary summarize that large simulation database for onboard use.</p>
+            <figure class="research-figure isro-equation-wide isro-reduced-state-figure equation-figure">
                 <img src="../assets/images/isro/boundary_feature_map.png" class="card-image"
                     alt="Reduced descent state, quadratic feature vector, and controllability classifier" />
-                <figcaption class="figure-caption caption-nowrap">Reduced state, quadratic feature map, and decision
-                    function.</figcaption>
+                <figcaption class="figure-caption caption-nowrap">Compact state and boundary function.</figcaption>
             </figure>
 
-            <p>The boundary coefficients are solved offline with two-level optimization. Level 1 learns a
-                maximum-margin classifier; Level 2 perturbs it until uncontrollable samples have zero
-                misclassification. The resulting boundary is intentionally conservative.</p>
-            <figure class="research-figure isro-flow-figure">
-                <img src="../assets/images/isro/retargeting_components/bilevel_boundary_optimization.png"
-                    class="card-image" alt="Two-level boundary optimization from maximum-margin classification to zero-loss classification" />
-                <figcaption class="figure-caption">Offline two-level optimization: maximum margin followed by a
-                    zero-loss correction.</figcaption>
+            <h3>3. Retarget onboard</h3>
+            <p>If the current state falls outside the feasible region, the target is shifted to the nearest point on
+                the conservative boundary. The lander keeps the same base guidance law and avoids heavy online
+                optimization.</p>
+            <figure class="research-figure isro-flow-figure isro-projection-figure">
+                <img src="../assets/images/isro/retargeting_components/retargeting_condition_diagram.png"
+                    class="card-image" alt="Reduced-space diagram showing an infeasible current state projected to the controllability boundary and a shifted target" />
+                <figcaption class="figure-caption caption-nowrap">Boundary projection turns an infeasible nominal
+                    target into a nearby controllable target.</figcaption>
             </figure>
-            <figure class="research-figure isro-equation-wide isro-levelset-figure equation-figure">
-                <img src="../assets/images/isro/retargeting_components/boundary_set_equations.png"
-                    class="card-image" alt="Equations defining the controllability boundary and controllable set" />
-                <figcaption class="figure-caption caption-nowrap">Zero level-set: boundary at zero; controllable set
-                    for positive values.</figcaption>
-            </figure>
-
-            <h3>Real-time retargeting by boundary projection</h3>
-            <ul class="isro-technical-list">
-                <li>Evaluate whether the current state lies outside the controllable set.</li>
-                <li>If it does, modify the range component of the reduced state through horizontal projection.</li>
-                <li>Project to the controllability boundary to minimize landing-site deviation.</li>
-                <li>Solve only the compact conic boundary equation onboard.</li>
-            </ul>
-            <div class="figure-pair isro-component-pair">
-                <figure class="research-figure equation-figure">
-                    <img src="../assets/images/isro/retargeting_projection_math.png" class="card-image"
-                        alt="Horizontal projection and conic boundary equations used for real-time retargeting" />
-                    <figcaption class="figure-caption">Compact onboard projection equations.</figcaption>
-                </figure>
-                <figure class="research-figure isro-component-figure">
-                    <img src="../assets/images/isro/retargeting_components/retargeting_projection_diagram.png"
-                        class="card-image" alt="Retargeting geometry comparing the maximum-margin boundary, conservative zero-loss boundary, nominal point, and shifted target" />
-                    <figcaption class="figure-caption">The nominal point is projected horizontally to the
-                        conservative zero-loss boundary.</figcaption>
-                </figure>
-            </div>
-            <p>The design was evaluated through dispersed-state rollouts, high-fidelity six-degree-of-freedom
-                simulation, Monte Carlo campaigns, and comparison with flight telemetry. The flight trace remained
-                within the preflight Monte Carlo performance envelope for the fine-braking phase.</p>
+            <p>The method was validated with high-fidelity simulation, Monte Carlo campaigns, and flight telemetry;
+                Chandrayaan-3 remained within the preflight fine-braking performance envelope.</p>
 
             <div class="figure-pair">
                 <figure class="research-figure">
@@ -319,12 +227,6 @@
                         Monte Carlo bounds (blue).</figcaption>
                 </figure>
             </div>
-            <figure class="research-figure figure-medium">
-                <img src="../assets/images/isro/retargeting_policy_comparison.png" class="card-image"
-                    alt="Comparison of base guidance and retargeting-policy trajectory and control histories" />
-                <figcaption class="figure-caption">A representative infeasible initial condition: retargeting
-                    reshapes altitude and thrust histories to recover a feasible terminal state.</figcaption>
-            </figure>
         </section>
 
         <div class="divider"></div>

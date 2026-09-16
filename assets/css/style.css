@@ -939,6 +939,33 @@ a.btn-link:hover {
     max-width: 520px;
 }
 
+.research-figure.isro-reduced-state-figure {
+    max-width: 400px;
+}
+
+.research-figure.isro-projection-figure {
+    max-width: 760px;
+}
+
+.isro-guidance-key {
+    display: grid;
+    gap: 5px;
+    margin-top: 10px;
+    color: var(--grey-light);
+    font-size: 0.8em;
+    line-height: 1.25;
+}
+
+.isro-guidance-key span {
+    display: grid;
+    grid-template-columns: 30px 1fr;
+    gap: 5px;
+}
+
+.isro-guidance-key strong {
+    color: var(--accent);
+}
+
 .isro-component-pair .equation-figure .card-image,
 .isro-base-equations .equation-figure .card-image,
 .isro-equation-wide.equation-figure .card-image {
