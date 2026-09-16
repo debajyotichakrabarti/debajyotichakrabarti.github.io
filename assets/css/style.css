@@ -212,6 +212,47 @@ b, strong {
 }
 
 /**************************************************/
+/* Education: compact 3-column timeline */
+
+.section-compact {
+    padding: 32px 24px;
+}
+
+.education-list {
+    display: flex;
+    flex-direction: column;
+    border-top: 1px solid var(--border);
+}
+
+.edu-row {
+    display: grid;
+    grid-template-columns: 1.3fr 1.7fr auto;
+    align-items: baseline;
+    gap: 16px;
+    padding: 14px 0;
+    border-bottom: 1px solid var(--border);
+}
+
+.edu-institution {
+    font-weight: 600;
+    color: var(--navy-dark);
+    font-size: 0.95em;
+}
+
+.edu-degree {
+    color: var(--grey);
+    font-size: 0.9em;
+}
+
+.edu-year {
+    color: var(--navy);
+    font-size: 0.85em;
+    font-weight: 600;
+    text-align: right;
+    white-space: nowrap;
+}
+
+/**************************************************/
 /* Shared card elements: badges, tags, buttons, image placeholders */
 
 .badge {
@@ -476,6 +517,21 @@ a.btn-link:hover {
 
     .section {
         padding: 40px 24px;
+    }
+
+    .section-compact {
+        padding: 28px 24px;
+    }
+
+    .edu-row {
+        grid-template-columns: 1fr;
+        gap: 2px;
+        padding: 12px 0;
+    }
+
+    .edu-year {
+        text-align: left;
+        color: var(--grey-light);
     }
 }
 
