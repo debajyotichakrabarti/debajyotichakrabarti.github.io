@@ -123,9 +123,9 @@
                 state updated during the preceding attitude-hold phase, fine-braking guidance had to bring the lander
                 over the selected landing site at the prescribed altitude, with near-zero horizontal and vertical
                 velocity and in the vertical orientation required for the subsequent hovering and terminal-descent
-                phases. However, large propulsion dispersion accumulated during rough braking could shift this updated
-                fine-braking initial state enough
-                that the nominal guidance law could no longer reach the selected site while satisfying its
+                phases. However, either large propulsion dispersion accumulated during rough braking or a significant
+                state correction from the attitude-hold sensor update could place the lander at a fine-braking initial
+                state from which the nominal guidance law could no longer reach the selected site while satisfying its
                 constraints.</p>
             <p>To handle this rough-braking-induced state dispersion without replacing the nominal analytical
                 guidance (<strong>G1</strong>), we added robustness in two layers. <strong>G2</strong> computes
