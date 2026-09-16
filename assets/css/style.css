@@ -793,6 +793,98 @@ a.btn-link:hover {
     margin-bottom: 20px;
 }
 
+/* ISRO experience page */
+.isro-hero-section {
+    padding-top: 48px;
+    padding-bottom: 36px;
+}
+
+.isro-hero-grid {
+    display: grid;
+    grid-template-columns: minmax(0, 1.55fr) minmax(260px, 0.65fr);
+    gap: 48px;
+    align-items: center;
+}
+
+.isro-hero-copy h1 {
+    margin: 10px 0 16px;
+    font-size: 2em;
+    line-height: 1.25;
+}
+
+.isro-hero-lead {
+    color: var(--navy);
+    font-size: 1.16em;
+    font-weight: 400;
+    line-height: 1.5;
+}
+
+.isro-portrait {
+    margin: 0;
+    max-width: 390px;
+    justify-self: end;
+}
+
+.isro-figure-wide {
+    max-width: 1060px;
+}
+
+.isro-story-grid,
+.isro-analysis-grid {
+    margin-top: 28px;
+    align-items: center;
+}
+
+.isro-story-grid h3,
+.isro-analysis-grid h3,
+.research-section > h3 {
+    color: var(--navy-dark);
+    margin: 18px 0 10px;
+}
+
+.isro-equation-pair {
+    align-items: center;
+    margin: 24px 0 30px;
+}
+
+.isro-equation-pair .research-figure:first-child {
+    flex: 0.8;
+}
+
+.isro-equation-pair .research-figure:last-child {
+    flex: 1.2;
+}
+
+.slosh-equation-figure {
+    margin: 22px 0 0;
+    max-width: 560px;
+}
+
+.isro-mission-row {
+    align-items: stretch;
+}
+
+.isro-mission-row .stage-card h3 {
+    color: var(--navy-dark);
+    margin: 2px 0 8px;
+}
+
+.isro-publication-list li {
+    margin-bottom: 16px;
+}
+
+@media (max-width: 800px) {
+    .isro-hero-grid {
+        grid-template-columns: 1fr;
+        gap: 28px;
+    }
+
+    .isro-portrait {
+        justify-self: center;
+        max-width: 420px;
+    }
+}
+
 .research-abstract {
     max-width: 880px;
     margin: 0 auto;

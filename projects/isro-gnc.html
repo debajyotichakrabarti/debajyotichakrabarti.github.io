@@ -1,0 +1,290 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@200;300;400;600;700;900&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="../assets/css/style.css" />
+    <script src="../assets/js/theme.js"></script>
+    <title>Spacecraft Autonomy &amp; GNC at ISRO — Debajyoti Chakrabarti</title>
+    <link rel="icon" type="image/x-icon" href="../assets/images/ucla.ico">
+</head>
+
+<body>
+    <header id="header">
+        <nav class="container nav">
+            <a href="../index.html#isro">&larr; Back to Home</a>
+        </nav>
+    </header>
+
+    <main class="container research-main compact-sections">
+        <section class="section isro-hero-section">
+            <div class="isro-hero-grid">
+                <div class="isro-hero-copy">
+                    <p class="status-line">U R Rao Satellite Centre, ISRO &middot; August 2019&ndash;July 2024</p>
+                    <h1>Spacecraft Autonomy &amp; Guidance, Navigation and Control</h1>
+                    <p class="isro-hero-lead">Five years as a GNC scientist working across more than ten space
+                        missions, from lunar powered descent and human-spaceflight systems to solar-observation and
+                        Earth-observation spacecraft.</p>
+                    <div class="tag-row">
+                        <span class="tag">Chandrayaan-3</span>
+                        <span class="tag">Aditya-L1</span>
+                        <span class="tag">Gaganyaan</span>
+                        <span class="tag">INS-2B</span>
+                        <span class="tag">10+ Missions</span>
+                    </div>
+                    <p>My work covered flight-algorithm development, nonlinear spacecraft dynamics, control design,
+                        Monte Carlo analysis, onboard decision logic, high-fidelity simulation, and stability
+                        assessment. Chandrayaan-3 was the central effort: I contributed to the GNC analysis behind
+                        its autonomous powered descent and co-authored technical work on guidance feasibility,
+                        real-time retargeting, landing strategy, and propellant-slosh interaction.</p>
+                    <div class="btn-row">
+                        <a class="btn-link" href="https://sites.google.com/view/kumarsuraj/ch3_gnc" target="_blank"
+                            rel="noopener">Chandrayaan-3 GNC Overview</a>
+                        <a class="btn-link" href="#technical-publications">Technical Publications</a>
+                        <a class="btn-link" href="../index.html#isro">&larr; Back to Home</a>
+                    </div>
+                </div>
+                <figure class="isro-portrait">
+                    <img src="../assets/images/isro/debajyoti_chandrayaan3.jpg" class="card-image"
+                        alt="Debajyoti Chakrabarti standing in front of a Chandrayaan-3 lander display at ISRO" />
+                    <figcaption class="figure-caption">With a Chandrayaan-3 lander display at ISRO.</figcaption>
+                </figure>
+            </div>
+        </section>
+
+        <div class="divider"></div>
+
+        <section id="chandrayaan-3" class="section research-section">
+            <h2>Chandrayaan-3: The Central Mission</h2>
+            <p>Chandrayaan-3 demonstrated autonomous safe and soft landing near the lunar south-polar region on
+                23 August 2023. The U R Rao Satellite Centre team designed, analyzed, implemented, and realized the
+                powered-descent GNC system that brought the lander from orbital velocity to touchdown.</p>
+            <p>The descent was deliberately staged: rough braking removed most of the approximately 1.68 km/s
+                horizontal velocity, attitude hold prepared the sensor and propulsion geometry, fine braking drove
+                the state toward the terminal corridor, and terminal descent completed hazard-aware vertical
+                landing. Each phase balanced thrust and attitude limits, navigation accuracy, guidance convergence,
+                failure tolerance, and propellant use.</p>
+            <figure class="research-figure isro-figure-wide">
+                <img src="../assets/images/isro/powered_descent_profile.png" class="card-image"
+                    alt="Chandrayaan-3 powered descent profile from 30 kilometers altitude through rough braking, attitude hold, fine braking, and terminal descent" />
+                <figcaption class="figure-caption">Powered-descent architecture from 30 km altitude to touchdown,
+                    showing the four major phases and their velocity, altitude, range, and timing objectives.
+                </figcaption>
+            </figure>
+            <div class="twocol-grid isro-story-grid">
+                <div class="twocol-text">
+                    <h3>Why the landing problem was hard</h3>
+                    <p>The lander had to autonomously absorb navigation error, thrust dispersion, mass uncertainty,
+                        actuator constraints, and late absolute-navigation updates. Under a sufficiently large state
+                        shift, the nominal target could become unreachable even though a safe landing remained
+                        possible at a nearby site.</p>
+                    <p>That motivated a lightweight onboard answer to two questions: <em>Is pinpoint landing still
+                            feasible?</em> If not, <em>what nearby target remains controllable?</em> The resulting
+                        framework combined offline high-fidelity simulation with analytical onboard evaluation and
+                        target retargeting.</p>
+                </div>
+                <div class="twocol-figure">
+                    <figure class="research-figure">
+                        <img src="../assets/images/isro/pragyan_rover_tracks.jpg" class="card-image"
+                            alt="Pragyan rover tracks on the lunar surface after the Chandrayaan-3 landing" />
+                        <figcaption class="figure-caption">Pragyan rover tracks on the lunar surface after the
+                            successful landing.</figcaption>
+                    </figure>
+                </div>
+            </div>
+        </section>
+
+        <div class="divider"></div>
+
+        <section id="gnc" class="section research-section">
+            <h2>Powered-Descent GNC and Real-Time Retargeting</h2>
+            <p>The technical thread began with my 2018 ISRO internship report on convex optimization, where I
+                developed constrained boundary-fitting methods for lunar-lander feasibility data. The later IFAC
+                work turned that foundation into a compact decision boundary for Chandrayaan-3 powered descent.
+                Offline Monte Carlo rollouts classified states as guidance-feasible or infeasible; only the fitted
+                boundary coefficients were needed onboard.</p>
+
+            <div class="figure-pair isro-equation-pair">
+                <figure class="research-figure">
+                    <img src="../assets/images/isro/lander_dynamics_equations.png" class="card-image"
+                        alt="Lander translational dynamics, thrust constraint, and mass depletion equations" />
+                    <figcaption class="figure-caption">Powered-descent translational dynamics and core thrust/mass
+                        constraints used to define guidance feasibility.</figcaption>
+                </figure>
+                <figure class="research-figure">
+                    <img src="../assets/images/isro/controllability_boundary.png" class="card-image"
+                        alt="Maximum-margin classifier and conservative zero-loss convex controllability boundary" />
+                    <figcaption class="figure-caption">A conservative zero-loss boundary separates the controllable
+                        set from states that cannot safely reach the nominal target.</figcaption>
+                </figure>
+            </div>
+
+            <h3>From feasibility checking to a flight-compatible policy</h3>
+            <p>The later guidance formulation used an analytical polynomial acceleration profile with an
+                offline-optimized time-to-go model. When the measured state fell outside the nominal controllable
+                set, the retargeting logic projected the target toward the learned boundary instead of solving a
+                full trajectory-optimization problem onboard. This preserved a transparent analytical guidance law
+                while expanding the recoverable operating region.</p>
+            <p>The design was evaluated through dispersed-state rollouts, high-fidelity six-degree-of-freedom
+                simulation, Monte Carlo campaigns, and comparison with flight telemetry. The flight trace remained
+                within the preflight Monte Carlo performance envelope for the fine-braking phase.</p>
+
+            <div class="figure-pair">
+                <figure class="research-figure">
+                    <img src="../assets/images/isro/retargeting_monte_carlo.png" class="card-image"
+                        alt="Monte Carlo trajectories with nominal and retargeted Chandrayaan-3 guidance cases" />
+                    <figcaption class="figure-caption">Monte Carlo trajectories: blue cases retain the nominal
+                        target; green cases invoke downrange retargeting.</figcaption>
+                </figure>
+                <figure class="research-figure">
+                    <img src="../assets/images/isro/flight_validation.png" class="card-image"
+                        alt="Chandrayaan-3 fine-braking flight performance within Monte Carlo bounds" />
+                    <figcaption class="figure-caption">Fine-braking flight performance (black) against preflight
+                        Monte Carlo bounds (blue).</figcaption>
+                </figure>
+            </div>
+        </section>
+
+        <div class="divider"></div>
+
+        <section id="slosh" class="section research-section">
+            <h2>Propellant Slosh Modeling and Control Stability</h2>
+            <p>Powered descent couples rigid-body motion, liquid-engine forces, reaction-control thrusters, sensor
+                feedback, and motion of partially filled propellant tanks. I co-authored work that represented the
+                dominant liquid modes with time-varying equivalent pendulums inside a nonlinear three-axis,
+                multi-tank spacecraft model. The model converts pendulum motion into disturbance force and torque
+                acting on the lander.</p>
+
+            <figure class="research-figure isro-figure-wide">
+                <img src="../assets/images/isro/slosh_control_loop.png" class="card-image"
+                    alt="Closed-loop spacecraft attitude-control architecture with reaction-control thrusters and propellant slosh dynamics" />
+                <figcaption class="figure-caption">Slosh-aware attitude-control loop: the PWPF modulator drives
+                    on-off RCS thrusters while the spacecraft model carries rigid-body and propellant modes.
+                </figcaption>
+            </figure>
+
+            <div class="twocol-grid isro-analysis-grid">
+                <div class="twocol-text">
+                    <h3>Stability across a time-varying descent</h3>
+                    <p>Because propellant mass, pendulum frequency, damping, center of gravity, and inertia evolve
+                        during descent, stability was assessed through short-period frozen-time models rather than a
+                        single fixed plant. Center-of-percussion, rate-sensitivity, frequency-domain, and time-domain
+                        studies identified where control/slosh interaction was most critical.</p>
+                    <p>The Chandrayaan-3 study then incorporated the nonlinear pulse-width/pulse-frequency modulator
+                        used to command on-off RCS thrusters. Describing-function and extended Nyquist analysis
+                        separated stable operation, bounded limit cycles, and unstable encirclements at the slosh
+                        frequency—an analysis that a purely linear loop model would miss.</p>
+                    <figure class="research-figure slosh-equation-figure">
+                        <img src="../assets/images/isro/slosh_torque_equation.png" class="card-image"
+                            alt="Three-axis disturbance torque generated by multiple propellant slosh modes" />
+                        <figcaption class="figure-caption">Three-axis disturbance torque assembled from the
+                            dominant modes of all propellant tanks.</figcaption>
+                    </figure>
+                </div>
+                <div class="twocol-figure">
+                    <figure class="research-figure figure-narrow">
+                        <img src="../assets/images/isro/slosh_nyquist.png" class="card-image"
+                            alt="Nonlinear Nyquist plot for the PWPF modulator and slosh-coupled attitude loop" />
+                        <figcaption class="figure-caption">Nonlinear Nyquist analysis of the PWPF-modulated,
+                            slosh-coupled attitude loop at representative descent times.</figcaption>
+                    </figure>
+                </div>
+            </div>
+        </section>
+
+        <div class="divider"></div>
+
+        <section id="missions" class="section research-section">
+            <h2>Broader Mission Portfolio</h2>
+            <p>Beyond Chandrayaan-3, my five years at ISRO included GNC, attitude-control, dynamics, simulation, and
+                mission-analysis contributions across more than ten programs. Representative missions include
+                Aditya-L1, India&rsquo;s solar-observation mission; Gaganyaan, India&rsquo;s human-spaceflight program;
+                and INS-2B, where I served in an AOCS project-management role.</p>
+            <div class="stage-row isro-mission-row">
+                <div class="stage-card">
+                    <div class="stage-number">Lunar Landing</div>
+                    <h3>Chandrayaan-3</h3>
+                    <p>Powered-descent GNC, feasibility and retargeting, simulation, and slosh/control analysis.</p>
+                </div>
+                <div class="stage-card">
+                    <div class="stage-number">Solar Observation</div>
+                    <h3>Aditya-L1</h3>
+                    <p>Spacecraft autonomy, dynamics, control, and mission-analysis support.</p>
+                </div>
+                <div class="stage-card">
+                    <div class="stage-number">Human Spaceflight</div>
+                    <h3>Gaganyaan</h3>
+                    <p>High-reliability guidance, navigation, control, and simulation work.</p>
+                </div>
+                <div class="stage-card">
+                    <div class="stage-number">Earth Observation</div>
+                    <h3>INS-2B</h3>
+                    <p>Attitude and orbit-control project-management responsibilities.</p>
+                </div>
+            </div>
+        </section>
+
+        <div class="divider"></div>
+
+        <section id="technical-publications" class="section research-section">
+            <h2>Technical Reports and Publications</h2>
+            <ol class="pub-list isro-publication-list">
+                <li><strong>Debajyoti Chakrabarti</strong>. <em>Applications of Convex Optimization</em>, ISRO
+                    internship report, 2018. <a class="pub-link"
+                        href="../assets/docs/isro/convex_optimization_internship_report.pdf" target="_blank"
+                        rel="noopener">[report]</a></li>
+                <li><strong>Debajyoti Chakrabarti</strong>, Suraj Kumar, Aditya Rallapalli, M. P. Rijesh, and G. V. P.
+                    Bharat Kumar. &ldquo;Convex Decision Boundary Design for Guidance Feasibility Check During Powered
+                    Descent Phase of Chandrayaan-3 Lander,&rdquo; <em>IFAC-PapersOnLine</em>, 2024.
+                    <a class="pub-link" href="../assets/docs/isro/ifac_convex_guidance_boundary.pdf" target="_blank"
+                        rel="noopener">[paper]</a></li>
+                <li>Suraj Kumar, <strong>Debajyoti Chakrabarti</strong>, Aditya Rallapalli, and G. V. P. Bharat Kumar.
+                    &ldquo;Real-Time Retargeting-Based Robust Polynomial Guidance for Chandrayaan-3 Lunar Landing
+                    Mission,&rdquo; <em>Journal of Guidance, Control, and Dynamics</em>, 2026.
+                    <a class="pub-link" href="../assets/docs/isro/jgcd_robust_polynomial_guidance.pdf"
+                        target="_blank" rel="noopener">[paper]</a></li>
+                <li>Suraj Kumar, <strong>Debajyoti Chakrabarti</strong>, Aditya Rallapalli, G. V. P. Bharat Kumar, and
+                    Ashok Kumar Kakula. &ldquo;Real-Time Retargeting Using Controllability Boundary for Chandrayaan-3
+                    Lunar Landing,&rdquo; American Control Conference, 2026.
+                    <a class="pub-link" href="../assets/docs/isro/acc_real_time_retargeting.pdf" target="_blank"
+                        rel="noopener">[paper]</a></li>
+                <li>Aditya Rallapalli, Suraj Kumar, G. V. P. Bharat Kumar, Chiranjib Guha Majumder,
+                    <strong>Debajyoti Chakrabarti</strong>, and M. P. Rijesh. &ldquo;Landing Profile and Powered Descent
+                    Strategy for Chandrayaan-3,&rdquo; 2024.
+                    <a class="pub-link" href="../assets/docs/isro/ch3_landing_profile.pdf" target="_blank"
+                        rel="noopener">[paper]</a></li>
+                <li>Nivriti Priyadarshini, <strong>Debajyoti Chakrabarti</strong>, and Yajur Kumar. &ldquo;Modelling of
+                    Propellant Slosh Dynamics and Its Application in Control Stability Study of Lunar Landing
+                    Mission,&rdquo; AAS 22-651, 2022.
+                    <a class="pub-link" href="../assets/docs/isro/aas_slosh_dynamics.pdf" target="_blank"
+                        rel="noopener">[paper]</a></li>
+                <li>Aditya Rallapalli, <strong>Debajyoti Chakrabarti</strong>, Nivriti Priyadarshini, M. P. Rijesh,
+                    and G. V. P. Bharat Kumar. &ldquo;Stability Analysis Using Describing Function for Non-Linear
+                    Attitude Control Loop with Slosh Dynamics of Chandrayaan-3 Landing Mission,&rdquo; Indian Control
+                    Conference, 2024.
+                    <a class="pub-link" href="../assets/docs/isro/icc_slosh_stability.pdf" target="_blank"
+                        rel="noopener">[paper]</a></li>
+            </ol>
+        </section>
+
+        <div class="divider"></div>
+
+        <section class="section research-section" style="padding-top: 32px;">
+            <div class="btn-row">
+                <a class="btn-link" href="https://sites.google.com/view/kumarsuraj/ch3_gnc" target="_blank"
+                    rel="noopener">Chandrayaan-3 GNC Overview</a>
+                <a class="btn-link" href="#technical-publications">Technical Publications</a>
+                <a class="btn-link" href="../index.html#isro">&larr; Back to Home</a>
+            </div>
+        </section>
+    </main>
+
+    <footer class="container footer">
+        <p>&copy; 2026 Debajyoti Chakrabarti</p>
+    </footer>
+</body>
+
+</html>
