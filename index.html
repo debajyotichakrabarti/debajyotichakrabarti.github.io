@@ -193,9 +193,8 @@
                 </article>
 
                 <article class="project-card">
-                    <div class="img-placeholder" role="img" aria-label="Placeholder for VLAPS figure">
-                        <span>Image coming soon</span>
-                    </div>
+                    <img src="assets/images/projects/vlaps/card_policy_visualization.png" class="card-image"
+                        alt="Expert (red) and learner (blue) trajectory rollouts overlaid on the ego-view before VLM evaluation" />
                     <div class="project-card-body">
                         <h3>VLM-Augmented Policy Switching for Safe Driving (VLAPS)</h3>
                         <p class="status-line">Course Project &middot; 2025</p>
@@ -205,10 +204,19 @@
                             <span class="tag">TD Learning</span>
                             <span class="tag">Motion Planning</span>
                         </div>
-                        <p>Developed a VLM-gated policy-switching framework that replaces human
-                            trajectory-preference queries with automated visual-language-model supervision.</p>
-                        <p>Combined RRT* motion planning with imitation and TD learning, achieving 86% success
-                            with zero crashes in the tested simulated urban-driving environment.</p>
+                        <p>Developed a VLM-gated policy-switching framework in which an RRT* + PD expert and a
+                            learned driving policy propose candidate trajectories, and a vision-language model
+                            decides which controller to trust.</p>
+                        <p>The VLM preference is also used for behavior cloning and TD-style policy learning,
+                            enabling fully autonomous training without human intervention.</p>
+                        <div class="stat-compare">
+                            <div class="stat-row"><span class="stat-label">Final evaluation</span><span
+                                    class="stat-value stat-highlight">86% success, 0% crashes (50 episodes)</span>
+                            </div>
+                        </div>
+                        <div class="btn-row" style="margin-top: 10px;">
+                            <a class="btn-link" href="projects/vlaps.html">Project</a>
+                        </div>
                     </div>
                 </article>
 

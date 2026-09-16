@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1" />
+    <link href="https://fonts.googleapis.com/css2?family=Source+Sans+Pro:wght@200;300;400;600;700;900&display=swap"
+        rel="stylesheet">
+    <link rel="stylesheet" type="text/css" href="../assets/css/style.css" />
+    <title>VLAPS — Debajyoti Chakrabarti</title>
+    <link rel="icon" type="image/x-icon" href="../assets/images/ucla.ico">
+</head>
+
+<body>
+    <header id="header">
+        <nav class="container nav">
+            <a href="../index.html">&larr; Back to Home</a>
+        </nav>
+    </header>
+
+    <main class="container research-main">
+        <!-- HERO -->
+        <section class="section" style="padding-top: 48px; padding-bottom: 24px;">
+            <h1 style="font-size: 1.6em; margin: 0 0 10px 0; line-height: 1.3;">Deciding When to Trust the Expert:
+                VLM-Augmented Policy Switching for Safe Driving (VLAPS)</h1>
+            <p class="sub-role" style="margin-bottom: 14px;">Qizhao Chen, <a href="../index.html#about">Debajyoti
+                    Chakrabarti</a></p>
+            <div class="feature-heading">
+                <span class="badge badge-course">UCLA CS269 Course Project &middot; Fall 2025</span>
+            </div>
+            <div class="tag-row" style="margin-top: 12px;">
+                <span class="tag">Vision-Language Models</span>
+                <span class="tag">Imitation Learning</span>
+                <span class="tag">TD Learning</span>
+                <span class="tag">Motion Planning</span>
+                <span class="tag">Autonomous Driving</span>
+            </div>
+            <div class="btn-row" style="margin-top: 20px;">
+                <a href="#" class="btn-link disabled" title="Add assets/docs/projects/vlaps/report.pdf to enable"
+                    onclick="alert('Coming soon'); return false;">Report</a>
+                <a href="#" class="btn-link disabled"
+                    title="Add assets/docs/projects/vlaps/presentation.pptx to enable"
+                    onclick="alert('Coming soon'); return false;">Presentation</a>
+                <a class="btn-link" href="../index.html#projects">&larr; Back to Home</a>
+            </div>
+        </section>
+
+        <div class="divider"></div>
+
+        <!-- OVERVIEW -->
+        <section id="overview" class="section research-section">
+            <h2>Overview</h2>
+            <p>Online reinforcement learning can require unsafe exploration, while imitation learning depends on
+                large expert datasets and may struggle under distribution shift. VLAPS replaces continuous human
+                supervision with a vision-language model that compares the short-horizon behavior of a learned
+                policy and an expert controller and decides which one should control the vehicle.</p>
+            <p>The expert combines RRT* local planning with PD tracking. The VLM decision is used not only for
+                policy switching during training, but also as supervision for behavior cloning and TD-style value
+                learning.</p>
+            <figure class="research-figure">
+                <img src="../assets/images/projects/vlaps/pipeline_overview.png" class="card-image"
+                    alt="VLAPS pipeline: expert and learner policies generate candidate trajectories, which are visualized and compared by a VLM that determines execution and learning supervision." />
+                <figcaption class="figure-caption">VLAPS pipeline. Expert and learner policies generate candidate
+                    trajectories, which are visualized and compared by a VLM that determines execution and
+                    learning supervision.</figcaption>
+            </figure>
+        </section>
+
+        <div class="divider"></div>
+
+        <!-- EXPERT CONTROLLER -->
+        <section id="expert" class="section research-section">
+            <h2>RRT* + PD Expert</h2>
+            <p>The expert policy builds a LiDAR-derived ego-centric occupancy grid, plans a local collision-free
+                path using RRT*, and tracks a lookahead waypoint using PD steering and speed control.</p>
+            <figure class="research-figure figure-medium">
+                <img src="../assets/images/projects/vlaps/rrt_star_expert.png" class="card-image"
+                    alt="RRT* planning in an ego-centric occupancy grid. The planner searches the drivable region and returns a collision-free local path." />
+                <figcaption class="figure-caption">RRT* planning in an ego-centric occupancy grid. The planner
+                    searches the drivable region and returns a collision-free local path.</figcaption>
+            </figure>
+        </section>
+
+        <div class="divider"></div>
+
+        <!-- VLM POLICY GATING -->
+        <section id="gating" class="section research-section">
+            <h2>Visual Policy Comparison</h2>
+            <p>Both the learned and expert actions are rolled forward using a kinematic bicycle model. Their
+                predicted trajectories are rendered into the current ego-view, and the VLM periodically compares
+                them based on safety and progress toward the goal.</p>
+            <figure class="research-figure">
+                <img src="../assets/images/projects/vlaps/policy_visualization.png" class="card-image"
+                    alt="Short-horizon learner and expert trajectories overlaid in the ego-view before being evaluated by the VLM." />
+                <figcaption class="figure-caption">Short-horizon learner and expert trajectories are overlaid in
+                    the ego-view before being evaluated by the VLM.</figcaption>
+            </figure>
+        </section>
+
+        <div class="divider"></div>
+
+        <!-- LEARNING SIGNAL -->
+        <section id="learning" class="section research-section">
+            <h2>From Policy Switching to Learning</h2>
+            <p>When the VLM prefers the expert trajectory, the expert action is treated as a local demonstration
+                for behavior cloning. A critic is also trained from the VLM preference signal using TD-style
+                learning, allowing these local comparisons to influence future policy behavior.</p>
+        </section>
+
+        <div class="divider"></div>
+
+        <!-- RESULTS -->
+        <section id="results" class="section research-section">
+            <h2>Evaluation in MetaDrive</h2>
+            <p>The learned policy improved from near-zero success early in training to a high-success regime,
+                while crashes decreased and reliance on the expert reduced over time. Evaluation was performed
+                over 50 full episodes without intervention.</p>
+            <div class="results-table-wrap">
+                <table class="results-table">
+                    <thead>
+                        <tr>
+                            <th>Metric</th>
+                            <th>Value</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <tr>
+                            <td>Success rate</td>
+                            <td class="highlight">86%</td>
+                        </tr>
+                        <tr>
+                            <td>Crash rate</td>
+                            <td class="highlight">0%</td>
+                        </tr>
+                        <tr>
+                            <td>Out-of-road rate</td>
+                            <td>8%</td>
+                        </tr>
+                        <tr>
+                            <td>Route completion</td>
+                            <td>93.5%</td>
+                        </tr>
+                    </tbody>
+                </table>
+            </div>
+            <figure class="research-figure">
+                <img src="../assets/images/projects/vlaps/learning_curves.png" class="card-image"
+                    alt="VLAPS training and evaluation trends in MetaDrive: success increases over training while crash rate decreases." />
+                <figcaption class="figure-caption">VLAPS training and evaluation trends in MetaDrive. Success
+                    increases over training while crash rate decreases.</figcaption>
+            </figure>
+        </section>
+
+        <div class="divider"></div>
+
+        <!-- LIMITATIONS -->
+        <section id="limitations" class="section research-section">
+            <h2>Practical Limitations</h2>
+            <ul class="simple-list">
+                <li>VLM query latency limits how frequently policy decisions can be reevaluated</li>
+                <li>Approximate trajectory visualization can introduce rendering and prediction error</li>
+                <li>VLM decisions are sensitive to prompt design, model choice, and query frequency</li>
+                <li>RRT* + PD was used instead of nonlinear MPC because the MPC expert was too slow and
+                    sometimes infeasible in this setup</li>
+            </ul>
+        </section>
+
+        <div class="divider"></div>
+
+        <!-- KEY TAKEAWAY -->
+        <section id="takeaway" class="section research-section">
+            <h2>Key Takeaway</h2>
+            <div class="callout">
+                <p style="margin: 0 0 16px 0; font-style: italic; color: var(--navy-dark);">VLAPS replaces
+                    continuous human supervision with a VLM-based policy gate that decides when an expert should
+                    take over and uses the same signal to improve the learned policy.</p>
+                <ul>
+                    <li>Autonomous expert: RRT* + PD</li>
+                    <li>VLM-based policy comparison</li>
+                    <li>Behavior cloning from expert-preferred states</li>
+                    <li>TD-style value learning</li>
+                    <li>No human intervention during training</li>
+                    <li>86% final success with zero crashes in the tested MetaDrive evaluation</li>
+                </ul>
+            </div>
+        </section>
+
+        <div class="divider"></div>
+
+        <section class="section research-section" style="padding-top: 32px;">
+            <div class="btn-row">
+                <a href="#" class="btn-link disabled" title="Add assets/docs/projects/vlaps/report.pdf to enable"
+                    onclick="alert('Coming soon'); return false;">Report</a>
+                <a href="#" class="btn-link disabled"
+                    title="Add assets/docs/projects/vlaps/presentation.pptx to enable"
+                    onclick="alert('Coming soon'); return false;">Presentation</a>
+                <a class="btn-link" href="../index.html#projects">&larr; Back to Home</a>
+            </div>
+        </section>
+    </main>
+
+    <footer class="container footer">
+        <p>&copy; 2026 Debajyoti Chakrabarti</p>
+    </footer>
+</body>
+
+</html>
