@@ -717,6 +717,18 @@ a.btn-link:hover {
     margin-right: auto;
 }
 
+.research-figure.figure-xs {
+    max-width: 340px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+.research-figure.figure-medium {
+    max-width: 620px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
 .figure-caption {
     font-size: 0.85em;
     color: var(--grey-light);
