@@ -119,12 +119,12 @@
 
         <section id="gnc" class="section research-section">
             <h2>From Powered-Descent GNC to Real-Time Retargeting</h2>
-            <p>Fine braking follows rough braking and attitude hold. Its objective is to bring the lander over the
-                selected landing site at the prescribed altitude, with near-zero horizontal velocity and the specified
-                vertical velocity for terminal descent. During attitude hold, the navigation sensors update the lander
-                state after rough braking. Large propulsion dispersion accumulated during rough braking can therefore
-                shift the fine-braking initial state enough that the nominal guidance law cannot reach the selected
-                site while satisfying its constraints.</p>
+            <p>One of the most critical phases of Chandrayaan-3 powered descent was fine braking. Using the navigation
+                state updated during the preceding attitude-hold phase, fine-braking guidance had to bring the lander
+                over the selected landing site at the prescribed altitude, with near-zero horizontal velocity and the
+                specified vertical velocity for terminal descent. However, large propulsion dispersion accumulated
+                during rough braking could shift this updated fine-braking initial state enough that the nominal
+                guidance law could no longer reach the selected site while satisfying its constraints.</p>
             <p>We therefore added robustness layer by layer. <strong>G1</strong> is the nominal analytical guidance;
                 <strong>G2</strong> computes time-to-go onboard from the dispersed start state; and, if no feasible
                 time-to-go can recover the nominal site, <strong>G3</strong> shifts the target to a nearby reachable
