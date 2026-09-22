@@ -575,34 +575,14 @@ a.btn-link:hover {
 .project-grid {
     display: grid;
     grid-template-columns: repeat(2, minmax(0, 1fr));
-    grid-template-areas:
-        "adaptive vlaps"
-        "emg obca";
     align-items: start;
     gap: 24px;
 }
 
 .project-column {
-    display: contents;
-}
-
-/* Align the first-row borders; let the lower cards keep their natural height. */
-.project-card-adaptive {
-    grid-area: adaptive;
-    align-self: stretch;
-}
-
-.project-card-vlaps {
-    grid-area: vlaps;
-    align-self: stretch;
-}
-
-.project-card-emg {
-    grid-area: emg;
-}
-
-.project-card-obca {
-    grid-area: obca;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
 }
 
 .project-card {
