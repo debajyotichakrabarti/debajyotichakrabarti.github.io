@@ -574,19 +574,35 @@ a.btn-link:hover {
 
 .project-grid {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(2, minmax(0, 1fr));
+    grid-template-areas:
+        "adaptive vlaps"
+        "emg obca";
+    align-items: start;
     gap: 24px;
 }
 
 .project-column {
-    display: flex;
-    flex-direction: column;
-    gap: 24px;
+    display: contents;
 }
 
-/* Keep the two masonry-style columns level along their lower edge. */
-.project-column .project-card:last-child {
-    flex: 1;
+/* Align the first-row borders; let the lower cards keep their natural height. */
+.project-card-adaptive {
+    grid-area: adaptive;
+    align-self: stretch;
+}
+
+.project-card-vlaps {
+    grid-area: vlaps;
+    align-self: stretch;
+}
+
+.project-card-emg {
+    grid-area: emg;
+}
+
+.project-card-obca {
+    grid-area: obca;
 }
 
 .project-card {
@@ -760,6 +776,7 @@ a.btn-link:hover {
     .project-grid {
         display: flex;
         flex-direction: column;
+        align-items: stretch;
     }
 
     .project-column {
